@@ -80,6 +80,7 @@ HEADERS += src/qtango_wcommon/qtango_wcommon.h \
     src/timage/timagewidget.h
 
 HEADERS += src/qtango.h \
+    src/QTango \
     src/view_trend.h \
     src/tdbbrowser.h \
     src/tlabel.h \
@@ -115,6 +116,7 @@ HEADERS += src/qtango.h \
     src/qtango_info_textbrowser.h \
     src/tspectrumbutton.h \
     src/ttextbrowser.h \
+    src/widget_cleaner.h \
     src/tsplashscreen.h
 SOURCES += src/view_trend.cpp \
     src/tdbbrowser.cpp \
