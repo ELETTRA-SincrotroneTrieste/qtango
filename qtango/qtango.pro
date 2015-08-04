@@ -254,6 +254,7 @@ inc.files = $${HEADERS} \
     utils/QTWriter \
     utils/QTangoizer \
     utils/TPropertyLabel \
+    src/QTangoMainWindow \
     src/timage/TImageWidget
 
 inc.path = $${INC_DIR}
