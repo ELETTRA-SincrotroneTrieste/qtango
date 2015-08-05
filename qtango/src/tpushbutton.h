@@ -37,14 +37,14 @@
 class TPushButtonPrivate;
 
 /**
- * \brief a button to execute a command
- *
- * This button is used to execute a command with no input parameters
- * \par Example
- * \verbatim
-TPushButton *pb = new TPushButton("On", this, "mybutton");
-pb->setTarget("d/f/m->On");
-\endverbatim
+   * \brief a button to execute a command
+   *
+   * This button is used to execute a command with no input parameters
+   * \par Example
+   * \verbatim
+   * TPushButton *pb = new TPushButton("On", this, "mybutton");
+   * pb->setTarget("d/f/m->On");
+   * \endverbatim
    *
    * @see QTangoComProxyWriter
    * @see QTangoComProxyWriter::executionMode()
@@ -64,7 +64,7 @@ pb->setTarget("d/f/m->On");
    * button->setTargets("a/b/c->GetCh1Data(0,1000)");
    * button->setTargets("a/b/c->GetCh2Data(0,1000)");
    * connect(button, SIGNAL(newDataAvailable(const TVariant &)), plot, SLOT(updateCurve(const TVariant&)));
-   *\endcode
+   * \endcode
    * Inside the TVariant object, the name of the tango point is saved and the plot knows to which curve it
    * pertains.
    *
