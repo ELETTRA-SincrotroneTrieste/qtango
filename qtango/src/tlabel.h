@@ -50,11 +50,11 @@ class TLabelPrivate;
  *
  * <h3>Note</h3><p>Hide and show events optimization is enabled by default.</p>
  *
- * Since QTango version <em>4.x</em>, QLabel implements <em>font scaling</em>, meaning that its 
+ * Since QTango version <em>4.x</em>, QLabel implements <em>font scaling</em>, meaning that its
  * font are grown or shrinked according to the available space and to the text represented.
- * You might want to have a look at qtcontrols ESimpleLabel and FontScalingWidget documentation 
+ * You might want to have a look at qtcontrols ESimpleLabel and FontScalingWidget documentation
  * to read more about this feature.
- * <br/>Remember that <em>left</em> or <em>right</em> alignment might need an increase of the lateralBorderWidth 
+ * <br/>Remember that <em>left</em> or <em>right</em> alignment might need an increase of the lateralBorderWidth
  * property value to optimize font scaling. <br/>Font scaling <em>labels</em> are tailored for <em>center aligned</em>
  * text only.
  *
@@ -71,13 +71,13 @@ class TLabelPrivate;
  * of the label, configured with minimum, maximum, alarm and warning values of the tango <em>attribute
  * </em> represented, if configured. A cross drawn over the gauge displays the value currently represented
  * with respect to the total excursion of the attribute itself.<br/>
- * The classical <em>backgroundColorChangeEnabled</em> property is still there and enabled by default, 
+ * The classical <em>backgroundColorChangeEnabled</em> property is still there and enabled by default,
  * while the <em>excursionEnabled</em> property must be explicitly enabled by the programmer.
  * </p>
  *
  * <h3>Notes on setEnumDisplay and setBooleanDisplay</h3>
  * <p>
- * If you use ELabel::setEnumDisplay or ELabel::setBooleanDisplay, remember to <em>remove</em> the 
+ * If you use ELabel::setEnumDisplay or ELabel::setBooleanDisplay, remember to <em>remove</em> the
  * <em>display unit</em> from the tango attribute in the tango database.
  * </p>
  *
@@ -107,7 +107,7 @@ class TLabelPrivate;
  * among the <em>Dynamic Properties</em> list.</li>
  * </ul>
  *
- * 
+ *
  */
 class TLabel : public ELabel, public QTangoComProxyReader, public QTangoWidgetCommon
 {
@@ -142,29 +142,29 @@ Q_PROPERTY(double lowWarning READ lowWarning WRITE setLowWarning)
 Q_PROPERTY(double highWarning READ highWarning WRITE setHighWarning)
 Q_PROPERTY(double highError READ highError WRITE setHighError)
 
-  
+
 public:
     TLabel(QWidget *parent, Qt::WindowFlags f = 0);
-	
+
 	virtual ~TLabel();
-	
+
 	bool excursionEnabled() { return d_excursionEnabled; }
 	void setExcursionEnabled(bool en) { d_excursionEnabled = en; }
-	
+
 	/** \brief returns the width of the excursion line, if enabled.
 	 *
 	 * @see setExcursionWidth
 	 * @see setExcursionEnabled
 	 */
 	int excursionWidth() { return d_excursionWidth; }
-	
+
 	/** \brief sets the width of the excursion line, if enabled.
 	 *
 	 * @see excursionWidth
 	 * @see setExcursionEnabled
 	 */
 	void setExcursionWidth(int w) { d_excursionWidth = w; }
-	
+
 	/** \brief returns the distance from the top widget rect of the line drawn.
 	 *
 	 * @see setExcursionDistFromMargin
@@ -172,7 +172,7 @@ public:
 	 * @see setExcursionWidth
 	 */
 	int excursionDistFromMargin() { return d_excursionDistFromMargin; }
-	
+
 	/** \brief sets the distance from the top widget rect of the line drawn.
 	 *
 	 * The excursion line is driven d pixels below the upper border of the widget.
@@ -184,39 +184,39 @@ public:
 
 	/** \brief if this property is set to true, then palette background color changes are enabled for the label.
 	 *
-	 * Remember to set it to true if you have an enum configured for the label, i.e. if you have 
+	 * Remember to set it to true if you have an enum configured for the label, i.e. if you have
 	 * associated special colors to determined values of the label.
 	 * @see setBackgroundColorChangeEnabled
-	 * <h3>Note</h3><p>If this property is enabled, then the palette of the TLabel might change 
+	 * <h3>Note</h3><p>If this property is enabled, then the palette of the TLabel might change
 	 * depending on the meaning of the value represented (a particular tango state or a value inside an alarm or
 	 * warning interval. If you need a custom palette for your TLabel, disable this property.</p>
 	 */
 	bool backgroundColorChangeEnabled() { return d_backgroundColorChangeEnabled; }
-	
+
 	/** \brief if this property is set to true, then palette background color changes are enabled for the label.
 	 *
-	 * Remember to set it to true if you have an enum configured for the label, i.e. if you have 
+	 * Remember to set it to true if you have an enum configured for the label, i.e. if you have
 	 * associated special colors to determined values of the label.
 	 * @see backgroundColorChangeEnabled
 	 */
 	void setBackgroundColorChangeEnabled(bool en);
-	
+
 	/** \brief the name of the pixmap associated to the label
-	 * 
+	 *
 	 * If a pixmap was set with setPixmapName(), this method returns the name of
 	 * the pixmap provided with setPixmapName().
 	 * @see setPixmapName
 	 */
 	QString pixmapName() { return d_pixmapName; }
-	
+
 	/** \brief calls setPixmap on the label, creating the pixmap from the name provided.
 	 *
 	 * @param name the name of the pixmap. This might be a file name or a application's embedded resource,
-	 *             if you want to set the pixmap using the Qt Resource System 
+	 *             if you want to set the pixmap using the Qt Resource System
 	 *             (see http://doc.trolltech.com/4.4/resources.html)
-	 * 
-	 * <em>Note</em>: if you specify a file name, be sure to store the file into the user-wide path 
-	 * used to store the icons. This path is returned by 
+	 *
+	 * <em>Note</em>: if you specify a file name, be sure to store the file into the user-wide path
+	 * used to store the icons. This path is returned by
 	 * TUtil::iconPath() and modified by TUtil::setIconPath(). The value is stored into a QSettings object
 	 * with Scope QSettings::UserScope: <em>
 	 * the QSettings object ignores user-specific settings and provides access to system-wide settings</em>.
@@ -240,20 +240,20 @@ public:
         void setHighWarning(double hw) { d_maxW = hw; };
 
         double maxValue() const { return d_maxValue; }
-	
+
   public slots:
 	/** \brief change the period of the readings. This is a slot.
 	 *
 	 * Simply changes the reading period, but since version 4.x this method is exported as a slot.
 	 */
 	void setPeriod(int p) { QTangoComProxyReader::setPeriod(p); }
-	
+
 protected slots:
 	void refresh(const TVariant &);
 	void configure(const TangoConfigurationParameters*);
 
 protected:
-	
+
 	virtual void paintEvent(QPaintEvent *e);
 
 private:
@@ -262,10 +262,10 @@ private:
 	QVector<QColor> stateColors;
 	Tango::AttrQuality  currentQuality;
 	double d_maxValue, d_minValue, d_minW, d_maxW, d_minE, d_maxE;
-	
+
 	bool d_excursionEnabled, d_backgroundColorChangeEnabled;
 	int d_excursionDistFromMargin, d_excursionWidth;
-	
+
 	QString d_pixmapName;
 
     TLabelPrivate *d_ptr;
