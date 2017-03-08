@@ -6,14 +6,14 @@
 template <class T>
 TImageDataPrivate<T>::~TImageDataPrivate()
 {
-    printf("\e[0;31mdeleting TImageDataPrivate %p\e[0m\n", this);
+    // printf("\e[0;31mdeleting TImageDataPrivate %p\e[0m\n", this);
 }
 
 template <class T>
 TImageData<T>::TImageData(Tango::DeviceAttribute &da)
 {
     d = new TImageDataPrivate<T>();
-    printf("\e[1;36mnew TImageData(DeviceAttribute& d) %p d: %p\e[0m\n", this, d);
+    // printf("\e[1;36mnew TImageData(DeviceAttribute& d) %p d: %p\e[0m\n", this, d);
     d->dimx = da.get_dim_x();
     d->dimy = da.get_dim_y();
     d->type = static_cast<Tango::CmdArgType>(da.get_type());
@@ -38,7 +38,7 @@ TImageData<T>::TImageData(const QVector<T> &data,
                        Tango::CmdArgType t)
 {
     d = new TImageDataPrivate<T>();
-    printf("\e[1;36mnew TImageData(const QVector<T> &data, int dimx, ...) %p d: %p\e[0m\n", this, d);
+    // printf("\e[1;36mnew TImageData(const QVector<T> &data, int dimx, ...) %p d: %p\e[0m\n", this, d);
     d->dimx = dimx;
     d->dimy = dimy;
     d->quality = q;
@@ -55,7 +55,7 @@ template <class T>
 TImageData<T>::TImageData()
 {
     d = new TImageDataPrivate<T>();
-    printf("\e[1;36mnew TImageData() %p d: %p\e[0m\n", this, d);
+    // printf("\e[1;36mnew TImageData() %p d: %p\e[0m\n", this, d);
     d->dimx = d->dimy = 0;
     d->type = Tango::DEV_VOID;
     d->quality = Tango::ATTR_INVALID;
@@ -64,7 +64,7 @@ TImageData<T>::TImageData()
 template <class T>
 TImageData<T>::TImageData(const TImageData<T> &other)
 {
-    printf("\e[0;33m COPY CONSTRUCTOR ENTER: this is %p FROM %p\e[0m\n", this, &other);
+    // printf("\e[0;33m COPY CONSTRUCTOR ENTER: this is %p FROM %p\e[0m\n", this, &other);
     d = new TImageDataPrivate<T>();
     d->dimx = other.dimX();
     d->dimy = other.dimY();
@@ -76,7 +76,7 @@ TImageData<T>::TImageData(const TImageData<T> &other)
 template <class T>
 TImageData<T>::~TImageData()
 {
-    printf("\e[1;31mX deleting %p\e[0m\n", this);
+    // printf("\e[1;31mX deleting %p\e[0m\n", this);
     delete d;
 }
 
