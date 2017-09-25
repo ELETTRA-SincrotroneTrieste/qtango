@@ -1,0 +1,42 @@
+This is $PROJECT_NAME$ README file.
+
+DEPENDENCIES:
+
+Qt 	version >= 4.8
+Qwt 	version 6
+QTango  version 6
+
+SPECIAL REQUIREMENTS:
+none
+
+Tango devices used
+------------------
+TANGO HOST:
+
+export TANGO_HOST=srv-tango-srf:20000
+
+DEVICES:
+
+
+
+Building
+--------
+
+qmake 
+make
+                                                                                                                                
+                                                                                                                                
+Main customer                                                                                                                   
+-------------
+
+
+Errors & Troubleshooting
+------------------------
+If you experience problems, please contact:
+
+$AUTHOR$  <$AU_EMAIL$>
+
+Thank you.
+
+Sincrotrone Trieste s.c.p.a - ELETTRA Laboratory - Controls Group
+

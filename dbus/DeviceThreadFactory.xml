@@ -1,0 +1,7 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+<interface name="it.elettra.trieste.TApplicationsInterface.deviceThreadFactory" >
+ <property name="threads" type="as" direction="out" access="read" /> 
+ <property name="threadCount" type="i" direction="out" access="read" />
+</interface>
+</node>

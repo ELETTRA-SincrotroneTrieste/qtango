@@ -1,0 +1,74 @@
+LightTest server.
+This is a light weight Tango server thought to be used with a very large number of 
+instances, so that qtango thread mechanism can be tested on many light weight Tango 
+servers.
+
+Use PyTango_utils python module from Alba to insert into the tango database a number of
+these light LightTest servers. Then use the script startall and killall to start and
+stop all the instances you created. The script startall can be modified to match the 
+number of instances you inserted into the tango database.
+
+This server is also thought to be used with the stress test program which you can
+find inside qtango/test/stress folder. 
+
+Supposing that you have created 190 LightTest instances into the tango database,
+the stress program can be launched with the command line:
+
+
+./bin/qtango3Stress --test-on-light-devices 190 --attlist double_scalar short_scalar --numattrs 380
+
+
+The command line option "--test-on-light-devices" connects to 
+
+test/LightTest/N 
+
+where N goes from 1 to 190.
+
+So be careful when you insert the LightTest servers into the tango database using the PyTango utils.
+
+In this directory, you will also find the .csv file aimed at correctly creating the devices ready
+to be used with the stress program.
+
+To populate the tango database with the PyTango_utils, launch the Python csv2tango.py
+script like this:
+
+python csv2tango.py light_test.csv
+
+where light_test.csv is the csv file containing the instructions to create the devices.
+The script must be run inside the PyTango_utils directory.
+
+The LightTest server has 2 read write attributes:
+
+double_scalar
+short_scalar.
+
+Each time they are read, a random number is generated. Its module is less than their write value.
+
+The LightTest server has one command that accepts 2 parameters:
+
+- an amplitude
+- a number of points
+
+Its name is SineWave.
+
+The amplitude and the number of points are used to generate a sine wave of n points, whose amplitude is a 
+random value less than the value indicated as first parameter.
+
+This can be used to test Plots with commands and argins.
+
+The device server has also two device properties, in string format:
+
+- timeout
+
+- doNotUpdate
+
+timeout: if it contains the name of one of the two available attributes, then the server will sleep for 5 seconds,
+thus generating a timeout exception on the client side;
+doNotUpdate: if it contains the name of one of the two available attributes, then the server will not update the 
+attribute value, generating an Empty Attribute client side exception.
+
+Have fun.
+
+
+
+

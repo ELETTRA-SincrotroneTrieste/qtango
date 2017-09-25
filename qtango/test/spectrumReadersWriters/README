@@ -1,0 +1,12 @@
+Test che esemplifica l'utilizzo di TSpectrumButton e TWidgetGroup,
+tramite Qt designer.
+
+Il primo oggetto e` un bottone che scrive su uno spectrum. I valori scritti
+sono rappresentati da SimpleDataProxy (in questo caso TDoubleSpinBox e TLineEdit).
+
+Il secondo oggetto invece usa dei QTangoComProxyReader (TLabel, TCircularGauge,
+TLinearGauge) per visualizzare gli elementi di uno spectrum.
+
+
+
+

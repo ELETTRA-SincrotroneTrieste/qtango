@@ -1,0 +1,192 @@
+--- a/dbus/dbus.pro
++++ b/dbus/dbus.pro
+@@ -3,6 +3,11 @@
+ 
+ include(../qtango.pri)
+ 
++LIB_DIR=/usr/lib
++INC_DIR=/usr/include/qtango6
++SHAREDIR=/usr/share
++
++
+ TEMPLATE = lib staticlib
+ 
+ # CONFIG += qdbus
+@@ -70,12 +75,12 @@
+ lib.commands = ln \
+     -sf \
+     libQTangoDBus$${VER_MAJ}$${QT4_SUFFIX}.so.$${VERSION} \
+-    $${LIB_DIR}/libQTangoDBus$${VER_MAJ}$${QT4_SUFFIX}.so.$${VER_MAJ} \
++    ${INSTALL_ROOT}/$${LIB_DIR}/libQTangoDBus$${VER_MAJ}$${QT4_SUFFIX}.so.$${VER_MAJ} \
+     && \
+     ln \
+     -sf \
+     libQTangoDBus$${VER_MAJ}$${QT4_SUFFIX}.so.$${VER_MAJ} \
+-    $${LIB_DIR}/libQTangoDBus$${VER_MAJ}$${QT4_SUFFIX}.so
++    ${INSTALL_ROOT}/$${LIB_DIR}/libQTangoDBus$${VER_MAJ}$${QT4_SUFFIX}.so
+ 
+ inc.files = \
+     TApplicationAdaptor \
+--- a/qtango/plugins/plugins.pro
++++ b/qtango/plugins/plugins.pro
+@@ -1,6 +1,9 @@
+ # $Id: plugins.pro,v 1.31 2014-08-28 13:23:45 giacomo Exp $
+ include(../../qtango.pri)
+ 
++LIB_DIR=/usr/lib
++INC_DIR=/usr/include/qtango6
++SHAREDIR=/usr/share
+ 
+ TEMPLATE = lib
+ QT += xml widgets x11extras designer
+@@ -55,10 +58,10 @@
+     ../utils
+ 
+ plugin.files = libqtango$${VER_MAJ}$${QT4_SUFFIX}plugin.so
+-plugin.path = $${INSTALL_ROOT}/lib/plugins/designer
++plugin.path = $${LIB_DIR}/plugins/designer
+ plugin.commands = ln -sf \
+-    $${LIB_DIR}/plugins/designer/libqtango$${VER_MAJ}$${QT4_SUFFIX}plugin.so \
+-    $${LIB_DIR}/libqtango$${VER_MAJ}$${QT4_SUFFIX}plugin.so
++    ${INSTALL_ROOT}/$${LIB_DIR}/plugins/designer/libqtango$${VER_MAJ}$${QT4_SUFFIX}plugin.so \
++    ${INSTALL_ROOT}/$${LIB_DIR}/libqtango$${VER_MAJ}$${QT4_SUFFIX}plugin.so
+ 
+ # include files for developing plugins
+ plugin_inc.files = qtangoplugin.h \
+--- a/qtango/qtango.pro
++++ b/qtango/qtango.pro
+@@ -1,5 +1,10 @@
+ # $Id: qtango.pro,v 1.115 2014-08-28 13:23:45 giacomo Exp $
+ include(../qtango.pri)
++
++LIB_DIR=/usr/lib
++INC_DIR=/usr/include/qtango6
++SHAREDIR=/usr/share
++
+ #message("---------------------------------")
+ #message("Occhio: i warning sono off")
+ # CONFIG += warn_off
+@@ -203,12 +208,12 @@
+ lib.commands = ln \
+     -sf \
+     libQTango$${VER_MAJ}$${QT4_SUFFIX}.so.$${VERSION} \
+-    $${LIB_DIR}/libQTango$${VER_MAJ}$${QT4_SUFFIX}.so.$${VER_MAJ} \
++    ${INSTALL_ROOT}/$${LIB_DIR}/libQTango$${VER_MAJ}$${QT4_SUFFIX}.so.$${VER_MAJ} \
+     && \
+     ln \
+     -sf \
+     libQTango$${VER_MAJ}$${QT4_SUFFIX}.so.$${VER_MAJ} \
+-    $${LIB_DIR}/libQTango$${VER_MAJ}$${QT4_SUFFIX}.so
++    ${INSTALL_ROOT}/$${LIB_DIR}/libQTango$${VER_MAJ}$${QT4_SUFFIX}.so
+ inc.files = $${HEADERS} \
+     src/ui_logdialog.h \
+     src/TApplyNumeric \
+@@ -266,7 +271,7 @@
+ doc.path = $${DOC_DIR}
+ 
+ styles.files = stylesheets/qtango.css
+-styles.path = $${INSTALL_ROOT}/share/qtango/stylesheets
++styles.path = ${SHAREDIR}/qtango/stylesheets
+ 
+ INSTALLS += lib \
+     inc \
+--- a/qtangocore/qtangocore.pro
++++ b/qtangocore/qtangocore.pro
+@@ -2,6 +2,11 @@
+ # $Name $
+ 
+ include(../qtango.pri)
++
++LIB_DIR=/usr/lib
++INC_DIR=/usr/include/qtango6
++SHAREDIR=/usr/share
++
+ #message("---------------------------------")
+ #message("Occhio: i warning sono off")
+ # CONFIG += warn_off
+@@ -145,12 +150,12 @@
+ lib.commands = ln \
+     -sf \
+     libQTangoCore$${VER_MAJ}$${QT4_SUFFIX}.so.$${VERSION} \
+-    $${LIB_DIR}/libQTangoCore$${VER_MAJ}$${QT4_SUFFIX}.so.$${VER_MAJ} \
++    ${INSTALL_ROOT}/$${LIB_DIR}/libQTangoCore$${VER_MAJ}$${QT4_SUFFIX}.so.$${VER_MAJ} \
+     && \
+     ln \
+     -sf \
+     libQTangoCore$${VER_MAJ}$${QT4_SUFFIX}.so.$${VER_MAJ} \
+-    $${LIB_DIR}/libQTangoCore$${VER_MAJ}$${QT4_SUFFIX}.so
++    ${INSTALL_ROOT}/$${LIB_DIR}/libQTangoCore$${VER_MAJ}$${QT4_SUFFIX}.so
+ 
+ inc.files = $${HEADERS} \
+     src/TLogDialog \
+@@ -162,13 +167,13 @@
+     src/TLog \
+     src/tapplication/TUniqueApplication
+ inc.path = $${INC_DIR}
+-inc.commands = cp src/ui_logdialog.h $${INC_DIR}/
++inc.commands = cp src/ui_logdialog.h ${INSTALL_ROOT}/$${INC_DIR}/
+ 
+ # QTango installs project include file into $${INC_DIR} on behalf of the applications that want to compile against the library
+ pri.files = ../qtango.pri
+ pri.path = $${INC_DIR}
+ styles.files = stylesheets/tinfo.css
+-styles.path = $${INSTALL_ROOT}/share/qtango/stylesheets
++styles.path = $${SHAREDIR}/qtango/stylesheets
+ 
+ INSTALLS += lib inc styles  pri doc
+ 
+--- a/qtcontrols/plugins/plugins.pro
++++ b/qtcontrols/plugins/plugins.pro
+@@ -1,5 +1,10 @@
+ include(../../qtango.pri)
+ 
++LIB_DIR=/usr/lib
++INC_DIR=/usr/include/qtango6
++SHAREDIR=/usr/share
++
++
+ QT += widgets x11extras 
+ QT += designer
+ 
+@@ -24,8 +29,8 @@
+ INCLUDEPATH -= $${INC_DIR}
+ INCLUDEPATH += ../src ../src/eplotlight ../../dbus
+ 
+-plugin.commands = ln -sf $${LIB_DIR}/plugins/designer/libqtcontrols$${VER_MAJ}$${QT4_SUFFIX}plugin.so $${LIB_DIR}/libqtcontrols$${VER_MAJ}$${QT4_SUFFIX}plugin.so
++plugin.commands = ln -sf ${INSTALL_ROOT}/$${LIB_DIR}/plugins/designer/libqtcontrols$${VER_MAJ}$${QT4_SUFFIX}plugin.so ${INSTALL_ROOT}/$${LIB_DIR}/libqtcontrols$${VER_MAJ}$${QT4_SUFFIX}plugin.so
+ plugin.files = libqtcontrols$${VER_MAJ}$${QT4_SUFFIX}plugin.so
+-plugin.path = $${INSTALL_ROOT}/lib/plugins/designer
++plugin.path = $${LIB_DIR}/plugins/designer
+ 
+ INSTALLS += plugin
+--- a/qtcontrols/qtcontrols.pro
++++ b/qtcontrols/qtcontrols.pro
+@@ -1,6 +1,11 @@
+ # $Id: qtcontrols.pro,v 1.105 2014-08-28 13:23:45 giacomo Exp $
+ include(../qtango.pri)
+ 
++LIB_DIR=/usr/lib
++INC_DIR=/usr/include/qtango6
++SHAREDIR=/usr/share
++
++
+ QT += widgets  x11extras printsupport
+ 
+ RESOURCES = qtcontrols.qrc
+@@ -159,14 +164,14 @@
+ 
+ lib.path	= $${LIB_DIR}
+ lib.files	= libqtcontrols$${VER_MAJ}$${QT4_SUFFIX}.so.$${VERSION}
+-lib.commands	= ln -sf libqtcontrols$${VER_MAJ}$${QT4_SUFFIX}.so.$${VERSION} $${LIB_DIR}/libqtcontrols$${VER_MAJ}$${QT4_SUFFIX}.so.$${VER_MAJ} && ln -sf libqtcontrols$${VER_MAJ}$${QT4_SUFFIX}.so.$${VER_MAJ} $${LIB_DIR}/libqtcontrols$${VER_MAJ}$${QT4_SUFFIX}.so
++lib.commands	= ln -sf libqtcontrols$${VER_MAJ}$${QT4_SUFFIX}.so.$${VERSION} ${INSTALL_ROOT}/$${LIB_DIR}/libqtcontrols$${VER_MAJ}$${QT4_SUFFIX}.so.$${VER_MAJ} && ln -sf libqtcontrols$${VER_MAJ}$${QT4_SUFFIX}.so.$${VER_MAJ} ${INSTALL_ROOT}/$${LIB_DIR}/libqtcontrols$${VER_MAJ}$${QT4_SUFFIX}.so
+ 
+ inc.files  = $${HEADERS} src/EApplyButton src/EApplyNumeric src/EFlag src/EGauge src/ELabel src/ELed src/EPlot
+ inc.files += src/EApplicationButton src/EApplicationLauncher src/ENumeric src/QtControls src/EArrow src/EContextHelp
+ inc.files += src/eplotlight/EPlotLight src/eplotlight/EPlotLightBase src/eplotlight/EPlotLightMarker src/ESimpleLabel
+ inc.files += src/EWidget src/EStyleLoader src/ui_configuration.h
+ inc.path = $${INC_DIR}
+-inc.commands = cp src/ui_estringlisteditor.h src/ui_configuration.h $${INC_DIR}/
++inc.commands = cp src/ui_estringlisteditor.h src/ui_configuration.h ${INSTALL_ROOT}/$${INC_DIR}/
+ 
+ py.files = pyqtcontrols/PyQtControls$${VER_MAJ}$${QT4_SUFFIX}.py
+ py.path = $${PY_DIR}

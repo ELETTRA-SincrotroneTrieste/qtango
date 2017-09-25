@@ -1,0 +1,8 @@
+Test per i comandi tango.
+
+Avviare con due device di test da linea di comando
+
+./bin/qtangoXCommander test/device/1 test/device/2
+
+Alcuni comandi sono impartiti al primo altri al secondo device, 
+come indicato dai tooltip di alcuni widget

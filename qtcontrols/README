@@ -1,0 +1,40 @@
+Author: Giacomo Strangolino/V. Forchi`
+Release: 3.1
+
+A set of Qt4 widgets ready to be used with the qtangocore framework.
+
+
+REQUIREMENTS:
+you need at least Tango 6.1.1.
+you will also need qmake to generate Makefile.
+
+CONFIGURATION:
+to adapt the distribution to your environment modify paths and other
+things in the .pro file pointed by qmake.custom.3 and install.
+
+
+INSTALL:
+Use qmake, then make and finally execute the install script:
+1) with qmake: run qmake after you built all the targets and then install
+        # qmake && make
+2) with install script
+        # ./install
+
+Note: make install does not behave as expected. Please use ./install instead.
+
+
+PYTHON NOTE:
+notice that pyuic4 includes the widgets in this way:
+from ELed import ELed
+because it takes this information from the designer plugin. since there is only
+one python module for all widgets you should replace those lines with
+from PyQtControls import *
+you can easily solve this problem running pyuic4 this way:
+
+pyuic4 -x myform.ui | perl -p -e 's/from E[A-Za-z]+ import E[A-Za-z]+\n/ABCDE/g' | perl -p -e 's/^(ABCDE)+/from PyQtControls import *\n/g' > mycode.py
+
+I'm not a reg-exp expert so I wasn't able to find a way to replace all 
+the lines at once, so I had to use a temporary string (ABCDE) that you can't
+use in your code (this is definitely a dirty solution). If you know a way 
+feel free to contact me.
+

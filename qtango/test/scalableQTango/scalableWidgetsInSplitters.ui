@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WShowHide</class>
+ <widget class="QWidget" name="WShowHide">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>547</width>
+    <height>457</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QSplitter" name="splitter_4">
+     <property name="orientation">
+      <enum>Qt::Horizontal</enum>
+     </property>
+     <widget class="QSplitter" name="splitter">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="TLabel" name="tLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>No Link
+Pippo
+Pluto</string>
+       </property>
+      </widget>
+      <widget class="TLineEdit" name="tLineEdit">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+         <horstretch>1</horstretch>
+         <verstretch>2</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Pippo pluto paperino</string>
+       </property>
+      </widget>
+      <widget class="TSpinBox" name="tSpinBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>2</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+      <widget class="TSimpleLabel" name="tSimpleLabel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+         <horstretch>1</horstretch>
+         <verstretch>1</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </widget>
+     <widget class="QSplitter" name="splitter_2">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="TTable" name="tTable">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+      <widget class="TDoubleSpinBox" name="tDoubleSpinBox">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+         <horstretch>0</horstretch>
+         <verstretch>1</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+      <widget class="TCircularGauge" name="tCircularGauge"/>
+     </widget>
+     <widget class="QSplitter" name="splitter_3">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <widget class="TLinearGauge" name="tLinearGauge"/>
+      <widget class="TNumeric" name="tNumeric"/>
+      <widget class="TApplyNumeric" name="tApplyNumeric_2"/>
+      <widget class="TPushButton" name="tPushButton"/>
+      <widget class="TReaderWriter" name="tReaderWriter"/>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TSimpleLabel</class>
+   <extends>QLabel</extends>
+   <header>TSimpleLabel</header>
+  </customwidget>
+  <customwidget>
+   <class>TLabel</class>
+   <extends>ELabel</extends>
+   <header>TLabel</header>
+  </customwidget>
+  <customwidget>
+   <class>TTable</class>
+   <extends>EFlag</extends>
+   <header>TTable</header>
+  </customwidget>
+  <customwidget>
+   <class>TLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>TLineEdit</header>
+  </customwidget>
+  <customwidget>
+   <class>TSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>TSpinBox</header>
+  </customwidget>
+  <customwidget>
+   <class>TDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>TDoubleSpinBox</header>
+  </customwidget>
+  <customwidget>
+   <class>TLinearGauge</class>
+   <extends>ELinearGauge</extends>
+   <header>TLinearGauge</header>
+  </customwidget>
+  <customwidget>
+   <class>TCircularGauge</class>
+   <extends>ECircularGauge</extends>
+   <header>TCircularGauge</header>
+  </customwidget>
+  <customwidget>
+   <class>TNumeric</class>
+   <extends>ENumeric</extends>
+   <header>TNumeric</header>
+  </customwidget>
+  <customwidget>
+   <class>TApplyNumeric</class>
+   <extends>EApplyNumeric</extends>
+   <header>TApplyNumeric</header>
+  </customwidget>
+  <customwidget>
+   <class>TPushButton</class>
+   <extends>QPushButton</extends>
+   <header>TPushButton</header>
+  </customwidget>
+  <customwidget>
+   <class>TReaderWriter</class>
+   <extends>TLabel</extends>
+   <header>TReaderWriter</header>
+  </customwidget>
+  <customwidget>
+   <class>ELabel</class>
+   <extends>QLabel</extends>
+   <header>ELabel</header>
+  </customwidget>
+  <customwidget>
+   <class>EFlag</class>
+   <extends>QWidget</extends>
+   <header>EFlag</header>
+  </customwidget>
+  <customwidget>
+   <class>ELinearGauge</class>
+   <extends>QWidget</extends>
+   <header>EGauge</header>
+  </customwidget>
+  <customwidget>
+   <class>ECircularGauge</class>
+   <extends>QWidget</extends>
+   <header>EGauge</header>
+  </customwidget>
+  <customwidget>
+   <class>ENumeric</class>
+   <extends>QWidget</extends>
+   <header>ENumeric</header>
+  </customwidget>
+  <customwidget>
+   <class>EApplyNumeric</class>
+   <extends>QWidget</extends>
+   <header>EApplyNumeric</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

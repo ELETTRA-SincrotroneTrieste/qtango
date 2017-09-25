@@ -1,0 +1,33 @@
+Write a QTango component which is a horizontal QSlider and writes an
+attribute. The slider configures its minimum and maximum values from the Tango
+database and its position must be initialised according to the current set
+point value of the attribute itself. 
+The actual writing is performed one second after the user stops moving the
+slider, in order to avoid continuous writings during the movement between the
+initial and final positions. In alternative, slider tracking property could
+be used (see tracking property in QAbstractSlider).
+Use the label written in exercise 1b to read the value of the same
+attribute.
+Let the attribute name be specified from the command line.
+
+Let the slider emit a signal valueChanged(double) to notify that the value
+has changed in device attribute “coordinates”.
+Beside the slider put a double spin box displaying the value that is
+going to be written.
+Design the component so that it can be changed in the future without
+breaking the binary compatibility.
+
+
+NOTES:
+
+It would be more appropriate to implement a writer based on the spin box,
+   whose value is more precise.
+   If writing fails, the slider (and the spin box) should be brought back to
+   their previous values rather than display a value that was not actually
+   written. Care must be taken when invoking setValue to prevent unwanted
+   writings after a failure. When calling execute() inside the writer, check
+   the returned Qlist<TVariant> and test each TVariant with the bool
+   executionFailed() method.
+   Writers can be executed asynchronously (in another thread) if
+   executeAsync(QVariant) is called instead of execute(QVariant). In this
+   case, the return value cannot be obtained.

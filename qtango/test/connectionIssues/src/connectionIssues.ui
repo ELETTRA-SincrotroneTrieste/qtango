@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ConnectionIssues</class>
+ <widget class="QWidget" name="ConnectionIssues">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>731</width>
+    <height>803</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Connection Issues</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="QSplitter" name="splitter">
+     <property name="orientation">
+      <enum>Qt::Vertical</enum>
+     </property>
+     <widget class="TPlotLightMarker" name="tPlotLightMarker">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+        <horstretch>0</horstretch>
+        <verstretch>3</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="source" stdset="0">
+       <string/>
+      </property>
+      <property name="helperApplicationEnabled">
+       <bool>true</bool>
+      </property>
+      <property name="setPointEnabled" stdset="0">
+       <bool>true</bool>
+      </property>
+     </widget>
+     <widget class="QWidget" name="layoutWidget">
+      <layout class="QGridLayout" name="gridLayout">
+       <item row="0" column="0" colspan="2">
+        <widget class="QLineEdit" name="lePlotSrc">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>test/device/1/short_scalar_ro</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="2">
+        <widget class="QLineEdit" name="lePlotSrc2">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>2</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="4">
+        <widget class="QPushButton" name="pbPlot">
+         <property name="text">
+          <string>setSources</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="5">
+        <widget class="QPushButton" name="pbUnsetSourcePlot">
+         <property name="text">
+          <string>unsetSource</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="6">
+        <widget class="ELed" name="ledPlot">
+         <property name="toolTip">
+          <string>qtangoComHandle()-&gt;isConfigured()</string>
+         </property>
+         <property name="ledWidth">
+          <number>18</number>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="0" colspan="2">
+        <widget class="TLabel" name="label">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+           <horstretch>2</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="source">
+          <string/>
+         </property>
+         <property name="helperApplicationEnabled">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="2" colspan="2">
+        <widget class="QLineEdit" name="leLabel">
+         <property name="text">
+          <string>test/device/1/double_scalar</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="4">
+        <widget class="QPushButton" name="pbLabel">
+         <property name="text">
+          <string>setSource</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="5">
+        <widget class="QPushButton" name="pbUnsetSourceLabel">
+         <property name="text">
+          <string>unsetSource</string>
+         </property>
+        </widget>
+       </item>
+       <item row="1" column="6">
+        <widget class="ELed" name="ledLabel">
+         <property name="toolTip">
+          <string>qtangoComHandle()-&gt;isConfigured()</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="1" rowspan="2">
+        <widget class="TNumeric" name="tNumeric">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+           <horstretch>1</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="maximumSize">
+          <size>
+           <width>16777215</width>
+           <height>41</height>
+          </size>
+         </property>
+         <property name="targets">
+          <string>;;</string>
+         </property>
+         <property name="applyOnValueChanged">
+          <bool>true</bool>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="2" rowspan="2" colspan="2">
+        <widget class="QLabel" name="label_2">
+         <property name="toolTip">
+          <string>peiod</string>
+         </property>
+         <property name="text">
+          <string>This Numeric widget applies 
+the value at every click</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="4" rowspan="2">
+        <widget class="QPushButton" name="pbNumericTgt">
+         <property name="text">
+          <string>setTargets</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="5" rowspan="2">
+        <widget class="QPushButton" name="pbClearTargets">
+         <property name="text">
+          <string>clearTargets</string>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="6" rowspan="2">
+        <widget class="ELed" name="ledNumeric">
+         <property name="toolTip">
+          <string>qtangoComHandle()-&gt;isConfigured()</string>
+         </property>
+        </widget>
+       </item>
+       <item row="4" column="0" colspan="2">
+        <widget class="QLabel" name="label_3">
+         <property name="text">
+          <string>qtangoComHandle()-&gt;connectionStatus()</string>
+         </property>
+        </widget>
+       </item>
+       <item row="5" column="0" colspan="7">
+        <widget class="QTextEdit" name="textEdit">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+           <horstretch>0</horstretch>
+           <verstretch>2</verstretch>
+          </sizepolicy>
+         </property>
+        </widget>
+       </item>
+       <item row="2" column="0" rowspan="2">
+        <widget class="QLineEdit" name="leApplyNumTgt">
+         <property name="sizePolicy">
+          <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+           <horstretch>2</horstretch>
+           <verstretch>0</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="text">
+          <string>test/device/1/double_scalar</string>
+         </property>
+        </widget>
+       </item>
+       <item row="0" column="3">
+        <widget class="QSpinBox" name="sbPeriod">
+         <property name="suffix">
+          <string>ms</string>
+         </property>
+         <property name="minimum">
+          <number>10</number>
+         </property>
+         <property name="maximum">
+          <number>10000</number>
+         </property>
+         <property name="value">
+          <number>1000</number>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>QwtPlot</class>
+   <extends>QFrame</extends>
+   <header>qwt_plot.h</header>
+  </customwidget>
+  <customwidget>
+   <class>TLabel</class>
+   <extends>ELabel</extends>
+   <header>TLabel</header>
+  </customwidget>
+  <customwidget>
+   <class>TNumeric</class>
+   <extends>ENumeric</extends>
+   <header>TNumeric</header>
+  </customwidget>
+  <customwidget>
+   <class>TPlotLightMarker</class>
+   <extends>EPlotLightMarker</extends>
+   <header>TPlotLightMarker</header>
+  </customwidget>
+  <customwidget>
+   <class>ELabel</class>
+   <extends>QLabel</extends>
+   <header>ELabel</header>
+  </customwidget>
+  <customwidget>
+   <class>ELed</class>
+   <extends>QWidget</extends>
+   <header>ELed</header>
+  </customwidget>
+  <customwidget>
+   <class>ENumeric</class>
+   <extends>QFrame</extends>
+   <header>ENumeric</header>
+  </customwidget>
+  <customwidget>
+   <class>EPlotLight</class>
+   <extends>QwtPlot</extends>
+   <header>EPlotLight</header>
+  </customwidget>
+  <customwidget>
+   <class>EPlotLightMarker</class>
+   <extends>EPlotLight</extends>
+   <header>EPlotLightMarker</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

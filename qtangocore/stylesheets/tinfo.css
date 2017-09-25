@@ -1,0 +1,47 @@
+a 
+{ 
+  color: rgb(100,113,188); 
+}
+
+html  
+{
+  border:thin rgb(0,151,84) dashed; 
+}
+
+p,li,tr,td
+{ 
+  text-align:justify; 
+  color:rgb(107,111,116);
+  text-align:justify;
+} 
+
+h3 
+{ 
+  font-size:8.5pt; 
+  font-weight:bold;
+  text-align:center;
+}
+
+h4
+{ 
+  font-size:8pt; 
+  font-weight:bold; 
+  text-align:center;
+}
+
+table 
+{ 
+  text-align:center;  
+  border-width:1px; 
+  border-color:rgb(117,121,146);  
+}
+
+.bottom
+{
+  text-align:right;
+  font-size:8pt;
+  text-decoration:none;
+  color:rgb(137,141,146);
+  font-weight:bold;
+  float:right;
+}

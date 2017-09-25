@@ -1,0 +1,8 @@
+qtangodbusintrospector listens the dbus session bus for new QTango applications
+(TApplications)
+
+It is possible to select an application from the list on the top left and preform 
+various operations on its objects...
+
+Beware!
+

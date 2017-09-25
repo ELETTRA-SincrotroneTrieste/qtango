@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+ <qresource>
+     <file>icons/configure.png</file>
+     <file>icons/configure-differentTarget.png</file>
+     <file>icons/window-close.png</file>
+     <file>icons/dialog-ok-apply.png</file>
+ </qresource>
+ </RCC>

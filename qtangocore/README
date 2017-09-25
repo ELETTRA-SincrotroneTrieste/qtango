@@ -1,0 +1,23 @@
+Author: Giacomo Strangolino/V. Forchi`
+Release: 3.1
+
+a framework to simply interact with Tango device servers, 
+see documentation for more infos.
+
+REQUIREMENTS:
+you need at least Tango 6.1.1.
+you will also need qmake to generate Makefile.
+
+CONFIGURATION:
+to adapt the distribution to your environment modify paths and other
+things in the .pro file pointed by qmake.custom.3 and install. 
+
+
+INSTALL:
+Use qmake, then make and finally execute the install script:
+1) with qmake: run qmake after you built all the targets and then install 
+	# qmake && make 
+2) with install script
+	# ./install
+
+Note: make install does not behave as expected. Please use ./install instead.

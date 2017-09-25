@@ -1,0 +1,15 @@
+A simple qtangocore reader that demostrates how to use qtango core in your QApplication.
+
+Some notes:
+
+- the event loop is needed to deliver signals to slots. This means: if you run a while(1) infinite cycle,
+  for instance, this won't work.
+
+- Inside widget context, the code is sipler than this!
+
+Usage: specify a command line argument that provides a device and an attribute:
+
+./bin/simplereader test/device/2/double_scalar 
+
+
+

@@ -1,0 +1,9 @@
+watcher.
+
+Program that attaches QTWatcher and QTWriter objects to common qt 
+widgets to qtango-ize them.
+
+See QTWatcher and QTWriter documentation for details.
+
+
+

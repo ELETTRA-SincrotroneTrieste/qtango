@@ -1,0 +1,32 @@
+<ui version="4.0" >
+ <class>Stress</class>
+ <widget class="QWidget" name="Stress" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>501</width>
+    <height>456</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Stress for QTango stress</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout" >
+   <item>
+    <widget class="QTableWidget" name="table" >
+     <property name="rowCount" >
+      <number>1</number>
+     </property>
+     <property name="columnCount" >
+      <number>1</number>
+     </property>
+     <row/>
+     <column/>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

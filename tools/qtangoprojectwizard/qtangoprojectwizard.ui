@@ -1,0 +1,534 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>QTangoProjectWizard</class>
+ <widget class="QWidget" name="QTangoProjectWizard">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>657</width>
+    <height>639</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>New QTango Project</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_4">
+   <item row="4" column="0">
+    <widget class="QGroupBox" name="groupBox_2">
+     <property name="title">
+      <string>Organization &amp;Name</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="save" stdset="0">
+      <bool>true</bool>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_2">
+      <item>
+       <widget class="QLineEdit" name="leOrganizationName">
+        <property name="text">
+         <string>Elettra</string>
+        </property>
+        <property name="save" stdset="0">
+         <bool>true</bool>
+        </property>
+        <property name="placeholder" stdset="0">
+         <string>$ORGANIZATION_NAME$</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="5" column="0">
+    <widget class="QGroupBox" name="groupBox_5">
+     <property name="title">
+      <string>Hardware Referent or Referents, comma separated</string>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_4">
+      <item>
+       <widget class="QLineEdit" name="leHardwareReferent">
+        <property name="placeholder" stdset="0">
+         <string>$HW_REFERENT$</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="0" column="0" colspan="2">
+    <widget class="QLabel" name="label_6">
+     <property name="font">
+      <font>
+       <weight>75</weight>
+       <bold>true</bold>
+      </font>
+     </property>
+     <property name="text">
+      <string>Configure a new QTango project</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignLeading|Qt::AlignLeft|Qt::AlignVCenter</set>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="3">
+    <widget class="QRadioButton" name="rbMainWidget">
+     <property name="text">
+      <string>&amp;Main Window</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="2">
+    <widget class="QRadioButton" name="rbWidget">
+     <property name="text">
+      <string>W&amp;idget</string>
+     </property>
+     <property name="checked">
+      <bool>true</bool>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" rowspan="3" colspan="3">
+    <layout class="QGridLayout" name="gridLayout_3">
+     <item row="0" column="1">
+      <widget class="QPushButton" name="pbAddProperty">
+       <property name="text">
+        <string>Add</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QPushButton" name="pbRemoveProperty">
+       <property name="text">
+        <string>Remove </string>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="0" rowspan="3">
+      <widget class="QTreeWidget" name="twProperties">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Expanding" vsizetype="Expanding">
+         <horstretch>0</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <column>
+        <property name="text">
+         <string>Main widget property name</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>property value</string>
+        </property>
+       </column>
+       <column>
+        <property name="text">
+         <string>Type</string>
+        </property>
+       </column>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0" colspan="4">
+    <layout class="QGridLayout" name="gridLayout_2">
+     <item row="0" column="0">
+      <widget class="QLabel" name="label">
+       <property name="text">
+        <string>Project Name:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="0">
+      <widget class="QLabel" name="label_2">
+       <property name="text">
+        <string>Location:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="1">
+      <widget class="QLineEdit" name="leLocation">
+       <property name="save" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="checkContents" stdset="0">
+        <string>path</string>
+       </property>
+      </widget>
+     </item>
+     <item row="1" column="2">
+      <widget class="QPushButton" name="pbChooseLocation">
+       <property name="text">
+        <string>Choose...</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="0">
+      <widget class="QLabel" name="label_3">
+       <property name="text">
+        <string>Author:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="0">
+      <widget class="QLabel" name="label_7">
+       <property name="text">
+        <string>Author email:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="0">
+      <widget class="QLabel" name="label_8">
+       <property name="text">
+        <string>Author phone:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="0">
+      <widget class="QLabel" name="label_9">
+       <property name="text">
+        <string>Author office:</string>
+       </property>
+       <property name="alignment">
+        <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+       </property>
+      </widget>
+     </item>
+     <item row="0" column="1" colspan="2">
+      <widget class="QLineEdit" name="leProjectName">
+       <property name="checkContents" stdset="0">
+        <string>project_name</string>
+       </property>
+       <property name="placeholder" stdset="0">
+        <string>$PROJECT_NAME$</string>
+       </property>
+      </widget>
+     </item>
+     <item row="2" column="1" colspan="2">
+      <widget class="QLineEdit" name="leAuthor">
+       <property name="save" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="placeholder" stdset="0">
+        <string>$AUTHOR$</string>
+       </property>
+       <property name="checkContents" stdset="0">
+        <string>not_empty</string>
+       </property>
+      </widget>
+     </item>
+     <item row="3" column="1" colspan="2">
+      <widget class="QLineEdit" name="leAuthorEmail">
+       <property name="save" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="placeholder" stdset="0">
+        <string>$AU_EMAIL$</string>
+       </property>
+       <property name="checkContents" stdset="0">
+        <string>email</string>
+       </property>
+      </widget>
+     </item>
+     <item row="4" column="1" colspan="2">
+      <widget class="QLineEdit" name="leAuthorPhone">
+       <property name="save" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="placeholder" stdset="0">
+        <string>$AU_PHONE$</string>
+       </property>
+      </widget>
+     </item>
+     <item row="5" column="1" colspan="2">
+      <widget class="QLineEdit" name="leAuthorOffice">
+       <property name="save" stdset="0">
+        <bool>true</bool>
+       </property>
+       <property name="placeholder" stdset="0">
+        <string>$AU_OFFICE$</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0" colspan="4">
+    <widget class="QGroupBox" name="grBoxFiles">
+     <property name="title">
+      <string>Files</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout">
+      <item row="1" column="0">
+       <widget class="QLabel" name="label_5">
+        <property name="text">
+         <string>Files:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLineEdit" name="leMain">
+        <property name="text">
+         <string>main.cpp</string>
+        </property>
+        <property name="checkContents" stdset="0">
+         <string>not_empty</string>
+        </property>
+        <property name="extension" stdset="0">
+         <string>.cpp</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2">
+       <widget class="QLineEdit" name="leCppFile">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Widget or main window file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="placeholder" stdset="0">
+         <string>$CPPFILE$</string>
+        </property>
+        <property name="checkContents" stdset="0">
+         <string>not_empty</string>
+        </property>
+        <property name="extension" stdset="0">
+         <string>.cpp</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3">
+       <widget class="QLineEdit" name="leCHFile">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Widget or main window header file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="placeholder" stdset="0">
+         <string>$HFILE$</string>
+        </property>
+        <property name="checkContents" stdset="0">
+         <string>not_empty</string>
+        </property>
+        <property name="extension" stdset="0">
+         <string>.h</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QLabel" name="label_10">
+        <property name="text">
+         <string>Main Widget Name:</string>
+        </property>
+        <property name="alignment">
+         <set>Qt::AlignRight|Qt::AlignTrailing|Qt::AlignVCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="QLineEdit" name="leFormFile">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Widget or main window designer form &amp;quot;ui&amp;quot; file&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="placeholder" stdset="0">
+         <string>$FORMFILE$</string>
+        </property>
+        <property name="checkContents" stdset="0">
+         <string>not_empty</string>
+        </property>
+        <property name="extension" stdset="0">
+         <string>.ui</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" colspan="2">
+       <widget class="QLineEdit" name="leMainWidgetName">
+        <property name="placeholder" stdset="0">
+         <string>$MAINCLASS$</string>
+        </property>
+        <property name="checkContents" stdset="0">
+         <string>not_empty</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="4">
+       <widget class="QLineEdit" name="leProFile">
+        <property name="checkContents" stdset="0">
+         <string>not_empty</string>
+        </property>
+        <property name="extension" stdset="0">
+         <string>.pro</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="8" column="0" colspan="4">
+    <layout class="QHBoxLayout" name="horizontalLayout">
+     <property name="spacing">
+      <number>2</number>
+     </property>
+     <item>
+      <widget class="QPushButton" name="pbCancel">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Cancel</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QCheckBox" name="cbCloseAfterCreate">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>2</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="layoutDirection">
+        <enum>Qt::RightToLeft</enum>
+       </property>
+       <property name="text">
+        <string>Close after project creation</string>
+       </property>
+       <property name="checked">
+        <bool>true</bool>
+       </property>
+       <property name="save" stdset="0">
+        <bool>true</bool>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QPushButton" name="pbCreate">
+       <property name="sizePolicy">
+        <sizepolicy hsizetype="Minimum" vsizetype="Fixed">
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text">
+        <string>Create</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="3" column="0">
+    <widget class="QGroupBox" name="groupBox_4">
+     <property name="title">
+      <string>App&amp;lication Name</string>
+     </property>
+     <property name="checkable">
+      <bool>true</bool>
+     </property>
+     <property name="save" stdset="0">
+      <bool>true</bool>
+     </property>
+     <layout class="QHBoxLayout" name="horizontalLayout_3">
+      <item>
+       <widget class="QLineEdit" name="leApplicationName">
+        <property name="placeholder" stdset="0">
+         <string>$APPLICATION_NAME$</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="4">
+    <widget class="QGroupBox" name="groupBox">
+     <property name="title">
+      <string>Launch applications after files are created</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_5">
+      <item row="0" column="4">
+       <widget class="QLineEdit" name="leLaunch1">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;command [args] &lt;/p&gt;&lt;p&gt;Special file name arguments:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;- $PRO_FILE  &lt;/span&gt;is replaced by the .pro file name;&lt;/p&gt;&lt;p&gt;- &lt;span style=&quot; font-style:italic;&quot;&gt;$UI_FILE&lt;/span&gt;      is replaced by the .ui form file name.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;For example, if the &lt;span style=&quot; font-style:italic;&quot;&gt;.pro&lt;/span&gt; file is &lt;span style=&quot; font-style:italic;&quot;&gt;myproject.pro&lt;/span&gt;,&lt;span style=&quot; font-style:italic;&quot;/&gt; and the command is &lt;span style=&quot; font-style:italic;&quot;&gt; qtcreator&lt;/span&gt;, then &lt;span style=&quot; font-style:italic;&quot;&gt;qtcreator myproject.pro &lt;/span&gt;is launched after the new project files are created.&lt;/p&gt;&lt;p&gt;If the &lt;span style=&quot; font-style:italic;&quot;&gt;.ui&lt;/span&gt; file is &lt;span style=&quot; font-style:italic;&quot;&gt;myform.ui&lt;/span&gt;, and the command is &lt;span style=&quot; font-style:italic;&quot;&gt;designer&lt;/span&gt;, then &lt;span style=&quot; font-style:italic;&quot;&gt;designer myform.ui&lt;/span&gt; is launched.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>qtcreator $PRO_FILE</string>
+        </property>
+        <property name="save" stdset="0">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1">
+       <widget class="QLabel" name="label_4">
+        <property name="text">
+         <string/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="4">
+       <widget class="QLineEdit" name="leLaunch2">
+        <property name="toolTip">
+         <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;command [args] &lt;/p&gt;&lt;p&gt;Special file name arguments:&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-style:italic;&quot;&gt;- $PRO_FILE &lt;/span&gt;is replaced by the .pro file name;&lt;/p&gt;&lt;p&gt;- &lt;span style=&quot; font-style:italic;&quot;&gt;$UI_FILE&lt;/span&gt; is replaced by the .ui form file name.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;p&gt;For example, if the &lt;span style=&quot; font-style:italic;&quot;&gt;.pro&lt;/span&gt; file is &lt;span style=&quot; font-style:italic;&quot;&gt;myproject.pro&lt;/span&gt;, and the command is &lt;span style=&quot; font-style:italic;&quot;&gt;qtcreator&lt;/span&gt;, then &lt;span style=&quot; font-style:italic;&quot;&gt;qtcreator myproject.pro &lt;/span&gt;is launched after the new project files are created.&lt;/p&gt;&lt;p&gt;If the &lt;span style=&quot; font-style:italic;&quot;&gt;.ui&lt;/span&gt; file is &lt;span style=&quot; font-style:italic;&quot;&gt;myform.ui&lt;/span&gt;, and the command is &lt;span style=&quot; font-style:italic;&quot;&gt;designer&lt;/span&gt;, then &lt;span style=&quot; font-style:italic;&quot;&gt;designer myform.ui&lt;/span&gt; is launched.&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+        </property>
+        <property name="text">
+         <string>designer $UI_FILE</string>
+        </property>
+        <property name="save" stdset="0">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0">
+       <widget class="QCheckBox" name="cbLaunch2">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="save" stdset="0">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="0">
+       <widget class="QCheckBox" name="cbLaunch1">
+        <property name="text">
+         <string/>
+        </property>
+        <property name="checked">
+         <bool>true</bool>
+        </property>
+        <property name="save" stdset="0">
+         <bool>true</bool>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <resources/>
+ <connections/>
+</ui>

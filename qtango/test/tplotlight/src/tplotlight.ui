@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>TPlotLight</class>
+ <widget class="QWidget" name="TPlotLight">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>775</width>
+    <height>779</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <widget class="TImage" name="timage">
+   <property name="geometry">
+    <rect>
+     <x>60</x>
+     <y>390</y>
+     <width>321</width>
+     <height>271</height>
+    </rect>
+   </property>
+   <property name="source">
+    <string>test/device/1/uchar_image_ro</string>
+   </property>
+   <property name="period">
+    <number>1000</number>
+   </property>
+   <property name="pause">
+    <bool>true</bool>
+   </property>
+  </widget>
+  <widget class="TImage" name="timage_2">
+   <property name="geometry">
+    <rect>
+     <x>400</x>
+     <y>380</y>
+     <width>321</width>
+     <height>291</height>
+    </rect>
+   </property>
+   <property name="source">
+    <string>test/device/1/ushort_image_ro</string>
+   </property>
+   <property name="period">
+    <number>1000</number>
+   </property>
+   <property name="pause">
+    <bool>false</bool>
+   </property>
+  </widget>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TImage</class>
+   <extends>QScrollArea</extends>
+   <header>TImage</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

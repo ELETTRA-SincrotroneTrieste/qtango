@@ -1,0 +1,20 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+<interface name="it.elettra.trieste.TApplicationsInterface.actionFactory" >
+ <property name="targetExecutionLogEnabled" type="b" direction="out" access="read" /> 
+ <property name="actionsListAsXml" type="as" direction="out" access="read" />
+ <signal name="targetExecuted">
+	<arg name="point" type="s" direction="out" />
+	<arg name="timestamp" type="i" direction="out" />
+	<arg name="success" type="b" direction="out" />
+	<arg name="exception" type="s" direction="out" />
+	<arg name="data" type="s" direction="out" />
+ </signal>
+<method name="actionAsXml" >
+         <arg name="point" type="s" direction="in"/>
+         <arg name="args" type="as" direction="in"/>
+	 <arg name="desiredRefreshMode" type="i" direction="in" />
+         <arg name="action" type="s" direction="out" />
+</method>
+</interface>
+</node>

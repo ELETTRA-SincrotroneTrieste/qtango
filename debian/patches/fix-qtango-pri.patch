@@ -1,0 +1,76 @@
+patch for paths in qtango.pri
+--- a/qtango.pri
++++ b/qtango.pri
+@@ -11,26 +11,26 @@
+     QT4_SUFFIX = -qt4
+ }
+ 
+-TANGO_HOME = /usr/local/tango-8.1.2.c
+-OMNI_HOME = /usr/local/omniorb-4.1.6
++TANGO_HOME = /usr
++OMNI_HOME = /usr
+ # ZMQ_HOME = /usr/local/zmq-3.2.3
+-ZMQ_HOME = /usr/local
+-QWT_HOME = /usr/local/qwt-6.1.2
++ZMQ_HOME = /usr
++QWT_HOME = /usr
+ # QWT_HOME = /usr
+ 
+ # Automatically add -qt5 suffix to QWT_HOME if needed
+ 
+ # QWT_HOME = $${QWT_HOME}$${QT4_SUFFIX}
+ 
+-INSTALL_ROOT = /runtime
++INSTALL_ROOT = /usr
+ 
+-KDEVELOP_TEMPLATE_PATH_BASE = /opt/kde3
+-KDEVELOP_TEMPLATE_PATH = $${KDEVELOP_TEMPLATE_PATH_BASE}/share/apps/kdevappwizard
++# KDEVELOP_TEMPLATE_PATH_BASE = /opt/kde3
++# KDEVELOP_TEMPLATE_PATH = $${KDEVELOP_TEMPLATE_PATH_BASE}/share/apps/kdevappwizard
+ 
+ DEFINES += QT_NO_DEBUG_OUTPUT
+ DEFINES += QTANGO_PRINTINFO
+ CONFIG += \
+-    dbus debug
++    dbus release
+ 
+ QT += dbus widgets x11extras printsupport
+ 
+@@ -47,15 +47,16 @@
+     VER_FIX=$${VER_FIX}
+ 
+ unix:INCLUDEPATH = \
+-    $${QWT_HOME}/include  \
++    $${QWT_HOME}/include/qwt  \
+ #    $${QWT_HOME}/include/qwt5  \
+-    $${OMNI_HOME}/include \
++    $${OMNI_HOME} \
++    $${OMNI_HOME}/omniORB4 \
+     $${TANGO_HOME}/include/tango \
+     $${ZMQ_HOME}/include
+ 
+ unix:LIBS = \
+   #  -lqwt \
+-    -lqwt \
++    -lqwt-qt5 \
+     -L$${TANGO_HOME}/lib \
+     -L$${OMNI_HOME}/lib \
+     -L$${QWT_HOME}/lib \
+@@ -64,8 +65,6 @@
+     -lomniORB4 \
+    -lomniDynamic4 \
+    -lCOS4 \
+-    -lCOSNotify4 \
+-    -lAttNotification4 \
+     -lCOSDynamic4 \
+     -lomnithread \
+     -ldl \
+@@ -73,7 +72,7 @@
+ 
+ unix:INCLUDEPATH += $${ZMQ_HOME}/include
+ unix:LIBS += -L$${ZMQ_HOME}/lib -lzmq
+-QMAKE_CXXFLAGS += -std=gnu++98
++QMAKE_CXXFLAGS += -std=gnu++11
+ # QMAKE_CXXFLAGS += -std=c++0x
+ freebsd-g++ {
+     message( )

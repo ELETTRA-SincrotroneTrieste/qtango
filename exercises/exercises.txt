@@ -1,0 +1,117 @@
+Ex1:
+
+Write a reader that displays a scalar value onto a QLabel. The graphical
+interface provides also a TLineEdit input text to let the user input a source
+for the readings, which can be an attribute (e.g. test/device/1/double_scalar)
+or a command (test/device/1→DevDouble). A QPushButton with text “connect”
+activates the readings, a QPushButton with text “disconnect” stops the
+readings. A led next to the reading label is red when a read error occurs. A
+text area displays also a message associated to the readings.
+If the reading is not available (quality is ATTR_INVALID), the label must
+display “####”.
+Hints: use qtcreator to setup a new project, the Qt designer to create the
+user interface, a QPlainTextEdit for the connection message text area. For the
+led, derive from QLabel to make a rectangular led with a setOk(bool ok) slot
+that colors the label green when ok is true, red otherwise. The reader has the
+text centered and font is bold.
+Compulsory: Use layouts when composing the interface.
+
+TEST
+
+Now test your application and notice if the led and the text message
+behave as expected.
+
+- Try to start the application when the TangoTest device is not
+running.
+- Take the TangoTest device server down while the application is
+reading from it.
+- Try to type a wrong source.
+
+ex1b:
+
+After testing exercise 1, modify the reading label and let it implement
+QTangoWidgetCommon. Then see what changes…
+ Modify the reading label so that if the value is inside the warning range the
+ text is yellow, and if it is inside the alarm range it turns red. Put the
+ measurement unit beside the value within square brackets. Supposing that the
+ data type is a number, format it according to the format stored into the
+ Tango database.
+  Use TApplication instead of QApplication in main.cpp
+   Design the new Label so that future changes to its functionalities does not
+   affect binary compatibility of the library where it may be included.
+
+
+ex2:
+
+Write a QTango component which is a horizontal QSlider and writes an
+attribute. The slider configures its minimum and maximum values from the Tango
+database and its position must be initialised according to the current set
+point value of the attribute itself. 
+ The actual writing is performed one second after the user stops moving the
+ slider, in order to avoid continuous writings during the movement between the
+ initial and final positions. In alternative, slider tracking property could
+ be used (see tracking property in QAbstractSlider).
+  Use the label written in exercise 1b to read the value of the same
+  attribute.
+   Let the attribute name be specified from the command line.
+
+   Let the slider emit a signal valueChanged(double) to notify that the value
+   has changed in device attribute “coordinates”.
+    Beside the slider put a double spin box displaying the value that is going
+    to be written.
+     Design the component so that it can be changed in the future without
+     breaking the binary compatibility.
+
+NOTES to ex2:
+
+ It would be more appropriate to implement a writer based on the spin box,
+ whose value is more precise.
+  If writing fails, the slider (and the spin box) should be brought back to
+  their previous values rather than display a value that was not actually
+  written. Care must be taken when invoking setValue to prevent unwanted
+  writings after a failure. When calling execute() inside the writer, check
+  the returned Qlist<TVariant> and test each TVariant with the bool
+  executionFailed() method.
+   Writers can be executed asynchronously (in another thread) if
+   executeAsync(QVariant) is called instead of execute(QVariant). In this
+   case, the return value cannot be obtained.
+
+
+ex2b:
+Modify exercise 2 so that the attribute is written not on slider move but
+after pressing a TPushButton 
+
+
+
+ex3:
+
+Write a Qt application where the TangoTest attribute double_scalar is read by
+a QProgressBar and written by a QDial. The value of the attribute is displayed
+also by a QLineEdit, while a QLcdNumber displays only the initial value, read
+on startup.
+A QCheckBox reads and writes boolean_scalar.
+A class member of type short is used to watch the short_scalar attribute.
+
+
+ex4: Qt designer
+
+
+Using the Qt designer, make an application made up of QTango widgets only.
+Configure the test/device/1 server so that the attribute short_scalar has a
+property named values which is a list of strings (try with at least 4
+elements).
+Configure the  test/device/1 with a device property named helperApplication
+and value xclock.
+A TabWidget with two tabs shows in the first page:
+
+ A TLabel will read the  short_scalar, an associated TComboBox allows to
+ select one of the available values, and a TPushButton will write the
+ attribute.
+  A TLabel displays the state of the device.
+   A TPushButton “SwitchStates” executes that command.
+    A TReaderWriter is connected to double_scalar.
+     A TReaderWriter reads string_scalar.
+      A TPlotLightMarker reads double_scalar and long_scalar.
+       A TGraphicsPlot reads double_spectrum_ro and long_spectrum_ro.
+
+

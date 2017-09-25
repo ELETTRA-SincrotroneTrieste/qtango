@@ -1,0 +1,1139 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Test</class>
+ <widget class="QWidget" name="Test">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>1359</width>
+    <height>740</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QVBoxLayout">
+   <item>
+    <widget class="QTabWidget" name="tabWidget">
+     <property name="currentIndex">
+      <number>0</number>
+     </property>
+     <widget class="QWidget" name="tab">
+      <attribute name="title">
+       <string>SCALARS</string>
+      </attribute>
+      <layout class="QHBoxLayout">
+       <item>
+        <layout class="QHBoxLayout">
+         <item>
+          <widget class="QGroupBox" name="groupBox">
+           <property name="title">
+            <string>device 1</string>
+           </property>
+           <layout class="QGridLayout">
+            <item row="0" column="0">
+             <widget class="TLabel" name="tLabel">
+              <property name="source">
+               <string>$1/short_scalar</string>
+              </property>
+              <property name="helperApplicationEnabled">
+               <bool>true</bool>
+              </property>
+              <property name="dropEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="TCircularGauge" name="tCircularGauge">
+              <property name="source">
+               <string>$1/short_scalar</string>
+              </property>
+              <property name="helperApplicationEnabled">
+               <bool>true</bool>
+              </property>
+              <property name="dropEnabled">
+               <bool>true</bool>
+              </property>
+              <property name="communicationStatusChangesWidgetEnable">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1" rowspan="2" colspan="2">
+             <widget class="TLinearGauge" name="tLinearGauge">
+              <property name="source">
+               <string>$1/short_scalar</string>
+              </property>
+              <property name="helperApplicationEnabled">
+               <bool>true</bool>
+              </property>
+              <property name="communicationStatusChangesWidgetEnable">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4" colspan="3">
+             <widget class="TApplyNumeric" name="tApplyNumeric">
+              <property name="maximumSize">
+               <size>
+                <width>100</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="targets">
+               <string>$1/short_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="7">
+             <widget class="Line" name="line">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="TLabel" name="tLabel_2">
+              <property name="source">
+               <string>$1/double_scalar</string>
+              </property>
+              <property name="helperApplicationEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="TCircularGauge" name="tCircularGauge_2">
+              <property name="source">
+               <string>$1/double_scalar</string>
+              </property>
+              <property name="helperApplicationEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1" rowspan="2" colspan="2">
+             <widget class="TLinearGauge" name="tLinearGauge_2">
+              <property name="source">
+               <string>$1/double_scalar</string>
+              </property>
+              <property name="helperApplicationEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="3" colspan="3">
+             <widget class="TDoubleSpinBox" name="tDoubleSpinDdev1">
+              <property name="minimum">
+               <double>-255.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>257.000000000000000</double>
+              </property>
+              <property name="targets">
+               <string>$1/double_scalar;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="6">
+             <widget class="TPushButton" name="tPushButton">
+              <property name="targets">
+               <string>test/device/1/double_scalar(&amp;tDoubleSpinDdev1)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0" colspan="7">
+             <widget class="Line" name="line_2">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="TLabel" name="tLabel_3">
+              <property name="source">
+               <string>$1/long_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="2" rowspan="4" colspan="3">
+             <widget class="TLinearGauge" name="tLinearGauge_3">
+              <property name="sizePolicy">
+               <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+                <horstretch>0</horstretch>
+                <verstretch>0</verstretch>
+               </sizepolicy>
+              </property>
+              <property name="source">
+               <string>$1/long_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="5">
+             <widget class="TSpinBox" name="tspinbox">
+              <property name="targets">
+               <string>$1/long_scalar;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="6">
+             <widget class="TPushButton" name="tPushButton_2">
+              <property name="targets">
+               <string>$1/long_scalar(&amp;tspinbox)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="6">
+             <widget class="QLabel" name="label_4">
+              <property name="text">
+               <string>boolean spectrum</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="6">
+             <widget class="QLabel" name="label_5">
+              <property name="text">
+               <string>boolean scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="0">
+             <widget class="TLogButton" name="tLogButton"/>
+            </item>
+            <item row="10" column="6">
+             <widget class="TLabel" name="tLabel_10">
+              <property name="trueColor">
+               <color>
+                <red>93</red>
+                <green>234</green>
+                <blue>78</blue>
+               </color>
+              </property>
+              <property name="falseColor">
+               <color>
+                <red>231</red>
+                <green>55</green>
+                <blue>23</blue>
+               </color>
+              </property>
+              <property name="trueString">
+               <string>Vero</string>
+              </property>
+              <property name="falseString">
+               <string>falso</string>
+              </property>
+              <property name="source">
+               <string>$1/boolean_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="1">
+             <widget class="QLabel" name="label_3">
+              <property name="text">
+               <string>long scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="5">
+             <widget class="QLabel" name="label_2">
+              <property name="text">
+               <string>double scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="5">
+             <widget class="QLabel" name="label">
+              <property name="text">
+               <string>short_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="4">
+             <widget class="TCheckBox" name="tCheckBox">
+              <property name="source">
+               <string>$1/boolean_scalar</string>
+              </property>
+              <property name="targets">
+               <string>$1/boolean_scalar;</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="1">
+             <widget class="TLed" name="tLed">
+              <property name="source">
+               <string>$1/boolean_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="1">
+             <widget class="TTable" name="tTable">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="numRows">
+               <number>3</number>
+              </property>
+              <property name="numColumns">
+               <number>3</number>
+              </property>
+              <property name="trueColors">
+               <string>4284344910;4284344910;4284344910;4284344910;4284344910;4284344910;4284344910;4284344910;4284344910</string>
+              </property>
+              <property name="falseColors">
+               <string>4293342999;4293342999;4293342999;4293342999;4293342999;4293342999;4293342999;4293342999;4293342999</string>
+              </property>
+              <property name="trueStrings">
+               <string>One;One;One;One;One;One;One;One;One</string>
+              </property>
+              <property name="falseStrings">
+               <string>Zero;Zero;Zero;Zero;Zero;Zero;Zero;Zero;Zero</string>
+              </property>
+              <property name="displayMask">
+               <string>0,1,2,3,4,5,6,7,8,9</string>
+              </property>
+              <property name="source">
+               <string>$1/boolean_spectrum</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_2">
+           <property name="title">
+            <string>device 2</string>
+           </property>
+           <layout class="QGridLayout">
+            <item row="0" column="0">
+             <widget class="TLabel" name="tLabel_4">
+              <property name="source">
+               <string>$2/short_scalar</string>
+              </property>
+              <property name="helperApplicationEnabled">
+               <bool>true</bool>
+              </property>
+              <property name="helperApplication">
+               <string>xclock</string>
+              </property>
+              <property name="communicationStatusChangesWidgetEnable">
+               <bool>false</bool>
+              </property>
+              <property name="dropEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1" colspan="2">
+             <widget class="QLabel" name="label_6">
+              <property name="text">
+               <string>short_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="TCircularGauge" name="tCircularGauge_4">
+              <property name="source">
+               <string>$2/short_scalar</string>
+              </property>
+              <property name="dropEnabled">
+               <bool>true</bool>
+              </property>
+              <property name="communicationStatusChangesWidgetEnable">
+               <bool>false</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="TLinearGauge" name="tLinearGauge_4">
+              <property name="source">
+               <string>$2/short_scalar</string>
+              </property>
+              <property name="dropEnabled">
+               <bool>true</bool>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4" colspan="3">
+             <widget class="TApplyNumeric" name="tApplyNumeric_2">
+              <property name="maximumSize">
+               <size>
+                <width>100</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="targets">
+               <string>$2/short_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="7">
+             <widget class="Line" name="line_3">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="TLabel" name="tLabel_5">
+              <property name="source">
+               <string>$2/double_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1" colspan="3">
+             <widget class="QLabel" name="label_7">
+              <property name="text">
+               <string>double scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="TCircularGauge" name="tCircularGauge_5">
+              <property name="source">
+               <string>$2/double_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1" colspan="2">
+             <widget class="TLinearGauge" name="tLinearGauge_5">
+              <property name="source">
+               <string>$2/double_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="3" colspan="3">
+             <widget class="TDoubleSpinBox" name="doubleScalarDev2SpinBox">
+              <property name="minimum">
+               <double>-255.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>255.000000000000000</double>
+              </property>
+              <property name="targets">
+               <string>$2/double_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="6">
+             <widget class="TPushButton" name="tPushButton_3">
+              <property name="targets">
+               <string>test/device/2-&gt;DevUShort(&amp;doubleScalarDev2SpinBox)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0" colspan="7">
+             <widget class="Line" name="line_4">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="TLabel" name="tLabel_6">
+              <property name="source">
+               <string>$2/long_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="2" colspan="2">
+             <widget class="QLabel" name="label_8">
+              <property name="text">
+               <string>long scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="TCircularGauge" name="tCircularGauge_6">
+              <property name="source">
+               <string>$2/long_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="2" colspan="2">
+             <widget class="TLinearGauge" name="tLinearGauge_6">
+              <property name="source">
+               <string>test/device/2/long_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="5">
+             <widget class="TSpinBox" name="tspinbox_2">
+              <property name="targets">
+               <string>$2/long_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="6">
+             <widget class="TPushButton" name="tPushButton_4">
+              <property name="targets">
+               <string>$2/long_scalar(&amp;tspinbox_2)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0" colspan="4">
+             <widget class="TTable" name="tTable_2">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="numRows">
+               <number>3</number>
+              </property>
+              <property name="numColumns">
+               <number>3</number>
+              </property>
+              <property name="trueColors">
+               <string>4284344910;4284344910;4284344910;4284344910;4284344910;4284344910;4284344910;4284344910;4284344910</string>
+              </property>
+              <property name="falseColors">
+               <string>4293342999;4293342999;4293342999;4293342999;4293342999;4293342999;4293342999;4293342999;4293342999</string>
+              </property>
+              <property name="trueStrings">
+               <string>One;One;One;One;One;One;One;One;One</string>
+              </property>
+              <property name="falseStrings">
+               <string>Zero;Zero;Zero;Zero;Zero;Zero;Zero;Zero;Zero</string>
+              </property>
+              <property name="displayMask">
+               <string>0,1,2,3,4,5,6,7,8,9</string>
+              </property>
+              <property name="source">
+               <string>test/device/2/boolean_spectrum</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="TLed" name="tLed_2">
+              <property name="source">
+               <string>test/device/2/boolean_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="1" colspan="4">
+             <widget class="TCheckBox" name="tCheckBox_2">
+              <property name="source">
+               <string>test/device/2/boolean_scalar</string>
+              </property>
+              <property name="targets">
+               <string>$2/boolean_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="6">
+             <widget class="QLabel" name="label_9">
+              <property name="text">
+               <string>boolean scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="6">
+             <widget class="QLabel" name="label_10">
+              <property name="text">
+               <string>boolean spectrum</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="6">
+             <widget class="TLabel" name="tLabel_11">
+              <property name="source">
+               <string>test/device/2/boolean_scalar</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+         <item>
+          <widget class="QGroupBox" name="groupBox_3">
+           <property name="title">
+            <string>device 3</string>
+           </property>
+           <layout class="QGridLayout">
+            <item row="0" column="0">
+             <widget class="TLabel" name="tLabel_7">
+              <property name="source">
+               <string>$3/short_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="0" column="1" colspan="2">
+             <widget class="QLabel" name="label_11">
+              <property name="text">
+               <string>short_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="0">
+             <widget class="TCircularGauge" name="tCircularGauge_7">
+              <property name="source">
+               <string>$3/short_scalar</string>
+              </property>
+              <property name="period">
+               <number>1000</number>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="2">
+             <widget class="TLinearGauge" name="tLinearGauge_7">
+              <property name="source">
+               <string>$3/short_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="1" column="4" colspan="3">
+             <widget class="TApplyNumeric" name="tApplyNumeric_3">
+              <property name="maximumSize">
+               <size>
+                <width>100</width>
+                <height>40</height>
+               </size>
+              </property>
+              <property name="targets">
+               <string>$3/short_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="2" column="0" colspan="7">
+             <widget class="Line" name="line_5">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="0">
+             <widget class="TLabel" name="tLabel_8">
+              <property name="source">
+               <string>$3/double_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="3" column="1" colspan="3">
+             <widget class="QLabel" name="label_12">
+              <property name="text">
+               <string>double scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="0">
+             <widget class="TCircularGauge" name="tCircularGauge_8">
+              <property name="source">
+               <string>$3/double_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="1" colspan="2">
+             <widget class="TLinearGauge" name="tLinearGauge_8">
+              <property name="source">
+               <string>$3/double_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="3" colspan="3">
+             <widget class="TDoubleSpinBox" name="tdoublespinbox_3">
+              <property name="minimum">
+               <double>-255.000000000000000</double>
+              </property>
+              <property name="maximum">
+               <double>255.000000000000000</double>
+              </property>
+              <property name="targets">
+               <string>$3/double_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="4" column="6">
+             <widget class="TPushButton" name="tPushButton_5">
+              <property name="targets">
+               <string>test/device/3/double_scalar(&amp;tdoublespinbox_3)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="5" column="0" colspan="7">
+             <widget class="Line" name="line_6">
+              <property name="orientation">
+               <enum>Qt::Horizontal</enum>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="0">
+             <widget class="TLabel" name="tLabel_9">
+              <property name="source">
+               <string>test/device/3/long_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="6" column="2" colspan="2">
+             <widget class="QLabel" name="label_13">
+              <property name="text">
+               <string>long scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="0">
+             <widget class="TCircularGauge" name="tCircularGauge_9">
+              <property name="source">
+               <string>test/device/3/long_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="2" colspan="2">
+             <widget class="TLinearGauge" name="tLinearGauge_9">
+              <property name="source">
+               <string>test/device/3/long_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="5">
+             <widget class="TSpinBox" name="tspinbox_3">
+              <property name="targets">
+               <string>$3/long_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="7" column="6">
+             <widget class="TPushButton" name="tPushButton_6">
+              <property name="targets">
+               <string>$3/long_scalar(&amp;tspinbox_3)</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="0" colspan="4">
+             <widget class="TTable" name="tTable_3">
+              <property name="maximumSize">
+               <size>
+                <width>200</width>
+                <height>100</height>
+               </size>
+              </property>
+              <property name="numRows">
+               <number>3</number>
+              </property>
+              <property name="numColumns">
+               <number>3</number>
+              </property>
+              <property name="trueColors">
+               <string>4284344910;4284344910;4284344910;4284344910;4284344910;4284344910;4284344910;4284344910;4284344910</string>
+              </property>
+              <property name="falseColors">
+               <string>4293342999;4293342999;4293342999;4293342999;4293342999;4293342999;4293342999;4293342999;4293342999</string>
+              </property>
+              <property name="trueStrings">
+               <string>One;One;One;One;One;One;One;One;One</string>
+              </property>
+              <property name="falseStrings">
+               <string>Zero;Zero;Zero;Zero;Zero;Zero;Zero;Zero;Zero</string>
+              </property>
+              <property name="displayMask">
+               <string>0,1,2,3,4,5,6,7,8,9</string>
+              </property>
+              <property name="source">
+               <string>test/device/3/boolean_spectrum</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="0">
+             <widget class="TLed" name="tLed_3">
+              <property name="source">
+               <string>test/device/3/boolean_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="1" colspan="4">
+             <widget class="TCheckBox" name="tCheckBox_3">
+              <property name="source">
+               <string>test/device/3/boolean_scalar</string>
+              </property>
+              <property name="targets">
+               <string>$3/boolean_scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="9" column="6">
+             <widget class="QLabel" name="label_14">
+              <property name="text">
+               <string>boolean scalar</string>
+              </property>
+             </widget>
+            </item>
+            <item row="8" column="6">
+             <widget class="QLabel" name="label_15">
+              <property name="text">
+               <string>boolean spectrum</string>
+              </property>
+             </widget>
+            </item>
+            <item row="10" column="0">
+             <widget class="TLabel" name="tLabel_12">
+              <property name="source">
+               <string>test/device/3/boolean_scalar</string>
+              </property>
+             </widget>
+            </item>
+           </layout>
+          </widget>
+         </item>
+        </layout>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="tab_2">
+      <attribute name="title">
+       <string>READERS GROUP</string>
+      </attribute>
+      <layout class="QVBoxLayout">
+       <item>
+        <widget class="QGroupBox" name="groupShort">
+         <property name="title">
+          <string>short_spectrum_RO</string>
+         </property>
+         <layout class="QHBoxLayout">
+          <item>
+           <widget class="TLabel" name="element_1"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_2"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_3"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_4"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_5"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_6"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_7"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_8"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_9"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_10"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_11"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupShort_2">
+         <property name="title">
+          <string>double_spectrum_RO</string>
+         </property>
+         <layout class="QHBoxLayout">
+          <item>
+           <widget class="TLabel" name="element_12"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_13"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_14"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_15"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_16"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_17"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_18"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_19"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_20"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_21"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_22"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupShort_3">
+         <property name="title">
+          <string>long_spectrum_RO</string>
+         </property>
+         <layout class="QHBoxLayout">
+          <item>
+           <widget class="TLabel" name="element_23"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_24"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_25"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_26"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_27"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_28"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_29"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_30"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_31"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_32"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_33"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupShort_4">
+         <property name="title">
+          <string>string_spectrum_RO</string>
+         </property>
+         <layout class="QHBoxLayout">
+          <item>
+           <widget class="TLabel" name="element_34"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_35"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_36"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_37"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_38"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_39"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_40"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_41"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_42"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_43"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_44"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupShort_5">
+         <property name="title">
+          <string>ushort_spectrum_RO</string>
+         </property>
+         <layout class="QHBoxLayout">
+          <item>
+           <widget class="TLabel" name="element_45"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_46"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_47"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_48"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_49"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_50"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_51"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_52"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_53"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_54"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_55"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+       <item>
+        <widget class="QGroupBox" name="groupShort_6">
+         <property name="title">
+          <string>boolean_spectrum_RO</string>
+         </property>
+         <layout class="QHBoxLayout">
+          <item>
+           <widget class="TLabel" name="element_56"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_57"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_58"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_59"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_60"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_61"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_62"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_63"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_64"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_65"/>
+          </item>
+          <item>
+           <widget class="TLabel" name="element_66"/>
+          </item>
+         </layout>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TLabel</class>
+   <extends>ELabel</extends>
+   <header>TLabel</header>
+  </customwidget>
+  <customwidget>
+   <class>TTable</class>
+   <extends>EFlag</extends>
+   <header>TTable</header>
+  </customwidget>
+  <customwidget>
+   <class>TLed</class>
+   <extends>ELed</extends>
+   <header>TLed</header>
+  </customwidget>
+  <customwidget>
+   <class>TSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>TSpinBox</header>
+  </customwidget>
+  <customwidget>
+   <class>TDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>TDoubleSpinBox</header>
+  </customwidget>
+  <customwidget>
+   <class>TLinearGauge</class>
+   <extends>ELinearGauge</extends>
+   <header>TLinearGauge</header>
+  </customwidget>
+  <customwidget>
+   <class>TCircularGauge</class>
+   <extends>ECircularGauge</extends>
+   <header>TCircularGauge</header>
+  </customwidget>
+  <customwidget>
+   <class>TApplyNumeric</class>
+   <extends>EApplyNumeric</extends>
+   <header>TApplyNumeric</header>
+  </customwidget>
+  <customwidget>
+   <class>TPushButton</class>
+   <extends>QPushButton</extends>
+   <header>TPushButton</header>
+  </customwidget>
+  <customwidget>
+   <class>TLogButton</class>
+   <extends>QPushButton</extends>
+   <header>TLogButton</header>
+  </customwidget>
+  <customwidget>
+   <class>TCheckBox</class>
+   <extends>QCheckBox</extends>
+   <header>TCheckBox</header>
+  </customwidget>
+  <customwidget>
+   <class>ELabel</class>
+   <extends>QLabel</extends>
+   <header>ELabel</header>
+  </customwidget>
+  <customwidget>
+   <class>EFlag</class>
+   <extends>QWidget</extends>
+   <header>EFlag</header>
+  </customwidget>
+  <customwidget>
+   <class>ELed</class>
+   <extends>QWidget</extends>
+   <header>ELed</header>
+  </customwidget>
+  <customwidget>
+   <class>ELinearGauge</class>
+   <extends>QWidget</extends>
+   <header>EGauge</header>
+  </customwidget>
+  <customwidget>
+   <class>ECircularGauge</class>
+   <extends>QWidget</extends>
+   <header>EGauge</header>
+  </customwidget>
+  <customwidget>
+   <class>EApplyNumeric</class>
+   <extends>QWidget</extends>
+   <header>EApplyNumeric</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

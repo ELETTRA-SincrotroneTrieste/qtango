@@ -1,0 +1,52 @@
+# KDE Config File
+[General]
+Name=QTango QWidget Application (QWidget based)
+#Icon=qtangoapp.png
+Category=QTango/C++
+Comment=Generate a QTango-QWidget based application (crossplatform compatible)
+FileTemplates=h,CStyle,cpp,CStyle
+ShowFilesAfterGeneration=%{dest}/src/%{APPNAMELC}.cpp
+Archive=qtangoapp.tar.gz
+
+[FILE1]
+Type=install
+Source=%{src}/qtangoapp.kdevelop
+Dest=%{dest}/%{APPNAMELC}.kdevelop
+
+[FILE2]
+Type=install
+Source=%{src}/qtangoapp.pro
+Dest=%{dest}/%{APPNAMELC}.pro
+
+[MkDir1]
+Type=mkdir
+Dir=%{dest}/src
+
+[FILE3]
+Type=install
+Source=%{src}/src/main.cpp
+Dest=%{dest}/src/main.cpp
+
+[FILE4]
+Type=install
+Source=%{src}/src/qtangoapp.cpp
+Dest=%{dest}/src/%{APPNAMELC}.cpp
+
+[FILE5]
+Type=install
+Source=%{src}/src/qtangoapp.h
+Dest=%{dest}/src/%{APPNAMELC}.h
+
+[FILE6]
+Type=install
+Source=%{src}/src/qtangoapp.ui
+Dest=%{dest}/src/%{APPNAMELC}.ui
+
+[FILE7]
+Type=install
+Source=%{src}/README
+Dest=%{dest}/README
+
+[MSG]
+Type=message
+Comment=A QTango based application was created in %{dest}

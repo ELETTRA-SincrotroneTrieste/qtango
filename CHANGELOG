@@ -1,0 +1,1205 @@
+release_6_3_0: added support for image data format
+
+    Support for boolean spectrum commands in TVariant
+
+    Support for image data format in TVariant
+
+    TUtil::typeRepresentation(CmdArgType argType) provides a string representation of the Tango CmdArgType,
+    based on the CmdArgType enum in lib/cpp/server/tango_const.h
+
+
+    ! --->    Dirty hack in DeviceThread: run method creates a dummy omni_thread::ensure_self thread in order to make events work if the client subscribes from
+              more than one thread. 
+	
+    EPlotLight configuration widget: if QWT version is >= 6, curve style enum starts from -1 instead of 0 (as in version 5). 6.3.0 fixes this.
+
+release_6_2_0
+
+1.	Added qtangoprojectwizard to create qtango projects for qtcreator and qt designer.
+
+	Binary is installed in /runtime/bin by default. Templates in 
+
+	/runtime/share/qtango/qtangoprojectwizard/
+
+	according to $${SHAREDIR} in qtango.pri
+
+2. 	Fixed plugin compilation issues with qt4
+	
+
+release_6_1_0
+
+    DbPlotAdapter: algorithm for curve merging has changed: data from historical database can be set in chunks.
+
+release_6_0_4
+
+    Case insensitive curve search in EPlotLight
+
+release_6_0_0
+    Qwt6 migration.
+    qt5 by default. If compiled with qt4, "-qt4" is appended to the name of the library.
+
+release_5_4_0 Support for Qt5. If qt5 qmake is used, all the libraries will end with the "-qt5" suffix, for example
+              libQTango5-qt5.so, libqtcontrols5-qt5.so, libqtango5-qt5plugin.so and so on.
+
+	      All libraries that depend from qtango must behave consequently, linking with the "-qt5" version of the QTango library.
+
+release_5_3_9
+    added -lX11 in linker flags.
+    qtango.pri now includes tango 8.1.2.c
+
+release_5_3_7
+
+    Introduced  setAttributePropertyDbTimeoutMillis and attributePropertyDbTimeoutMillis methods
+    on QTangoComProxyReader and QTangoComProxyWriter in order to configure the Tango::Database
+    timeout when get_device_attribute_property is called in QTangoAutoConfiguration.
+    Consider adjusting this variable when the device attribute properties are big and the
+    get_device_attribute_property method of the Database class requires much time to be accomplished.
+
+    QTangoCommunicationHandle: isEventZmq method has been added. It returns true if the event consumer
+    is based on ZMQ, false otherwise (or if the tango version is previous to 8).
+
+    TInfoTextBrowser: prints zmq: yes or no if the source is event driven and the event system is
+    based on ZMQ (no if based on Notifd). Right click on any QTango widget->info.
+    ProxyInterface has been modified in order to provide such information to TInfoTextBrowser.
+
+release_5_3_6
+
+    Taken from 4_3_6 and rebuilt for tango 8.
+
+    All relevant classes have been prepared to host a D-ptr private pointer.
+    From now on it will be possible to add members to a QTango/qtcontrols/QTangoCore classes
+    by adding them to the private d pointer.
+
+    This should ensure binary compatibility through future QTango versions.
+
+release_4_3_6 (actually 5_3_6)
+
+qtangocore:
+    Trivial fix in TangoConfigurationParameters constructor that correctly initializes data structures
+    when dealing with command type sources.
+    (http://acswww.elettra.trieste.it/bugzilla/show_bug.cgi?id=1094)
+
+qtango.pri:
+    introduced hexadecimal QTANGO_VERSION. The string version is now made available through the QTANGO_VERSION_STR define.
+
+release_4_3_5
+
+qtangocore:
+
+
+qtcontrols:
+    eplotlight: View Trend: save data: check precision digits and date/time(x) and format options (y)
+                http://acswww.elettra.trieste.it/bugzilla/show_bug.cgi?id=976.
+
+                Save Data on EPlotLight opens a popup before saving data that allows the user to
+                check and modify the format of the data that will be written to file.
+
+release_4_3_4
+
+- Project configuration and installation
+
+* qtango.pri now supports building for tango 8.
+
+* TANGO_HOME must contain the string "tango-8.*" in order to be automatically decoded. Otherwise,
+  look for the TANGO_8 variable definition in qtango.pri and modify it accordingly.
+
+* qtango.pri supports building under FreeBSD, where linking against dl is not needed.
+
+* plugin installation moved from qtango.pro and qtcontrols.pro to plugins.pro
+
+  Files affected:
+    qtango/qtango.pro
+    qtango/plugins/plugins.pro
+    qtcontrols/qtcontrols.pro
+    qtcontrols/plugins/plugins.pro
+
+* new install-freebsd install script
+
+qtcontrols:
+    - TDoubleSpinBox #ifdef __FreeBSD__ powl is replaced by pow
+    - eapplicationbutton.cpp and eapplicationlauncher.cpp: correct inclusion of WinUtil.h for FreeBSD
+    - egauge.cpp: conditional compilation for freebsd which does not have exp10. Conditionally
+      using pow() instead.
+    - eplotlight/eplotlight_base.cpp: conditional include values.h ifndef FreeBSD
+    - eplotlight/eplotlight.cpp: curvesAlphaChannel property (free property) added.
+
+
+qtangocore:
+    tapplication/private/tapplication_p.cpp defined HOST_NAME_MAX _SC_HOST_NAME_MAX (#ifdef __FreeBSD__)
+    TVariant: partial support for DevULong (casted to unsigned int)
+
+qtango:
+    TTable: exports Display Mask as text in Info widget (through the right click->Info action).
+            This enhancement covers the simple case of a display mask made up of a list of integers.
+            Ticket 977.
+
+    TLabel: If an attribute has the values attribute property set, then the TLabel can be told to configure itself in order to display a string associated to the value of the attribute (converted to integer).
+
+            The two free properties that control this behaviour are:
+                1) configureEnumFromValuesProperty, which must be set to true;
+                2) valuesPropertyOffset, 0 by default
+                Documented in   /{INSTALL_ROOT}/share/qtango/doc/html/classTLabel.html
+
+            Ticket 978
+
+qtango/plotadapter: it is now possible to interpolate data coming from the Historical database.
+
+
+utils/qtangoizer:
+    method setToolTipsDisabled(bool) and toolTipsDisabled have been added in order to disable setToolTip
+    on widgets attached to QTWatcher. Sometimes it may turn out to be useful.
+
+
+release_4_3_3
+
+* Fixes:
+
+	QTangoCore: Ticket 939 - ActionFactory loggingDisabled property is not initialized.
+	-
+	In the class constructor the boolean variable m_loggingDisabled is not
+	initialized to a false value by default, thus causing Error Log notification
+	dialog not always popping up.
+
+	QTangoCore: Ticket 213 - TVariant: Segmentation fault Reading Tango::DevLong in a 64 bit machine
+
+* New Features
+
+- QTangoCore/utils: new class PropertyReader: an utility to read class and device properties from the Tango database.
+- QTango/utils: TTextDbProperty: reads a single valued device or class property and sets the read value on a slot of a desired QObject having a single const QString reference as argument.
+- QTango/utils: TPropertyLabel: A QLabel which sets its text according to a device or class property value.
+
+QTango/plugins: Qt4 designer plugin for TPropertyLabel
+
+release_4_3_2
+qtango:
+    TReaderWriter: fixed an issue that in some cases could prevent the TReaderWriter to correctly
+                   show the edit/close buttons. (Ticket 920 - treader-writer manca botton per
+                   chiudere senza applicare).
+
+                   Reverted to TReaderWriter in release 4.3.0: the ticket 866 resolution is too
+                   dangerous and in some cases (zoom, no layout) it does not work properly.
+
+    TWidgetGroup: removed two printf().
+
+release_4_3_1
+
+qtango:
+	Introduced and compiled the Hdb plot support section of the library.
+
+	Ticket 867 - TComboBox: indexMode: adding a indexOffset property might be useful
+	--> added indexOffset and indexMap free properties inside getData(): indexMap must be a QMap<QString, QVariant>
+	    map aimed at mapping the currentText() of the combo box into a specific integer value. Actually, the 
+	    QVariant is always converted into an integer.
+
+	--> indexOffset: a free property always converted into an integer: if valid, the offset is added to the 
+	    currentIndex() of the combo box
+
+	--> obtain map through values attribute property (see doc)
+
+	Ticket 866 - TReaderWriter with overlapping widgets: when the TReaderWriter widget is entered, it checks for 
+	             other overlapping widgets and, if any, the configure icon does not appear.
+
+        Ticket 868 - TUtil::findHelperApplication() with different tango hosts
+            Files affected: taction.h/cpp: has two new methods to return the database host name and database port
+                            tutil.cpp added findHelperApplication() with another signature accepting database host name and port
+                            qtango_wcommon/helper_application.cpp: gets database host name and port from TAction and calls new TUtil::findHelperApplication
+
+        tdbbrowser: findHelperApplication called with database host and port
+
+        Ticket 878 - Customize title and text of confirm dialog in TPushButton
+          The two properties are
+          confirmDialogTitle and confirmDialogText
+          They are free properties available in the Qt designer for the TPushButton
+
+qtango plugins:
+
+
+        Drag and Drop of tango sources and targets in designer widgets pops up a Dialog where you
+        can quickly configure the source/target of the selected widget. You can easily configure
+        a source or a target inserting or removing wildcards.
+        Drag and drop is supported from the jive main panel and from any QTango application.
+
+qtangocore:
+    Ticket 896 - TActions must be distinct if their desired attribute properties are different
+
+qtango/utils/qtwriter.cpp:
+    postExecute() moved into braces (correct place) in void QTWriter::execute(int i)
+
+
+release_4_3_0
+
+
+qtangocore:
+
+action_factory.h:
+taction.cpp:
+tvariant.cpp:
+auto_configuration.cpp:
+communication_handle.cpp:
+       setLoggingDisabled disables Tango exceptions logging via TLog/TUtil::addLog
+       loggingDisabled
+
+ qv2attribute.cpp
+    fixed bug with DEV_FLOAT and related conversions
+
+tutil.cpp:
+    removed commented line.
+
+auto_configuration.cpp:
+    Ticket 850 - Multiple tango hosts and get_device_attribute_property in auto_configuration.cpp
+        corrected Database construction when retrieving device_attribute_properties: necessary
+        for clients which connect to devices with different TANGO_HOST
+
+com_proxy_writer.cpp:
+    indentation in line 102
+com_proxy_writer.h
+    indentation in line 382
+
+communication_handle.cpp:
+   Stop the poller only when POLLED_REFRESH mode
+
+communication_handle.h:
+    indentation in line 80
+
+
+
+qtcontrols:
+    Ticket 633: ELabel::setBooleanDisplay() needs to call display() instead of update().
+                update() was not enough.
+
+    Ticket 648 - EPlotLightMarker: marker and arrow drawing related methods need to obtain
+                the axis id from the related closest curve.
+
+    Fixed some #include in qtango/src/qtango_wcommon/drag_drop_event.cpp, qtango/src/qtango_wcommon/helper_application.cpp,
+                qtango/src/qtango_wcommon/helper_application.h and qtango/src/qtango_wcommon/tinfo_textbrowser.cpp
+ 
+    Ticket 662 - If two curves overlap, their titles do not show up in the marker text. 
+                 Besides the correction of ticket 662, hidden curves are not added to the overlapping curves list.
+
+
+eled.cpp:
+    fixed size issues.
+
+eplotlight/eplot_configuration_widget.cpp:
+    introduced property DbPlotAdapterEnabled
+    fixed issue with set point enabled
+
+eplotlight/eplotcurve.h, .cpp:
+    setVectorUpdateMode(bool) forces the plot to interpret its curve as a vector of values.
+    This is used in feedback plots for instance.
+
+eplotlight/eplotlight_base.cpp:
+    using EScaleEngine instead of QwtScaleEngine, but it does nothing, just calls QwtScaleEngine methods
+
+eplotlight/plotsaver.cpp:
+    minor fix: introduced format in x and y curve values.
+
+
+qtango:
+tcombobox.cpp:
+        indentation
+
+qtango_wcommon/right_click_event.cpp:
+    very minor fixes
+
+tplotlight/tplot_refresh_connector.cpp:
+    bugfix: real sources are returned instead of raw ones
+
+tplotlight/tplotlight_marker.cpp, .h:
+    setPointEnabled property used for curve visibility
+    setSetPointEnabled(bool) setter method (and getter) introduced
+
+treaderwriter/treaderwriter.h:
+    writerCreated(QWidget* writer, TReaderWriter::WriterType type) signature fix
+
+utils/qtwriter.h:
+   documentation
+
+utils/qtwriter.cpp, .h:
+    added support for QVector<bool>, QVector<int>, QVector<double>, QStringList (to be tested)
+
+utils/qtangoizer/qtwatcher/qtwriter.cpp/.h:
+  autoDestroy property to auto delete readers and writers right after first execution.
+
+
+--------------------------------------------------------------------------------------------
+
+release_4_2_2:
+
+  qtango:
+   [Ticket 606] TReaderWriter: unusable SIGNAL declaration void writerCreated(QWidget* writer, WriterType type)
+   [Ticket 607] TReaderWriter: need to explicitly setWriterType() if you want to use TComboBox together with "values" attribute property
+   [Ticket 608] TReaderWriter enhancement: detect when "values" attribute property is made up of strings to automatically setIndexMode(true) on the TComboBox
+                Index mode property of TComboBox writer is taken from comboIndexMode property, which defaults to true.
+                So if you know that your source has or will have the "values" attribute property, then
+                decide if you want your combobox to work or not in indexMode with the comboBoxIndexMode
+                free property.
+
+  qtcontrols:
+      Ticket 633: ELabel::setBooleanDisplay() needs to call display() instead of update().
+                  update() was not enough.
+
+      Ticket 648 - EPlotLightMarker: marker and arrow drawing related methods need to obtain
+                  the axis id from the related closest curve.
+
+      Fixed some #include in qtango/src/qtango_wcommon/drag_drop_event.cpp, qtango/src/qtango_wcommon/helper_application.cpp,
+                  qtango/src/qtango_wcommon/helper_application.h and qtango/src/qtango_wcommon/tinfo_textbrowser.cpp
+
+  qtangocore:
+          taction.cpp :  actionListConfigured signal is emitted before auto configuration signal
+
+
+--------------------------------------------------------------------------------------------
+
+
+release_4_2_1:
+
+qtango:
+
+Ticket 187 - TLed - setStateColor
+See TLed documentation.
+
+Ticket 551 - designer plugins - TComboBox items
+
+Ticket 143 - What's this? - Messages in TInfoTextBrowser are now more homogeneous.
+
+qtcontrols:
+
+ECurveData: added methods
+const QwtArray<double> xData() { return d_x; }
+const QwtArray<double> yData() { return d_y; }
+
+used in EPlotCurve to solve a bug that might cause a crash of an Application
+when the property showYValuesEnabled is true and the data is appended
+to the plot point by point (vectorUpdateMode is false).
+The corrected method is EPlotCurve::pointsCountInInterval().
+
+qtangocore:
+    TAction: push_event() checks if the eventId is >= -1 before processing the event data.
+    This should not be necessary, anyway I placed this check there... (Ticket 161)
+
+    QVariantConverter qv2attribute.cpp: fixed in_type command recognition in
+    convertToDeviceData() method (ticket 568).
+
+    Ticket 565 - warning - global refresh interval. Removed pwarn().
+
+    DeviceThreadFactory: stackSize method to set the stack size of the DeviceThreads created
+    by QTangoCore. The default value is 256 kB (256000 bytes), that seemse to be adequate, as
+    far as ulimit tests were concerned.
+
+Release_4_2_0
+
+Library news for programmers:
+
+Support for DBus session bus added for TApplication. An example and a TApplicationInterface provided for programmers.
+Support for DBus session bus added for DeviceThreadFactory and ActionFactory
+
+dbus: new independent library module. Generates libQTangoDBus. qtangocore and qtcontrol modules
+      depend on libQTangoDBus.
+
+qtangocore:
+    tutil: DeviceProxy *findDeviceProxy(const QString& devname) marked as DEPRECATED.
+
+    ActionFactory: The environment variable  DEFAULT_REFRESH_MODE has been added.
+        This variable, which can also be modified with setDefaultRefreshMode determines which
+        is the default RefreshMode to apply to a reader when setSource is invoked with
+        AUTO_REFRESH as RefreshMode parameter (or when setSource is simply called with the
+        tango source name, without specifying the RefreshMode argument).
+        If no DEFAULT_REFRESH_MODE is defined, then AUTO_REFRESH is automatically chosen,
+        which means "try to subscribe for events and fallback to POLLED_REFRESH refresh if they are
+        not available for the source to be read" (the well known behaviour of setSource for all
+        qtango releases).
+
+
+qtcontrols:
+    EPlotCurve: a dynamic boolean property (QObject dynamic properties) has been introduced with the name
+    "sensibleToClicks". The default is true, and means that the curve will be considered when the user clicks
+    on the EPlotLightMarker canvas to find closest curve. If the property is false, then when EPlotLightMarker
+    scans the curves on the plot to look for the one closest to the point clicked the curve will be ignored.
+    The change involves EPlotCurve::init() where setProperty() is called and EPlotLightMarker::findClosestPoint()
+    in the cycle where all curves are seeked to find the closest one. With this property you can filter the curves
+    you want to be sensible to clicks.
+    Curves can be told to display the y values beside the point represented. This is achieved via
+    the property showYValuesEnabled of EPlotCurve or globally on the plot by calling
+    void EPlotLight::setShowYValuesEnabled(true) after all the curves have been created. Actually,
+    this method looks for all the curves in the plot and applies the property showYValuesEnabled to all
+    of them.
+    Each curve has now an associated State: when it is Invalid, red triangular markers are displayed
+    on the canvas, near the curve.
+
+    EPlotLightMarker: introduced 3 methods to retrieve the marker, the picker and the arrow used to draw the marker
+    on the canvas
+
+    EApplicationLauncher: Added arguments() method to EApplicationLauncher returning the arguments in a QStringList and
+                fullExePath() returning the full path of the command, e. g. "/runtime/elettra/bin/panel"
+
+    EPlotLight: new property "bool dateOnTimeScaleDrawEnabled": if true the label of the time scale draw
+                displays the date and the time, if false it displays only the time
+
+                configuration widget: it is possible to change the alpha channel for the curves colour,
+                so that overlapping  curves may be distinguished. The default value for the curves alpha
+                channel is set to 210 and is exported through a Dynamic property named curvesAlphaChannel.
+                The value of the property curvesAlphaChannel is used by EPlotLight when it creates curves
+                via addCurve() method. Once a curve is created the curveAdded() signal is availabel, as
+                usual.
+                IMPORTANT NOTE: setting an alpha channel different from 255 might negatively affect
+                performance, especially with high refresh rates and/or many points in curves.
+                Y values of the curves can be shown/hidden by right clicking on the plot and choosing
+                the menu action "Show Y values on the curves" or by executing the "Configure Plot" action.
+
+qtango:
+
+    QTWatcher and QTWriter classes.
+    They allow to create QTango readers and writers and attach them to common Qt widgets
+    that are QTango unaware. Associated widgets can have a slot invoked whenever a new
+    QTango datum is available (for readers) or a signal can be connected to a QTWriter to
+    write a value on the tango control system.
+    See documentation for details and the qtango/test/watcher example.
+
+    Support for state in curves to signal read errors or attr quality
+    invalid/warning/alarm. Only invalid implemented.
+
+TSimpleLabel:
+    added support for display unit. If set on the tango database, the standard unit
+    is appended to the name of the source inside [ ] brackets.
+    In qtangoplugin.cpp, added full support for TSimpleLabel (right click menu action
+    "Edit Tango Connection").
+
+QTango plugins:
+    Drop has been enabled in the designer plugins. Since Jive version 4.12 it is possible to drag
+    tango commands and attributes from the device panel and drop them into qtango widgets.
+
+bug fixes:
+qtcontrols
+
+    EPlotLightBase: refresh() method has been further optimized and the optimizations have sensible effects
+    in append mode, i.e. when points are appended to the curves in the plot.
+
+    EPlotLightBase: ticket 90 -  TPlotLightMarker - xAutoscaleAdjustEnabled.
+    setXAxisAutoscaleAdjustEnabled used to setXAxisAutoscaleEnabled(false) when called with true
+    parameter. This "dependency" has been removed.
+
+    EPlotLight, EPlotConfigurationWidget: set pen cap to FlatCap. This setting is critical when curves are represented
+    through Sticks.
+    Added in inc.files src/ui_configuration.h that is needed to use the configuration widget of the plot in external programs:
+    compilation error was: "/runtime/include/qtango4/eplot_configuration_widget.h:38: error: ‘Ui’ has not been declared"
+
+    EPlotConfigurationWidget: radio button for bounds from auto configuration is hidden when there is no
+        property "autoConfigured", i.e. when the plot does not inherit TPlotLightMarker
+
+    EFlag: Ticket 189 -  designer core dumped: EFlag checks for data sizes and automatically fills data vectors when necessary.
+        arrangeCells() does no more clear data. Instead, it appends new elements to data vectors when necessary.
+
+    EApplicationLauncher: improved exename and arguments detection in construction.
+
+QTango
+    TPixmap:  Ticket 106 -  TPixmap frame.
+
+    TLabel: setDisabled quando ATTR_INVALID
+
+    TLineEdit: disabled QTango dragEvent: it was tedious in the case of TLineEdit.
+
+TPushButton:
+    The widget does no more disable itself when a connection error signal is received.
+    The communication handle automatically disables it if the property
+    communicationStatusChangesWidgetEnable is set to true.
+
+    helperApplication:  Ticket 427 -  parametri di helperApplication: helper application automatically adds
+        the tango device (source) only if the helperApplication property does not have arguments.
+        This maintains compatibility towards old helperApplication device properties (e.g. "atkpanel",
+        where the argument containing the device name must be appended) and corrects the behaviour of the
+        launcher when the panel needs specific command line arguments (and in this case they must fully be
+        specified in the device property).
+
+qtangocore:
+
+    TApplication initializes DBus after a timer timeout of one second. So, if there is some
+    initialization issue/delay, this should avoid locks.
+
+    tvariant.cpp: methods canConvertToString and canConvertToStringVector: added checks for command argout.
+    Previously, it was possible that canConvertToStringVector or canConvertToString returned false for data
+    types (in commands) that actually may be converted by toString() and toStringVector(). Now the behaviour
+    has been corrected.
+
+    format() method fixed. Assigned to spectrums the same format as scalars when the format is not available
+    through the tango database (i.e. for commands argout).
+
+    corrected a bug in configureHandle that might have dereferenced a deleted and nil TAction when invoking
+    slotAttributeAutoConfigured() towards the end. This bug used to affect modsuper, for instance, when the
+    configureHandle() method receives a "non pertinent" action (first "if" branch of the method).
+    The dereferencing code has been moved inside the "if" branch that is entered only if r != NULL
+
+
+    auto configuration signals are emitted in QTangoCommunicationHandle::configureHandle() at the end of the method,
+    so that if user calls unsetSource or setSource immediately on the slot connected to auto configuration there is
+    no access to a deleted action in configureHandle itself.
+
+    In communication handle destructor, removed check for d_handleConfigured.
+    It prevented TActionList (thus for writers only) to delete auto reconnect timer
+    when the widget (or any parent) is destroyed. So deleted widgets would have their auto
+    reconnect timer trying to reconnect forever. This issue used to happen in the Qt
+    designer when the user for instance types a wrong target.
+
+    communication_handle.cpp: instead of calling stopAutoReconnectTimer() on subscriber proxy
+    unsetSource() and setSource() now call deleteAutoReconnectTimer, which is a new method
+    introduced in subscriber_proxy.cpp. This avoids that in some cases the configuration
+    failed event arrives after unsetSource and restarts the timer. deleteAutoReconnectTimer()
+    marks the timer as deleted and so it will never be scheduled for retry later.
+    This little bug used to happen when source changes very very fast (designer).
+
+    TAction: in MANUAL refresh mode, we need to initialize first value read.
+    method: void TAction::completeConfiguration()
+    So d_data contains first value read.
+
+
+Release_4_1_1
+
+QTangoCore
+
+bug fixes:
+
+taction.cpp: -removed QueuedConnection connection type from connect(subscriber, SIGNAL(configured(TAction*))...
+             -added invocation of stopAutoReconnectTimer on subscriber proxies owned by TActionList inside TActionList
+              destructor. This stops reconnect cycles after a source has been corrected (used to happen in designer).
+             -connected each subscriber proxy's connection/configuration error messages to the TActionList equivalent
+              signals: now the signals are delivered through the qtangoComHandle of a QTangoComProxyWriter.
+
+communication_handle.cpp:-removed QueuedConnection from action list connect(). This might exceptionally cause crashes.
+                           in unsetSource() a correction improves stability in cases where unsetSource() was called
+                           before setSource() on a previously configured source.
+                         - d_subscriberProxy marked null right after deleteLater();
+                         - unsetSource() is now called even if setSource() has been called with an empty string, if the
+                           source was previously not empty. This mostly concerns designer.
+QTango:
+
+TPlotLightMarker:
+    changes to the number of points or refresh period in spectrum data format does not cause removal and creation of
+    a new curve. This solves ticket 249.
+
+TLabel:
+    Fixed Ticket 207: TLabel RED. Method involved: refresh().
+
+qtcontrols:
+
+ENumeric:
+    Fixed ticket 212: corrected  setValue() and added silentSetValue to change the value of the TNUmeric without emitting
+    the valueChanged() signal.
+
+EPlotLight:
+         Fixed Ticket 215 -  EPlotLight::appendData tries to get value curve[-1] and produce core dumped
+         Configuration widget: checkBox to save appearance settings instead of misleading button. Some corrections to the
+         configuration widget.
+
+         addCurve() now does not remove a curve if already exists a curve with the same name. This change is related to ticket 249.
+
+
+         Improved performance by refresh() method optimization. syncRefresh property introduced to further optimize
+         CPU consumption in case of multiple curves at high refresh rates.
+         qtango/test/refreshtest example has been added to test plot performance.
+
+kdevelop plugins:
+	corretto  Ticket 200 -  kdevelop templates.
+
+News for users:
+
+TPlotLightMarker:
+    - TPlotLightMarker::curveBySource(const QString& source) method returning EPlotCurve* has been introduced to retrieve
+      the EPlotCurve assigned to the specified source. With respect to the already existing EPlotLight::curve(),
+      curveBySource removes trailing arguments of commands, if present, and look for the curve with the name specified.
+      For instance curveBySource("test/device/1->getData(0,1000)") will look for "test/device/1->getData" curve name.
+      Actually, curve titles are now created without source arguments. This means that
+      setSource("test/device/1->getData(0,1000)"); will add a curve with title "test/device/1->getData".
+
+TReaderWriter:
+    - Ticket  Ticket 203 -  Introdurre una property per writer di TReaderWriter nel caso di TComboBox:
+        Added the SIGNALS:
+        void writerCreated(const QWidget* writerWidget, WriterType type);
+        void editButtonClicked();
+        void editButtonToggled(bool);
+        void applyClicked(); emesso da execute();
+        See doc.
+
+qtcontrols:
+
+EPlotLight
+
+         - Configuration widget: "Advanced Performance Settings" section has been added for expert users.
+         It is also possible to enable or disable "Sync Refresh" property introduced in this release.
+
+         - syncRefresh property: if enabled, plot refresh() is triggered on an external timer timeout rather
+           than on each curve new data arrival. This improves performance on realtime plots with more than
+           one curve.
+
+
+Library news for programmers
+
+Release_4_1_0
+
+Ticket 176 - TLabel & warning/error. In patches-10 sono stati aggiunti i metodi per cambiare le soglie di error e warning. Se il tipo di dato e convertibile a double (quindi se e un numero) e se i valori di soglia sono settati (automaticamente con attribute properties o a mano con i metodi per settare i valori soglia), la label si colora in base ai valori di soglia. Altrimenti si colora con la qualita`. Questo avvicina il comportamento della label a quello dei gauge.
+
+Release_4_0_2_patches-08
+
+qtango.pri now contains a conditional that detects Ubuntu 7.10 reading from /etc/issue. If so, it sets INSTALL_ROOT to /runtime/elettra. Otherwise, the default install root is /runtime. In qtango/qtango.pro, the templates install paths are chosen according to /etc/issue: if Ubuntu 7.10 is detected, the templates are installed in /usr/share/kdevappwizard, in all other cases in /opt/kde3, supposing that the kde3 installation places kde3 into /opt/kde3. This enhanced qtango.pri solves the issue related to different file system structures in Elettra and Fermi.
+
+Plots EPlotLight emits curveAdded() and curveRemoved() signals whenever a new curve is attached/detached to the plot viaaddCurve() and removeCurve(). TPlotLightMarker users will automatically benefit from this signal, getting the new curvejust added and being able to modify its properties.
+
+EPlotLightMarker emits a plotClicked() signal when the user clicks on the canvas. The signal contains information about the position of the click, the closest curve, the x and y values of the closest curve and the transform()ed closest point.
+
+EPlot/TPlot are marked as deprecated and their instantiation produces a warning at compile time. They will not be more supported any more. TPlotLight/EPlotLight plots must be used instead.
+
+TLabel setting the property "forceNoUnit" to true, the measurement unit is not printed after the numeric value, even if the tango database contains a displayUnit
+
+Widgets/core: it is now possible to enable/disable autoConfiguration via the autoConfiguration property. This makes possible to ignore the auto configuration event coming from qtango core library.
+
+The property forceWidgetDisabled has been renamed into communicationStatusChangesWidgetEnable, indicating that the communication status (connected, disconnected, ATTR_INVALID quality, read exceptions...) is allowed or not to change the widget enabled property. The default value is true, meaning that connection errors disable the widget, connection success enables it, just as it has always been. Setting it to false breaks the correlation between the connection status and the widget enabled property. Since the TLed is mostly tailored for reading Tango DevState, its default communicationStatusChangesWidgetEnable property is set to true, to group into the Tango::UNKNOWN state representation (i.e. the led color) the UNKNOWN state itself and all possible communication problems. Right clicking on the TLed, as usual, provides more detailed information about the connection status. Thus, by default, TLeds appears in the UNKNOWN color either in connection error and in device server in UNKNOWN state.
+
+QTangoComProxyReader/QTangoCommunicationHandle
+
+A method named read(QVariant v = QVariant()) has been introduced to allow any reader to perform an asynchronous read from the Tango layer. This can be used in conjunction with a MANUAL_REFRESH refresh mode to trigger a read at an arbitrary moment. QTangoCommunicationHandle has a slot named void executeAsynch(QVariant v = QVariant()); that can be invoked to perform a read on demand, for instance consequently to a SIGNAL. Execution takes always place in the DeviceThread, so that it is necessary to establish a SIGNAL/SLOT connection using the communication handle void newData(const TVariant&) SIGNAL, as usual.
+
+Bugfixes
+
+Release_4_1_0
+
+Ticket 149 - helperApplication: predence rules and defaults to be fully specified.
+
+Precedence rules must be clearly specified and implemented. For example: 1) value defined by panel programmer 2) Tango property defined for device instance 3) Tango property defined for device class Syntax for composing full command from helper application should be explicity specified.
+
+Ora la proprieta si comporta correttamente. helperApplicationEnabled e di default disabilitata (come prima). Attivandola, helperApplication viene inizializzata con valore letto da device property o class property. Poi l'utente e` libero di cambiare e salvare la propria helperApplication. Quindi anche i criteri specificati nella "Description" del ticket sono soddisfatti
+
+Ticket 163
+
+Ticket 165 - TPlotRefreshConnector - doc
+
+Ticket 167 - info...
+
+Ticket 174 - error: ‘class TWidgetGroup’ has no member named ‘addWidget’
+
+Ticket 175 - ReadersGroup - data conversion error
+
+Ticket 177 - What's this? - QTangoWidgetCommon
+
+Ticket 178 - TWidgetGroup: in designer non è possibile inserire in un TWidgetGroup altri widget (p.e. TLabel)
+
+Ticket 181 - What's this? - empty: su ken la finestra è bianca
+
+Library news for users
+
+Release_4_0_2_patches-07
+
+Plots: the right click menu now opens an improved configuration dialog for plot setup. It is also possible to change the style of each curveand save the settings for the couple application name/reading point.
+
+Widget meta information:
+
+Right click on every QTango widget shows an "info..." action: it displays information about the tango source or target point, the application and author/hardware referent information. It might be an useful tool to obtain connection status and error messages concerning the Tango layer, being also able to contact the author or submit a feature/bug request via the bugzilla system.
+
+
+
+Release_4_0_2_patches-08
+
+TPlotLightMarker: corrected a bug in fillFromHistory() when sources contain wildcards. In pause mode, the refresh signal is disconnected.
+
+TVariant: in canConvertXXX methods: added/corrected support for command DEV_STRING out type and DEV_VAR_STRINGARRAY.
+
+QTANGO_DEVICES env variable accepts a list of devices separated by space, instead of the ':' character as before.
+
+Ticket 144 - What's this? - bugzilla
+
+ActionFactory: moved a lock to enclose a portion of code that was previously not locked and accessed by multiple threads. This corrects some crashes that might have happened when fastly connecting/disconnecting sources on the same handle. File: qtangocore/src/action_factory.cpp, method destroy(TAction *);
+
+Release_4_0_2_patches-07
+
+Ticket 138: Ottimizzati alcuni aspetti del plot: eliminati alcuni replot(). Minimizzati setAxisScale(), mediante preliminare controllo di upper e lower bound. Anche il numero di chiamate a setZoomBase() dello zoomer e stato minimizzato. La penna di  default della curva e stata posta a 0 e questo ha condotto al maggiore beneficio: penne con width = 0 hanno cosmetic property a true... ("A line width of zero indicates a cosmetic pen. This means that the pen width is always drawn one pixel wide, independent of the transformation set on the painter.").
+
+Ticket 166 - doc: 3.1.0 vs 4.0.2
+
+Ticket 167 - info..
+
+QTango 4.0.0
+
+Fix:
+
+TSpinBox, TDoubleSpinBox: auto configuration made on the basis of the format if minimum and maximum are
+		  not specified.
+
+TPlot and EPlot are marked as no more supported. You are invited to use EPlotLight, EPlotLightMarker and TPlotLightMarker instead.
+As a consequence, TrendPlot now inherits from TPlotLightMarker, to improve its capabilities.
+
+QTango widget common interface (qtango/qtango_wcommon/ directory)
+  
+
+
+Changes
+
+plugins:
+  edittarget dialog inherits now from a generic and reusable string list editor.
+  String List editor is actually used by mango ui.
+
+
+News:
+  qtcontrols:
+	- EStringListEditor: an editor for string lists
+
+qtangocore 3.1.0
+  - at setSource(), if the device does not respond, a connection retry cicle takes place hoping the device
+    becomes available.
+  - view trend corrected: now refreshes at the same period of the source of its widget.
+    when view trend is activated, the show/hide event of the corresponding source is disabled: this avoids
+	that the correlated source is stopped while the plot needs refresh.
+
+QTango_3_0_1:
+  QTangoCore:
+      - introduced DEV_STATE into readers group;
+      - correctly handled DEV_STATE spectrum into tvariant
+      - tvariant has a method isCommand() to obtain the type of data contained
+      
+qtcontrols:
+      - Improved EPlotLight/Base/Marker and corrected some bugs -> also EPlotCurve has been improved/adapted to EPlot
+      
+TODO:
+    - simplify auto scale interface in EPlotLight 
+      
+
+
+qtango_Branch_3_0_0_patches (2009-05-26):
+
+---------------------------------------------       QTangoCore       -------------------------------------------------------------------
+
+qtangocore_common.h: #define ACTION_EXECUTION_EVENT, yet unused
+
+tutil.cpp " findChild() search in getArgs() is no more fatal: instead a message box is created and warns the programmer
+            about the syntax error. The command_inout() or write_attribute() associated is still executed, and so the 
+            programmer will also get a Tango exception.
+            
+            replaceWildcards has been modified to read environment variable QTANGO_DEVICES, a list of semicolon separated
+            tango devices to replace wildcards with if the application is launched without command line parameters that
+            specify tango devices to be replaced. This is done to improve designer capabilities when configuring sources
+            with wildcards.
+            Exporting `export QTANGO_DEVICES=test/device/1:test/device/2:test/device/3' on the command line before 
+            launching the designer will replace your wildcards while designing.
+            
+            d_globalRefreshInterval = 990 no more 1000
+            
+wrapper/attributes_configuration_manager.cpp:
+	connect() for SLOT distributeAttributeConfiguration() is explicitly queued now.
+	source names must be stored without arguments to be correctly managed: when adding a source in the set 
+	(and when removing it), the source passed from the caller must be cleaned via a RegExp like "QRegExp argRe("\\(.*\\)");"
+	This avoids duplicated sources configured inside the set managed by the singleton, for sources with the same attribute name
+	but differen arguments. For example `test/device/1/double_scalar' configuration entry is shared inside the set with
+	the source `test/device/1/double_scalar(&tDoubleSpinBox)'. This happens inside registerObject() and unregisterObject().
+	The issue is most concerned with duplicate attribute configuration change event subscription for the same attributes with 
+	different args. By the way, when twice subscribing for attribute configuration change event, although a tango exception
+	was received and handled, events stopped working for that attribute ever since.
+
+wrapper/attributes_configuration_manager.h:
+	Only doxygen documentation was added
+	
+wrapper/auto_configuration.cpp:
+	- d_confChangeEnabled has ben restored to true in initialization, since the correction in wrapper/attributes_configuration_manager.cpp
+	solved duplicated attribute configuration change event subscription for attributes with the same signature but different arguments
+	(see above)
+	
+wrapper/communication_handle.cpp:
+	nothing special, just brought into .cpp `void setAutoConfiguration(bool en, bool confChangeEventEnabled)'
+
+wrapper/communication_handle.h
+	see comment above: moved void setAutoConfiguration() implementation into cpp file.
+	
+wrapper/com_proxy_reader.cpp:
+	source() returns the raw source (before replace wildcards)
+	realSource() - introduced - to use when interested in the source used by the handle, after replace wildcards.
+	* NOTES on show/hide events:
+	showEvent() now must invoke `d_qtangoHandle->setSource(d_qtangoHandle->source());' i.e. qtango handle set source
+	with qtango handle previously configured source!
+	
+wrapper/com_proxy_reader.h:
+	documentation introduced.
+	differentiated source() and realSource(), the last beign communication handle's source, the first the string passed
+	to setSource(), which might contain wildcards.
+	private QString d_rawSource introduced, written by setSource() and returned by source() - compatible with the designer -
+		
+wrapper/com_proxy_writer.h/cpp 
+	introduced realTargets() together with targets() with the same meaning it has for the reader. This is done on behalf of
+	the designer when using wildcards.
+	private QString d_rawTargets introduced, written by setTargets() and returned by targets() - compatible with the designer -
+	There is no show/hide event interception here, so the problem for the reader does not sussist.
+	documentation improved
+		
+wrapper/trendplot.cpp
+	source() (QTangoComProxyReader's) must be replaced by realSource().
+	
+(***) qtangocore/src/devicethread.cpp:
+	If the action created by the factory fails to configure, then the device thread immediately destroys it, puts the 
+	action pointer to NULL and notifies to the subscriber proxy which in turn notifies the communication handle.
+	The destruction is aimed at avoiding TActions living without connection to the tango field. Actually, one must 
+	remember that they are retrieved/created at every show event, if hide/show events are enabled.
+	
+qtangocore/src/subscriber_proxy.cpp
+	must now check that the action arriving through event(QEvent *e) method is not null.
+	
+qtangocore/src/taction.cpp
+	TActionList::configure(QString s, TAction *a): must check that a is not null.
+	
+wrapper/communication_handle.cpp:
+	void QTangoCommunicationHandle::configureHandle(QString s, TAction* r): must check that r != NULL when used. 
+
+============================ 2009 05 28 ==============================================================
+
+IMPORTANT IMPROVEMENT: library has been made lighter avoiding complete unsetSource() and setSource() at every hide/show event!
+	Now when hide/show events are intercepted for _widgets_, an event is posted to the TAction from the communication handle
+	in charge of the source. If the source is running in POLLED_REFRESH mode, its polling timer is stopped/restarted respectively
+	in hide/show events. This makes things much more easy to handle. Avoids reconnection problems related to hide events when the
+	tango device goes down after the sources are configured.
+	
+(***) qtangocore/src/devicethread.cpp:
+	removed feature marked (***): no more necessary thanks to the modification done to hide/show event system.
+	An action is always created and shared until the end of the program or a programmatic unset source done by
+	the programmer. Also if connection with tango fails.
+	
+src/action_polling_events.h
+	Added file with definitions for Action polling start/stop events
+	
+qtangocore/src/taction.cpp:
+	in event() method: start/stop polling events are treated.
+	
+src/wrapper/com_proxy_reader.cpp:
+	removed d_firstShowEvent variable;
+	show/hideEvent() removed set/unsetSource and call d_qtangoHandle->startPoller(); or stopPoller()
+	
+src/wrapper/com_proxy_reader.h:
+		removed d_firstShowEvent variable;
+		
+qtangocore/src/wrapper/communication_handle.h
+	introduced startPoller() an stopPoller()
+			
+	SLOT: d_stopPollingIfWidgetHidden() invoked by a singleShotTimer in .cpp `configureHandle(QString s, TAction* r)'
+	      after three times the period of an action in POLLED_REFRESH mode. The d_stopPollingIfWidgetHidden() stops 
+	      the poller if the object owning the handle is a widget and the widget is hidden.
+		
+qtangocore/src/wrapper/communication_handle.cpp
+	startPoller(), stopPoller(): they post an event to the TAction, if handle is configured and if the action is alive
+	connectSource() is _always_ called by setSource(), also when the widget is hidden. Actually hide/show events management
+	has been refactored as described above.
+	
+qtangocore/src/tutil.h and .cpp
+	Now TUtil uses external global refresh timer, in a separate thread.
+	d_globalRefreshInterval removed: now this value is obtained and set through the GlobalRefreshTimer.
+	
+added:
+	- global_refresh_timer.h global_refresh_timer.cpp action_execution_event.h
+	GlobalRefreshTimer is another thread that should guarantee that the timeout() happens exactly at the same 
+	time, independent by the delays introduced in the execution of the main thread.
+	
+	qtangocore_read_stats.cpp, qtangocore_read_stats.h : simple statistic infrastructure to track events and 
+	associate them to a timestamp. These stats are logged on a per application file. See examples in qtango/test/timingStatsAnalyzer
+	
+	
+	
+qtangocore/src/global_refresh_timer.cpp,h 
+	migliorata la gestione del timer.
+	
+	
+qtangocore/src/qtangocore_read_stats.cpp,h:
+	alcune correzioni, miglioramenti
+	
+qtangocore/src/taction.cpp:
+	supporto per statistiche su EVENTI tango
+	
+
+qtangocore/src/tutil.cpp
+	d_globalRefreshInterval rimosso: si utilizza il globalRefresh per salvare e chiedere il valore.
+	chiamata a ADD_READ_STAT_MSG() per statistiche.
+	
+taction.cpp:
+taction.h:
+tutil.cpp:
+wrapper/communication_handle.cpp:
+wrapper/communication_handle.h:
+	signal connectionFailed() senza parametri, da collegare a disable() slot dei widget scrittori QTango che vogliono disabilitarsi
+	quando la connessione al target fallisce!
+	
+2009 06 05
+	
+qtangocore/src/devicethread.cpp
+	ADD_READ_STAT_MSG("DeviceThread", d_devname);
+	
+qtango/qtangocore/src/taction.h
+	doc about execute(), addSubscriber() and removeSubscriber();
+	
+	dequeue() has become public slot because used by communication handle when configuring, to force a first read
+	for fast display of the value when the widget is created and connected.
+	
+	removed unused private QMutex d_refreshMutex
+	
+	execute() has an optional bool argument to bypass queue
+	
+qtango/qtangocore/src/taction.cpp:
+	execute() is called before startPoller() is invoked, to have data immediately ready after setSource.
+	communication handle calls dequeue() after TAction is configured, inside configureHandle, to obtain 
+	that fresh value.
+	
+qtangocore/src/wrapper/com_proxy_reader.h
+	added doxy doc
+		
+qtangocore/src/wrapper/com_proxy_reader.cpp
+	some explicit initialization:
+	setHelperApplicationEnabled(false);
+        setViewTrendEnabled(true);
+        
+qtangocore/src/wrapper/communication_handle.cpp
+	calls TAction::dequeue() in  configureHandle to ensure immediate refresh of the widget (if widget ;)
+	ADD_READ_STAT_MSG("setSource", d_source) - to track setSource() instant
+
+
+=================================== 2009 06 08 ===================================
+
+qtangocore/src/wrapper/auto_configuration.cpp,h:
+	added method to see if std and display Units are set on the tango db for the given attribute.
+	This is used by TSpinBox and TDoubleSpinBox to set or not the suffix()
+	added documentation for displayUnit
+
+qtangocore/src/wrapper/communication_handle.cpp,h 
+qtangocore/src/wrapper/com_proxy_reader.h,cpp:
+
+	added documentation
+	setDesignerMode(bool) and designerMode() used inside QTango designer plugins.
+	It disables show/hide events on readers when the method is called with the true
+	parameter. This avoids preview hide events and stop polling while editing the GUI
+	on the Qt designer.
+
+qtangocore/src/wrapper/trend_plot.cpp:
+	setHideEventEnabled(false); setAutoConfiguration(true)
+	This goes also for TPlot, since TPlot inherits from TrendPlot.
+	removed nasty printf()
+	
+	
+qtangocore/src/wrapper/com_proxy_writer.h
+	doc only
+	
+qtangocore/src/tvariant.cpp
+	checks display unit instead of unit in toString() conversion method
+	
+
+qtangocore/src/qtangocore_read_stats.cpp, taction.cpp, tutil.cpp
+   aggiunto lock in read stats
+   taction: ADD_READ_STATS in costruttore solo per tipo ATTRIBUTE e modo != TARGET
+   tutil.cpp tolto `:' in messaggio per stats: i due punti non vanno bene
+
+
+
+---------------------------------------------       QTango       -------------------------------------------------------------------	
+
+tpushbutton.cpp, tpushbutton.h:
+	rimosso setAutoConfiguration() !! infatti e` un QTangoComProxyWriter e deve usare QTangoComProxyWriter::setAutoConfiguration()
+
+* Riveduto il treaderwriter:
+	-> treaderwriter/twriterwidget.cpp treaderwriter/twriterwidget.h rimossi.
+	-> treaderwriter/treaderpushbutton.cpp, .h - parzialmente riscritto
+	-> treaderwriter/treaderwriter.cpp, h - parzialmente riscritto
+	   Ora usano QTango widget direttamente, senza passare per QDialog e frameless window...
+	   Assomigliano a TComboBox.
+	-> treaderwriter/treaderwriterwidgets.cpp, h tolti i widget inutili, lasciata la TReaderLabel.
+
+* test widgets: test/tplotlight/src/tplotlight.ui rigenerato dopo il nuovo TReaderWriter
+
+* qtango/qtango.pro: rimossi dalla lista dei compilandi: src/treaderwriter/twriterwidget.h  e src/treaderwriter/twriterwidget.cpp
+
+* qtango/src/tled.cpp, qtango/src/tcheckbox.cpp
+	source() must be replaced with realSource()
+
+qtango/src/treaderwriter/treaderwriter.h, .cpp
+	now treader writer simply inherits from TLabel, to have TLabel's functionality directly available.
+	This means no refresh() implementation inside TReaderWriter, automatic setSource and hide/show event management.
+	configuration events are intercepted and connected to an initialization slot that sets up the writer part.
+	Since show/hide events call proxy reader unsetSource, on proxy reader's show event setSource is called again
+	(really in showEvent() the proxy reader calls the handle set source, see above...), at every show hide event
+	the writer part is reconfigured.
+	Removed treaderwriterwidgets.h/.cpp no more needed
+	
+qtango/test directory:
+	regenerated some .ui after update to TReaderWriter
+	substitute some proxy reader's call to source() with realSource()
+	
+* qtango/qtango.pro: rimossi dalla lista dei compilandi:  src/treaderwriter/treaderwriterwidgets.h  e src/treaderwriter/treaderwriterwidgets.cpp
+	
+
+* qtango/src/tpushbutton.h, qtango/src/treaderwriter/treaderwriter.h, cpp qtango/src/tapplynumeric.cpp : 
+	SLOT disable() e connessione a handle SIGNAL connectionFailed
+
+
+=================================== 2009 06 05 ===================================
+
+tspinbox.cpp / tdoublespinbox.cpp:
+	check if stdUnit is set or not before setting it as suffix
+	
+tcheckbox.cpp
+	QTangoComProxyReader::setAutoConfiguration(true);
+       QTangoComProxyWriter::setAutoConfiguration(false);
+	auto configuration does not setText() if the text is different from "No Link", i.e. it was set with the designer
+
+qtango/src/treaderwriter/treaderwriter.h,cpp
+	added TComboBox as a writer when the attribute has the property "values"	
+
+qtango/src/tcombobox.cpp:
+	initialized d_indexMode to false in the constructor
+
+=================================== 2009 06 08 ===================================
+	
+CVS: removed tscalarcontrollers.cpp, h and TScalarControllers.
+
+tvariant.cpp: toString(): display unit is now checked and considered, according to the meaning of display unit
+	in the tango manual.
+	
+tspinbox.cpp tdoublespinbox.cpp:
+	they now check displayUnit instead of standard unit, according to the consideration above
+	
+qtango/qtango/src/tcirculargauge.h, tlabel.h: 
+	doc
+	
+qtango/qtango/src/tplot.h, qtango/qtango/src/ttable.h, tled.h:
+	doc, added Q_PROPERTY(hideEventEnabled...) missing 
+	
+qtango/src/treaderwriter/treaderwriter.h:
+	removed commented Q_PROPERTY (useless)
+	added void mousePressEvent() to add clickability on the line edit (not only on the appearing/disappearing push button) - HCI aspect -
+	
+qtango/src/tdoublespinbox.cpp, tspinbox.cpp:
+	testing and setting displayUnit for measurement units - according to tango manual
+	
+qtango/src/tplotlight/tplotlight_marker.h:
+	doc
+	
+qtango/src/treaderwriter/treaderwriter.cpp:
+	hand cursor over edit button and TLabel when over.
+	
+qtango/qtango/src/tlabel.cpp:
+	setHelperApplicationEnabled(false) not true as before
+	
+qtango/qtango/src/treaderwriter/treaderpushbutton.cpp:
+	hand cursor
+	
+	
+QTango PLUGINS:
+
+qtango/qtango/plugins/qtangoplugin.cpp:
+	Readers now right after creation call setDesignerMode(true) to tell the reader that the object lives inside the 
+	designer: for instance, this tells the reader to disable show/hide events, without interfering with the specific
+	property of the reader.
+
+-------------------------------------------   qtcontrols ----------------------------------------------------------------------
+
+tolte alcune printf rimaste in estackedwidget container
+	
+eapplyNumeric:
+	disable() slot che chiama direttamente setDisabled(true)
+	verra` usato da TApplyNumeric tramite segnale di qtangoComHandle connectionFailed()
+	
+						Fine note qtango_Branch_3_0_0_patches
+===================================================================================================================================
+
+
+
+QTango_3_0_0
+
+QTangoCore
+
+- dovrei avere sistemato la questione dei killTimer all'uscita, che a volte
+veninvano eseguiti nel main thread invece che nel DeviceThread.
+L'obiettivo e` stato raggiunto suddividendo la distruzione dei thread (in tutil)
+in parte in uno slot collegato a qApp::aboutToQuit e nel distruttore di TUtil.
+
+- TUtil device thread management has been replaced by a DeviceThreadFactory that controls
+  DeviceThread set (registration, deregistration, find device thread).
+  New files: device_thread_factory.h and device_thread_factory.cpp in qtangocore/src.
+  
+  
+- The communication handle emits a signal with a bool parameter telling if the setSource was successful or not.
+  A method to retrieve the error message is available through the reader and writer: QString connectionErrorMessage();
+
+New Features:
+	
+SpectrumWriter: it takes values from N data proxies and writes them into a tango spectrum attribute.
+
+
+QTango
+
+test moved into directory `widgets' inside qtango/qtango/test.
+The directory `test' now contains the examples separated in different folders
+
+treaderwriter: correzioni e miglioramenti all'interfaccia 
+
+TLineEdit: auto configurazione anche in caso di stringhe e proprieta` target su DESIGNER per auto configurazione
+
+qtcontrols:
+	
+EStackedWidgetContainer: a qtcontrols widget able to organize its children in a stack. Overlapping widgets
+have a z axis that determines their priority on the stack. Each pain event on the EStackedWidgetContainer
+produces the refresh of the child widgets according to their z axis priority.
+
+ENumeric: corretto malfunzionamento del disegno quando setValue() veniva chiamata
+
+ELed: introdotto booleano, anche come designer property, per definire gradiente lineare oppure no
+
+qtango_3_0_0_rc2:
+
+QTangoCore
+
+communication_handle.cpp
+void QTangoCommunicationHandle::setSources(QStringList sourcesList):
+
+corrected a bug in communication_handle.cpp: TActionList was deleted inside an exception 
+handler. This might have caused a crash if the device was not exported during target setup.
+
+corrected a bug that used to deconfigure designer settings when hidden and shown again.
+affected files: communication_handle.cpp, methods: setSources(), setSource().
+Solution: d_oldSources is saved in case of subscription failure, so that oldSource() and oldSources()
+return in any case the first setting.
+
+a bug in taction.cpp was causing an exception when commanding_inout commands with an argout of type DEV_VOID.
+Correction: argout is taken into account and saved inside the TAction only when non void.
+
+communication_handle.cpp: a bug deconfigures qtangocore source inside the designer when the widget (designer)
+is hidden AND the configuration of the qtango widget fails (e.g. when tango host is wrong or the device / attribute
+do not exist)
+
+file involved: void QTangoCommunicationHandle::unsetSource()
+
+bug number: 24: "source/target deconfigures after hide event in consequence of a previous connection failure"
+
+qtango:
+
+TComboBox: returns currentIndex() inside getData() if configured (also designer property)
+with setIndexMode(bool).
+
+TPixmap: corrected bug 22:
+
+"TPixmap non sembra funzionare: non visualizza l'immagine e non cambia immagine
+al cambio di stato del device corrispondente. Inoltre il metodo getState() restituisce costantemente il valore 0 (zero)"
+
+
+qtcontrols: corrected bug  Bug 12 -  ELabel minimum size
+
+qtango_3_0_0_rc3:
+	
+qtcontrols:
+	
+	introdotto set di plot leggeri:
+	 	EPlotLightBase
+		EPlotLight
+		EPlotLightMarker
+		
+	e una serie di elementi qtcontrols per il loro utilizzo/composizione:
+	 	EPlotCurve
+		ECurveData
+		...
+		
+qtango:
+	- plot com proxy reader per i PlotLight: implementazione di
+	
+		TPlotLightMarker: EPlotLightMarker con qtangocore
+		
+	- TReaderWriter: un widget per i sinottici che implementa un lettore e uno scrittore nascosto configurato in modo
+	  automatico in base alla sorgente tango.
+	  
+
+	  

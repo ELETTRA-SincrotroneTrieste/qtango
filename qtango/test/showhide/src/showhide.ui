@@ -1,0 +1,120 @@
+<ui version="4.0" >
+ <class>WShowHide</class>
+ <widget class="QWidget" name="WShowHide" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>459</width>
+    <height>371</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QHBoxLayout" >
+   <item>
+    <widget class="QSplitter" name="splitter" >
+     <property name="orientation" >
+      <enum>Qt::Vertical</enum>
+     </property>
+     <widget class="QTextEdit" name="textEdit" >
+      <property name="sizePolicy" >
+       <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+        <horstretch>0</horstretch>
+        <verstretch>1</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="autoFormatting" >
+       <set>QTextEdit::AutoAll</set>
+      </property>
+      <property name="readOnly" >
+       <bool>true</bool>
+      </property>
+      <property name="html" >
+       <string>&lt;html>&lt;head>&lt;meta name="qrichtext" content="1" />&lt;style type="text/css">
+p, li { white-space: pre-wrap; }
+&lt;/style>&lt;/head>&lt;body style=" font-family:'Sans Serif'; font-size:9pt; font-weight:400; font-style:normal;">
+&lt;p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;">&lt;/p>&lt;/body>&lt;/html></string>
+      </property>
+     </widget>
+     <widget class="QWidget" name="" >
+      <layout class="QVBoxLayout" >
+       <item>
+        <widget class="QTabWidget" name="tabWidget" >
+         <property name="sizePolicy" >
+          <sizepolicy vsizetype="Expanding" hsizetype="Expanding" >
+           <horstretch>0</horstretch>
+           <verstretch>1</verstretch>
+          </sizepolicy>
+         </property>
+         <property name="currentIndex" >
+          <number>0</number>
+         </property>
+         <widget class="QWidget" name="tab" >
+          <attribute name="title" >
+           <string>Tab 1</string>
+          </attribute>
+          <layout class="QHBoxLayout" >
+           <item>
+            <widget class="TLabel" name="labelDoubleScalar" >
+             <property name="source" >
+              <string>test/device/1/double_scalar</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="TLabel" name="labelShortScalar_ro" >
+             <property name="source" >
+              <string>test/device/1/short_scalar_ro</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+         <widget class="QWidget" name="tab_2" >
+          <attribute name="title" >
+           <string>Tab 2</string>
+          </attribute>
+          <layout class="QHBoxLayout" >
+           <item>
+            <widget class="TLabel" name="label_tab2_short_scalar" >
+             <property name="source" >
+              <string>test/device/1/short_scalar</string>
+             </property>
+            </widget>
+           </item>
+           <item>
+            <widget class="TLabel" name="label_TAB2_double_scalar" >
+             <property name="source" >
+              <string>test/device/1/long_scalar</string>
+             </property>
+            </widget>
+           </item>
+          </layout>
+         </widget>
+        </widget>
+       </item>
+       <item>
+        <widget class="QCheckBox" name="checkBox" >
+         <property name="text" >
+          <string>Enable hide events</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TLabel</class>
+   <extends>ELabel</extends>
+   <header>TLabel</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

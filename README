@@ -1,0 +1,37 @@
+Since version release_5_4_0: 
+support for Qt5. If qt5 qmake is used, all the libraries will end with the "-qt5" suffix, for example
+libQTango6-qt5.so, libqtcontrols6-qt5.so, libqtango6-qt5plugin.so and so on.
+
+All libraries that depend from qtango must behave consequently, linking with the "-qt5" version of the QTango library.
+The file to include is always {INCLUDE_PATH}/qtango5/qtango.pri
+qtango.pri detects the qmake version and appends the "-qt5" library suffix when needed.
+
+Since QTango version 6.0, tango 9 and omniorb 4.2.0 are used. 
+{INCLUDE_PATH}/qtango6/qtango.pri must be included.
+
+
+/usr/local/tango-9.1.0/include/tango.
+
+Dependencies:
+qt libraries (qtsvg, qtopengl, qtcore, qtgui, qtxml)
+libxmu
+libqwt6
+zmq
+tango
+omniorb
+
+
+This change is taken into account in the qtango.pri project configuration 
+file of the QTango distribution since version 4.2.1 (see unix:INCLUDEPATH
+directive in qtango.pri).
+
+If you are going to build QTango with a previous version of tango, then 
+modify the unix:INCLUDEPATH directive in qtango.pri according to the 
+tango include installation path.
+
+Compilation
+
+qmake
+make [-jN ]
+make install
+

@@ -1,0 +1,8 @@
+<!DOCTYPE RCC><RCC version="1.0">
+ <qresource>
+     <file>icons/device.png</file>
+     <file>icons/device_off.png</file>
+     <file>icons/command.png</file>
+     <file>icons/attribute.png</file>
+ </qresource>
+ </RCC>

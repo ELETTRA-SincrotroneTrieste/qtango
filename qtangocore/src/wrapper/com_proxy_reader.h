@@ -1,0 +1,713 @@
+/***************************************************************************
+*   Copyright (C) 2008 by Giacomo Strangolino	   *
+*   giacomo.strangolino@elettra.trieste.it   *
+*                                                                         *
+*   This program is free software; you can redistribute it and/or modify  *
+*   it under the terms of the GNU General Public License as published by  *
+*   the Free Software Foundation; either version 2 of the License, or     *
+*   (at your option) any later version.                                   *
+*                                                                         *
+*   This program is distributed in the hope that it will be useful,       *
+*   but WITHOUT ANY WARRANTY; without even the implied warranty of        *
+*   MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the         *
+*   GNU General Public License for more details.                          *
+*                                                                         *
+*   You should have received a copy of the GNU General Public License     *
+*   along with this program; if not, write to the                         *
+*   Free Software Foundation, Inc.,                                       *
+*   59 Temple Place - Suite 330, Boston, MA  02111-1307, USA.             *
+***************************************************************************/
+
+/* $Id: com_proxy_reader.h,v 1.35 2013-07-03 13:54:42 giacomo Exp $ */
+
+
+#ifndef QTANGO_COM_PROXY_READER_H
+#define QTANGO_COM_PROXY_READER_H
+
+#include <QString>
+#include <QVariant>
+#include "communication_handle.h"
+#include "proxy_interface.h"
+
+/** \brief The core class from which one should inherit to implement a reader
+ *
+ * <h1>The tango reader</h1>
+ * <p>
+ * This is the fundamental object from which you should inherit to implement a tango reader.
+ * QTangoComProxyReader is <strong>not</strong> a QObject, so you are allowed to inherit from both a QObject 
+ * (or a QWidget) and this reader.
+ * </p>
+ * <p>
+ * Due to the implementation of the reader, the link to the tango layer is available through the 
+ * QTangoCommunicationHandle. The QTangoCommunicationHandle <strong>is a QObject</strong> that emits
+ * Qt signals which may be connected to Qt slots. 
+ * </p>
+ * <h2>Steps to implement a Tango reader</h2>
+ * <p>
+  To implement a Tango reader in your application making use of the <strong>QTangoCore</strong> framework, 
+  first of all you have to inherit from this class. For instance, to create a label showing a double scalar
+  value, create a label derived from both QLineEdit (or QLabel) and QTangoComProxyReader:
+ \code
+  class MyLabel : public QLineEdit, public QTangoComProxyReader
+ \endcode
+ * </p>
+ <p>
+  The <strong>tango</strong> communication is allowed by means of the Qt signal/slot mechanism.
+  <br/>Signals are emitted by the QTangoCommunicationHandle owned by the QTangoComProxyReader, 
+ accessible through the public method qtangoComHandle().
+ The most relevant signals emitted by the handle are:
+ <ul>
+ <li>void QTangoCommunicationHandle::newData();</li>
+ <li>void QTangoCommunicationHandle::attributeAutoConfigured()</li>
+ </ul>
+ By connecting the two <em>signals</em> to suitable MyLabel <em>slots</em>, it is possible to 
+ receive new data from the tango devices and attribute configuration events:
+ </p>
+ <p>
+  \code 
+  connect(qtangoComHandle(), SIGNAL(newData(const TVariant &)), this,  SLOT(refresh(const TVariant&)));
+  connect(qtangoComHandle(), SIGNAL(attributeAutoConfigured(const TangoConfigurationParameters *)),this, 
+      SLOT(init(const TangoConfigurationParameters *)));  
+  \endcode
+ </p>
+ 
+ <h3>Involved objects</h3>
+ <p>
+  The code above illustrates how to create a reader and to receive the tango events inside it.
+  You might want to have a look at:
+  <ul>  
+    <li>QTangoCommunicationHandle::newData() </li>
+    <li>QTangoCommunicationHandle::attributeAutoConfigured() </li>
+     <li>TangoConfigurationParameters </li>
+     <li>TVariant </li>
+     <li>refresh()</li>
+  </ul>
+ </p>
+ 
+ <h2>
+  Correct destruction of the QTangoCore objects
+ </h2>
+ <p>
+  It is important that the QTango core layer objects are destructed when your application terminates.
+  This means that <em>the destructor of your class inheriting from QTangoComProxyReader has to be called</em>.
+  <h3>Example</h3>
+  <p>Suppose you are going to write a user interface made up of a main QWidget (or QDialog or QMainWindow)
+     with many QTangoCore objects inside. When creating it, be sure to proceed in one of the following two
+     ways:
+  <ul>
+  <li>\code 
+      MainWindow *mw = new MainWindow(0); // constructed with <em>new</em> operator... <br/>
+      mw->setAttribute(Qt::WA_DeleteOnClose); // ... requires setAttribute() \endcode</li>
+
+  <li>
+    \code
+    MainWindow mw(0); // destructor will be automatically called
+   \endcode
+  </li>
+  </ul>
+  
+  Of course you do not have to forget that each QObject destructs its children when destructed, so creating 
+  your QTangoComProxyReader, in your class constructor, remember to proceed like this:
+  \code
+    MyLabel::Myabel(QWidget *parent, Qt::WFlags) : QLabel(parent), 
+	QTangoComProxyReader(this)
+   {
+    // ...
+   }
+  \endcode
+  
+  When MyLabel's destructor is called, all its children are deleted. For this reason, note the 
+  <em>QTangoComProxyReader(<strong>this</strong>)</em> construction.
+ </p>
+ </p>
+ 
+ <h3>Polled tango attributes and graphical QTangoCore widgets refresh. <br/>Observations in GUI design</h3>
+ <p>
+  Tango attributes, if events are not available or if POLLED_MODE was chosen explicitly 
+  calling QTangoComProxyReader::setRefreshMode(), are polled with the selected period,
+  one second by default or as specified with QTangoComProxyReader::setPeriod().
+  <br/>QTangoCore is a multi-threaded framework, so each <em>tango attribute refresh</em> would
+  produce a <em>widget refresh</em>. With many widgets populating the graphical interface, each
+  element refresh/repaint would arrive asynchronously producing a heavy cpu load.
+  <em>By default</em> QTangoCommunicationHandle::newData() <em>signal</em> is triggered by an
+  external timer. At each timeout, signals are emitted together and the user interface is refreshed
+  all at once. This produces an improved performance of your graphical application, when it is heavy
+  populated by QTangoCore derived widgets.
+  Anyway, to provide maximum flexibility, his feature can be tuned and the so called <em>global refresh</em>
+  can be disabled
+  <ul>
+  <li><em>globally</em>, via TUtil::setGlobalRefreshDisabled()</li>
+  <li><em>per element</em>, via QTangoComProxyReader::setWaitRefresh</li>
+  </ul>
+ </p>
+ <strong>Note</strong>
+ <p>
+ 	For <em>POLLED_REFRESH attributes</em>, before the poller is started with the configured period (one 
+  	second by default), a <em>read execution is immediately triggered</em>, and <em>this first execution
+	is not queued to be refreshed with the external timer</em>. This means that the first refresh always
+	becomes available as soon as data is read from the tango layer through read_attribute, wether global
+ 	wait refresh is enabled or not.
+ </p>
+ <h3>Show hide event optimization for  <em>reader widgets</em></h3>
+ <p>
+ QTango version 3 optimizes the communication with the tango layer when a QTango widget is hidden.
+ This means that a <em>hidden qtango widget normally doesn't refresh itself</em>, unless it is 
+ <em>event driven</em> or the <em>hideEventsEnabled</em> is set to false.
+ @see hideEventEnabled()
+ @see setHideEventEnabled()
+ <br/> It is recommended to read the documentation for the just emd methods.
+ <br/>
+ <ul>The setSource() for QTango widgets works like this, supposing that <em>hide events are enabled</em>:
+<li>if the reader <em>isn't</em> a widget, the source is <em>immediately connected</em>;</li>
+<li>if the reader <em>is a widget:</li>
+<ul>
+	<li>if it is visible, the source is immediately connected;</li>
+	<li>if not, the connection with tango is <em>deferred to the first show event</em>;</li>
+	<li>when the widget receives a <em>hide event</em> it disconnects from the tango layer;</li>
+	<li>when the widget receives a <em>show event</em> it connects to the tango layer again.</li>
+</ul>
+<li>if the property hideEventsEnabled is set to <em>false</em>, the source will be immediately connected to the tango 
+ layer and show/hide events will be ignored.</li>
+</ul>
+<h2>Note</h2>
+<p>
+	If you are unhappy with the behaviour described when the show/hide events are enabled, then call 
+       setHideEventEnabled() with <em>false</em> as parameter. 
+</p>
+ </p>
+ 
+ 
+ <h3>Attribute configuration change events</h3>
+ <p>
+ 	QTango supports the <em>attribute configuration change</em> events, which are available through the Tango library.
+ 	The <em>attribute configuration change</em> are <strong>enabled by default for all readers</strong> and, if 
+ 	available, all attribute configuration changes are notified by the QTangoCommunicationHandle::attributeAutoConfigured
+ 	signal. In the current version it is not possible to disable this feature <em>per reader</em>. On the other hand, it
+ 	is possible to <em>disable this feature globally</em> by means of an environment variable called <br/>
+ 	<em>QTANGO_ATTR_CONF_CHANGE_DISABLED</em><br/>.
+ 	<em>export QTANGO_ATTR_CONF_CHANGE_DISABLED=1</em> will <em>disable</em> attribute configuration change event subscription
+ 	at reader source configuration. This might lead to a faster startup of the QTango application if the event channel is not
+ 	available. Leaving <em>QTANGO_ATTR_CONF_CHANGE_DISABLED</em> unset or set to <em>0</em> will imply the default behaviour.
+ </p>
+ 
+ */
+
+/*
+ * We might have chosen to inherit from different ProxyInterfaces for readers and writers, i.e. a ProxyReaderInterface and
+ * a ProxyWriterInterface. We would have avoided virtual base class inheritance. But since in the most of cases an object 
+ * is either a reader or a writer, it is useful to have only one base class defining a common behaviour, since the ProxyInterface
+ * in this case is aimed at defining a common behaviour for all readers and writers.
+ * Objects inheriting from both QTangoComProxyReader and QTangoComProxyWriter, will have to reimplement all virtual methods
+ * defined in ProxyInterface. You might want to have a look at proxy_interface.h and com_proxy_writer.h.
+ * An example is represented by the TCheckBox class in the qtango widgets distribution.
+ *
+ */
+class QTangoComProxyReader : virtual public ProxyInterface
+{
+	public:
+		/** The constructor. Each QObject that wants to read from tango, must inherit
+		 * from the QTangoComProxyReader and then has to implement the 
+		 * void refresh(const TVariant &) method, to be able to receive the newData()
+		 * signal.
+		 * The inheriting object, must connect the tango communication handle's newData()
+		 * signal to the reimplemented refresh() slot.
+		 * For example, let SimpleReader be a QObject who wants to read attributes from the 
+		 * tango layer:
+		 *
+		 * \par Example
+		 * \code
+		 * class SimpleReader : public QObject, public QTangoComProxyReader
+		 * {
+		 *  Q_OBJECT // to benefit from signals/slots
+ 		 *    public:
+		 * 	  SimpleReader(QObject *parent);
+		 *	  
+		 *     protected slots:
+		 *	  void refresh(const TVariant &v);
+		 * }
+		 * 
+		 * Inside the constructor, connect the communication handle to the refresh() method:
+		 * 
+		 * SimpleReader::SimpleReader(QObject *parent) : QObject(parent),
+		 *      QTangoComProxyReader(parent)
+		 * {
+		 *      // to receive data updates
+		 *      connect(qtangoComHandle(), SIGNAL(newData(const TVariant &)), this,
+		 * 	      SLOT(refresh(const TVariant&)));
+		 *     ....
+		 * }
+		 * \endcode
+		 *
+		 * This is all you need to be a reader.
+		 * @param parent the parent: must be a QObject, for instance a QWidget or 
+		 *        the QApplication: reader = new SimpleReader(QCoreApplication::instance());
+		 * @param mode the refresh mode: AUTO_REFRESH, USER_EVENT_REFRESH,
+		 *        CHANGE_EVENT_REFRESH, PERIODIC_EVENT_REFRESH, ARCHIVE_EVENT_REFRESH, POLLED_REFRESH,
+	         *        MANUAL_REFRESH. This is optional and can be specified later in the setSource() method.
+		 * @param period the refresh period. Optional. Same considerations as mode. Represents
+		 *        the polling period of the QTangoComProxy reader. NOTE: has nothing to do with Tango 
+		 *        polling period.
+		 */
+		QTangoComProxyReader(QObject *parent, RefreshMode mode = AUTO_REFRESH, int period = 1000);
+		
+		virtual ~QTangoComProxyReader();
+		
+		/** 
+		 * \brief sets the tango read point on the device attribute or the device command
+		 * 
+		 * This method is used by every object that wants to read tango attributes or output arguments 
+		 * of tango device commands.
+		 * Readings are performed according to the read <em>period</em> and <em>mode</em>.
+		 * @see setPeriod()
+		 * @see setRefreshMode()
+		 *
+		 * If the refresh mode is managed by polling <em>POLLED_REFRESH</em>, see setRefreshMode(), then
+		 * the <em>default behaviour</em> is to enqueue the read data and to deliver it to the reader with a 
+		 * timing determined by an <em>external trigger</em>. This <em>optimizes the GUI performance</em> when the number
+		 * of QTango widgets is high.
+		 * You might want to read TUtil::globalRefreshInterval() and TUtil::globalRefreshDisabled() and the introduction
+		 * to QTangoComProxyReader.
+		 * <p>
+		 * <strong> Note:</strong>
+		 * <strong>Event driven</strong> attributes <strong>always bypass the optimization queue and new
+		 * data is immediately delivered to the reader</strong>, wether global
+		 * wait refresh is enabled or not.
+		 * </p>
+		 * <p>
+		 * <strong>Note for <em>polled refresh attributes</em>.</strong>
+		 * <p>
+		 * For <em>POLLED_REFRESH attributes</em>, before the poller is started with the configured period (one 
+		 * second by default), a <em>read execution is immediately triggered</em>, and <em>this first execution
+		 * is not queued to be refreshed with the external timer</em>. This means that the first refresh always
+		 * becomes available as soon as data is read from the tango layer through read_attribute, whether global
+		 * wait refresh is enabled or not.
+		 * </p>
+		 * 
+		 * @param source the tango source point, expressed as "family/member/device/attribute", for attributes,
+		 *               or "family/member/device->command(optional_argin)". The argin can be taken from another QTangoCore
+		 *               object.
+		 * \par Example: give a command with an argin taken from another QTangoCore widget and read output argument
+		 * \code
+		 * TLineEdit *lineEdit = new TLineEdit(parentObject);
+		 * lineEdit->setObjectName("inputLabel"); // must set object name
+		 * tangoReader->setSource("test/device/1->DevDouble(&inputLabel)");
+		 * \endcode
+		 * <p>TLineEdit in the code above is a QTangoCore widget that inherits from class 
+		 *    SimpleDataProxy.
+		 * </p>
+		 * \par Example: read a tango device attribute
+		 * \code
+		 * TLabel * label = new TLabel(this);
+		 * label->setSource("test/device/1/double_scalar");
+		 * \endcode
+		 * <p> TLabel in the example above is a QTango object defined as follows:</p>
+		 * \code
+		 * class TLabel : public QLabel, public QTangoComProxyReader
+		 * \endcode
+		 * <p>As one can see, TLabel is a QWidget (a QLabel) <em>and</em> a proxy reader.</p>
+		 * \par Example: read a device attribute taking the device name from the command line
+		 * <p>Suppose that when you write your graphical user interface you do not know the name of
+		 * the tango device, or suppose you want your panel to be ready for a group of equivalent 
+		 * devices with different names. Than you might want to specify the device name, or the 
+		 * device names (if the panel reads from more than one device) on the command line and 
+		 * let your widgets read the attributes from those devices.
+		 * </p>
+		 * \code
+		 * TLabel *device1Label = new TLabel(this);
+		 * TLabel *device2Label = new TLabel(this);
+		 * device1Label->setSource("$1/double_scalar");
+		 * device2Label->setSource("$2/double_scalar");
+		 * ...
+		 * \endcode
+		 * <p>In this case, the token <em>$1</em> will be replaced at startup with the <strong>first</strong> 
+		 * command line argument, while the <em>$2</em> token will be replaced by the <strong>second</strong> command line 
+		 * argument. An arbitrary number of <em>$n</em> tokens can be set in setSource().</p>
+		 * <p>Launching your panel, named for instance <em>test</em>, as follows:
+		 * <ul><li>./test test/device/1 test/device/2</li></ul>
+		 * will set on the TLabels above created the sources
+		 * <ul><li>test/device/1/double_scalar and</li><li>test/device/2/double_scalar</li></ul> respectively.</p>
+		 *
+		 * <h3>Observations</h3>
+		 * <p>
+		 * Albeit possible, avoid calling setPeriod right after setSource, since this will affect performance.
+		 * What you cannot do is call setRefreshMode right after setSource. This will give you an error and 
+		 * the changes cannot be applied.
+		 * If you mind to personalize the refreshMode, you can either configure it on the server side, via the
+		 * Tango database properties, or calling setRefreshMode <em>before setSource</em>. This is not possible
+		 * if you set the <em>source</em> property by means of the Qt4 designer. If you need a QTango widget
+		 * with such a feature, create it with the designer, but call setRefreshMode() and setSource() in this order
+		 * inside the <em>.cpp</em> source, after setupUi(). Alternatively, you can invoke 
+		 * setSource(const QString &source, int period, RefreshMode refreshMode).
+		 *
+		 * @see setSource(const QString &source, RefreshMode refreshMode, int period)
+		 *
+		 * </p>
+		 */
+		virtual void setSource(const QString &source);
+		
+		virtual void setSource(const QString &source, RefreshMode refreshMode, int period);
+		
+		/** The default implementation disconnects from QTangoCore through the handle */
+		virtual void unsetSource(bool by_hideEvent = false);
+		
+		/** \brief This method must be implemented in every reader to receive data from the tango layer
+		 *
+		 * This must be implemented inside the classes inheriting from this interface
+		 * <strong>Before</strong> calling setSource(), connect qTangoComHandle() newData() <em>signal</em>
+		 * to the <em>refresh()</em> slot.
+		 * When data is available from the tango device, newData() is emitted by the communication handle and
+		 * this method is invoked. 
+		 * <strong>Note</strong>:<p> you <em>have to</em> define your implementation of refresh() as a Qt
+		 * <strong>slot</strong> to receive newData() signal.
+		 * @see TVariant and setSource()
+		 */
+		virtual void refresh(const TVariant &) = 0;
+		
+		/**
+		 * \brief returns the source point configured for the reader
+		 *
+		 * @return The string representing the tango source for the reader. 
+		 * For example:
+		 * test/device/1/short_scalar or hostname:PORT/test/device/1/short_scalar, or
+		 * $1/double_scalar, if the wildcard <em>$</em> was used. 
+		 * 
+		 * <h3>Note.</h3><p> this method does not return the <em>real</em> source 
+		 * computed by the communication handle, for example via the replaceWildcards()
+		 * method, when the <em>$</em> wildcards are used. The value returned by 
+		 * source() is the same returned by realSource() when a tango source point was
+		 * explicitly set, for instance <em>test/device/1/double_scalar</em>.</p>
+		 * @see realSource()
+		 * @see QTangoCommunicationHandle
+		 */
+		QString source() const;
+		
+		/** \brief the tango point. Equivalent to source().
+		 *
+		 * This must be implemented since we are a ProxyInterface
+		 */
+		QString tangoPoint()  const { return realSource(); }
+		
+		/** \brief returns true 
+		 * 
+		 * Must be implemented since we are a ProxyInterface 
+		 */
+		bool isReader()  const { return true; }
+		
+		/** \brief returns false 
+		 * 
+		 * Must be implemented since we are a ProxyInterface 
+		 */
+		bool isWriter()  const { return !isReader(); }
+		
+		/**
+		 * \brief returns the source currently used by the communication handle connected to tango
+		 *
+		 * @return the real source used by the qtango communication handle, which is equal to the value
+		 *         returned by the method source() if the source was explicitly and completely specified,
+		 *         for instance: <em>tango/device/test/double_scalar</em>. On the other hand, when 
+		 *         wildcards (<em>$1, $2, ...</em>) are used, the method returns the value of the source
+		 *         <em>after the widlcards are replaced</em> or, it is equivalent, the value of the source
+		 *         currently used by the qtango communication handle.
+		 * If you are interested in retrieving the source you provided in your code when you called setSource(),
+		 * use the method source() described above.
+		 *
+		 * @see source()
+		 * @see setSource()
+		 * @see QTangoCommunicationHandle
+		 */
+		QString realSource() const;
+		
+		/** \brief returns the last value read from the tango device for the configured source
+		 *
+		 * @return The last value that the communication handle received from the tango layer.
+		 *
+		 *  In some cases a reader might be interested in knowing the last value that was
+		 *  read from the tango device. This method queries the qtango handle to make the
+		 *  value available to the upper level without compelling the upper level itself
+		 *  to save the last value obtained inside its class.
+		 *  Since qtango version 4.x, this value is stored into QTangoCommunicationHandle class
+		 *  and no more retrieved from the TAction, for performance reasons (TAction::lastValueRead()
+		 *  implies acquiring a lock).
+		 *
+		 * @see TVariant
+		 */
+		TVariant currentValue();
+
+		/** \brief This represents the link to the tango layer. It is a QObject, emitting Qt signals which may
+		 *         be connected to custom slots, in particular the refresh() slot in consequence of the 
+		 *         newData() signal an auto_configuration slot connected to the 
+		 *         QTancoCommunicationHandle::attributeAutoConfigured() signal.
+		 * The handle that links the reader to the tango layer.
+		 * Mostly internally used, it is public on behalf of the users that need
+		 * to connect to the signals directly coming from the tango layer.
+		 * Maybe in the next future this will be made private and the signals mentioned
+		 * above propagated by the QTangoComProxyReader.
+		 *
+		 * @return the qtango communication handle that must be connected to the refresh slot
+		 *         or the auto configuration slots, or whatever else.
+		 * @see communication_handle.h
+		 */
+		QTangoCommunicationHandle* qtangoComHandle() const { return d_qtangoHandle; }
+		
+		/** \brief returns the configured period for the polling of the tango source, 1000 milliseconds is the default
+		 *
+		 * @return an integer representing the polling period of a source connected in <em>polled</em> mode.
+		 *         The value is in milliseconds.
+		 * @see setPeriod
+		 * @see setRefreshMode
+		 */
+		int period();
+		
+		/** \brief returns the <strong>real</strong> refresh mode of the configured source
+		 * @return the <em>real</em> refresh mode configured for the source.
+		 * Note that the real refresh mode <em>might be differend</em> from the refresh mode
+		 * you configured with setSource(). The most significant case is the one in which you configured
+		 * AUTO as refresh mode and the QTangoCore engine chose POLLED_REFRESH for the source.
+		 * <br/>
+		 * When you indicate AUTO, USER_EVENT_REFRESH, CHANGE_EVENT_REFRESH,
+	         * PERIODIC_EVENT_REFRESH or ARCHIVE_EVENT_REFRESH as refresh mode, QTangoCore implementation
+		 * will try to subscribe to tango <em>event system</em>. If events are available, an event
+		 * driven refresh mode will be chosen (CHANGE_EVENT_REFRESH if you selected AUTO), if they are not
+		 * POLLED_MODE will be adopted and the attribute will be polled.
+		 * Of course, <strong>commands are not managed by the event system</strong>, and so the reader will always poll 
+		 * the commands.
+		 */
+		RefreshMode refreshMode();
+		
+		/** \brief tells wether the source is set and the object is acquiring data
+		 * @return true if the setSource() was called and the reader is active
+		 * @return false if setSource() has not been called or if unsetSource() was called or
+		 * an error happened.
+		*/
+		bool configured();
+		
+		/** \brief changes the polling period of a reader
+		 * @param p the new period, in milliseconds, of the reader.
+		 *
+		 * This method has effect only in <strong>polled</strong> attributes, i.e. the ones 
+		 * with the refresh mode set to POLLED_REFRESH.
+		 * <p><strong>Note</strong>
+		 * <ul><li>If your desired refresh mode is AUTO (the default), the attribute might be 
+		 * <em>event driven</em> (real mode) and then changing the polling period would have 
+		 * no effect.</li><li>The method directly modifies the polling timer, if the real refresh
+		 * mode is POLLED_REFRESH @see setSource(QString source, RefreshMode mode = AUTO_REFRESH, int period = 1000)</li></ul></p>
+		 * <br/><strong>Note</strong>: <br/>calling setPeriod automatically adjusts the global refresh interval
+		 * of the external refresh trigger, if needed. There is no need to call TUtil::instance()->setGlobalRefreshInterval().
+		 * 
+		 * @see TUtil::setGlobalRefreshInterval
+		 * @see TUtil::globalRefreshInterval
+		 * @see period
+		 */
+		void setPeriod(int p);
+		
+		/** \brief the source refresh mode, to be called before setSource to personalize the refresh mode
+		 *
+		 * Call this method to set the refresh mode before calling setSource().
+		 * @see RefreshMode
+		 */
+		void setRefreshMode(RefreshMode r);
+		
+		/** \brief You can setup a list of attribute properties that will be read by the auto configuration
+		 *         system. You will get them through TangoConfigurationParameters inside the attributeAutoConfigured()
+		 *         signal.
+		 *
+		 * @param attributeProperties a QStringList containing the list of attribute properties you want to obtain
+		 *        within the TangoConfigurationParameters object passed inside the attributeAutoConfigured() signal method.
+		 *
+		 * @see TangoConfigurationParameters::attributePropertyValue()
+		 *
+		 * <h3>Note</h3><p>You must call it inside your code <strong>before calling setSource()</strong>.
+		 * <br/>Otherwise, auto configuration system won't be able to retrieve those attribute properties
+		 * at connection time.</p>
+		 */
+		void setDesiredAttributePropertyList(const QStringList &attProps);
+
+        /** \brief Returns the list of attribute properties you setup with setDesiredAttributePropertyList
+         *
+         * @see setDesiredAttributePropertyList
+         */
+        QStringList desiredAttributePropertyList();
+
+        /** \brief sets the timeout, in milliseconds, to be applied to the Database object
+         *         before calling get_attribute_property in QTangoAutoConfiguration.
+         *
+         * @param dbTimeoutMillis, the timeout, in milliseconds, to be applied to get the desired
+         *        attribute properties.
+         *
+         * @par Note
+         * The timeout is applied only to the desiredAttributePropertyList properties, in
+         * the auto configuration step, on the Database object. The timeout only affects the
+         * Tango::Database::get_device_attribute_property method.
+         */
+        void setAttributePropertyDbTimeoutMillis(int dbTimeoutMillis);
+
+        /** \brief returns the timeout, in milliseconds, of the get_device_attribute_property
+         *         method on the Database.
+         *
+         * @see setAttributePropertyDbTimeoutMillis
+         */
+        int attributePropertyDbTimeoutMillis() const;
+		
+		/* auto configuration */
+		bool getAutoConfiguration();
+		
+		/** \brief Requests a read of the source.
+		 *
+		 * Call this if you want to force a read in your reader.
+		 *
+		 */
+		void read(QVariant v = QVariant());
+		
+		/** \brief auto configure an attribute with minumum, maximum, warning and error thresholds, when possible
+		 *
+		 * @param en if true enables auto configuration for the tango attribute. The attribute must be configured
+		 *           into the database with its minimum, maximum, alarm and warning thresholds, including measurement unit.
+		 *           The configuration is possible via the <em>jive</em> utility.
+		 * @param confChangeEventEnabled if true, enables configuration events for the attribute. If events are available,
+		 *                               the QTangoCommunicationHandle::attributeAutoConfigured() signal is emitted.
+		 *
+                 * @see QTangoCommunicationHandle::attributeAutoConfigured()
+		 * @see QTangoCommunicationHandle
+		 * <br/>
+		 * <h3>Important note</h3>
+		 * <p> 
+		 *	Should you not like to receive auto configuration events from the QTangoCommunicationHandle, disable
+		 *	this property. If a tango attribute is configured 
+		 *	into the Tango database with <em>minimum and maximum values</em>, then auto configuration is considered
+		 *	enabled and possible. Widgets displaying the values of that tango attribute will auto configure themselves
+		 *	with those minimum and maximum values.
+		 *	If you want to set minimum and maximum values by yourself (by code or with the Qt designer), disable
+		 * 	this property and the configuration coming from the tango database will be ignored.
+		 * 	<br/>
+		 *	<strong>Note</strong>: the same principle is applied to the <strong>writers</strong>, implementing 
+		 *	QTangoComProxyWriter.
+		 * </p>
+		 * <p>	
+		 * If you do not configure the tango database with a range, but you provide a standard measurement unit, then
+		 * your reader will receive a configuration event with that data.
+		 * </p>
+		 */
+		void setAutoConfiguration(bool en, bool confChangeEventEnabled = false);
+		
+		/** \brief returns true if auto configuration is enabled, false otherwise.
+		 *
+		 * @return true auto configuration of the widget is applied according to the tango database for the 
+		 *         provided source set with setSource().
+		 *
+		 * @return false auto configuration is ignored and you are able to set custom minimum and maximum 
+		 *         values, together with all the other parameters that your widget can display as to the
+		 *         tango configuration parameters (measurement units, alarm and warn thresholds, and so on).
+		 */
+		bool autoConfiguration() const;
+
+		bool canPlotTrend();
+		
+		/** \brief enables or disables tango reading information tooltips on the widgets, if the inheriting class is a widget
+		 *
+		 * @param enable if true, enables the tooltip that provides information about the last tango reading
+		 *                              if false, disables tango reading tooltips, letting the user personalize the widget tooltip
+		 * Of course, this is valid if the inheriting object is a QWidget.
+		 */
+		void setTangoToolTipsEnabled(bool enable);
+		
+		/** \brief returns true if the tango tooltips are enabled.
+		 *
+		 * @return true if the tango tooltips generated by the core are enabled.
+		 *                 false if the tango tooltips generated by the core are disabled.
+		 * If false, you can set your personalized tooltips via the classic QWidget::setToolTip()
+		 * @see setTangoToolTipsEnabled()
+		 */
+		bool tangoToolTipsEnabled();
+		
+		/** \brief sets the message tooltip on the parent if it is a QWidget 
+		 *
+		 * @param message the tooltip you want to set on the widget used to construct the reader.
+		 * The QTangoComProxyReader must be initialized with the pointer to a QWidget for this to work
+		 */
+		void setReaderToolTip(const QString& message);
+		
+		/** \brief Adjusts the refresh of the <strong>widget</strong>. It can be synchronous with a global clock, to improve performance,  or triggered immediately when new data is available. It has nothing to do with <strong>tango</strong>
+		refresh mode or period.
+		 *
+		 * If the number of reader widgets in your panels is high, it would be time consuming if you let
+		 * every widget refresh immediately as soon as new data is available.
+		 * @param wait true: update all the widgets on an external trigger (improves performance)
+		 *             false: update the reader as soon as data is available from the tango layer
+		 */
+		void setWaitRefresh(bool wait);
+		
+		/** \brief returns the wait refresh status of the reader
+		 * 
+		 * @return true if the <strong>widget</strong> refresh is synchronous with an external refresh trigger signal
+		 *         false if the <strong>widget</strong> is updated immediately after new data is available.
+		 * @see setWaitRefresh()
+		 */
+		bool waitRefresh();
+		
+		/** \brief returns the connection error message deriving from a setSource failure
+		 *
+		 * When setSource() fails, the QTangoCommunicationHandle sets an error message that can be retrieved by
+		 * this method.
+		 * @return the setSource() error message.
+		 */
+		QString connectionErrorMessage();
+		
+		/** \brief tells the reader that it is being used inside the Qt designer (i.e. plugin)
+		 *
+		 * Calling this method with true, tells the reader that it is being used inside the designer.
+		 * The reader might consequently configure itself in a special way. For example, inside the
+		 * Qt designer, hide/show events must be disabled since TActions are shared among the same 
+		 * sources.
+		 * Please <strong>remember to call this inside any Qt Designer plugin implementing QTangoComProxyReader</strong>.
+		 * This mode is obviously disabled by default (i.e. false).
+		 *
+		 * @see setHideEventEnabled
+		 */
+		void setDesignerMode(bool);
+		
+		bool designerMode();
+		
+		/** \brief manages reader show events 
+		 * 
+		 * Used by ShowEvent class, you can reimplement this method to provide another implementation.
+		 * @see ShowHide::setHideEventEnabled
+		 */
+		virtual void showEvent();
+		
+		/** \brief manages reader hide events 
+		 * 
+		 * Used by HideEvent class, you can reimplement this method to provide another implementation.
+		 * @see ShowHide::setHideEventEnabled
+		 */
+		virtual void hideEvent();
+		
+		void enableHideEvents(bool en);  /* used by ShowHide class */
+		
+		bool hideEventsEnabled();
+		
+		/** \brief This method can be used to retrieve the number of times the execute method has been
+		 *         executed inside the Device thread.
+		 *
+		 * This method returns the number of times a <strong>reader</strong> has been refreshed 
+		 * <strong>inside the device thread</strong>. This, in a given instant, might not be equal
+		 * to the number of times the communicationHandle emits the newData signal, or to the 
+		 * number of times a widget is refreshed.
+		 */
+		int actionRefreshCount() const;
+		
+	protected:
+		
+	private:
+		
+		QTangoCommunicationHandle* d_qtangoHandle;
+		QObject * d_parent;
+		
+		/* the `raw' source: the source specified in the code, before any processing is 
+		 * done on it, for example, before replaceWildcards(). This is managed, stored and
+		 * known only by the proxy reader, not by the handle.
+		 */
+		QString d_rawSource;
+};
+
+
+#endif

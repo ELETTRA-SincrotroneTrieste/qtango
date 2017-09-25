@@ -1,0 +1,12 @@
+<!DOCTYPE RCC>
+<RCC version="1.0">
+ <qresource>
+ 	<file>artwork/bwnoise.png</file>
+     <file>artwork/paletteBW.png</file>
+     <file>artwork/paletteC.png</file>
+     <file>artwork/paletteJet.png</file>
+     <file>artwork/paletteHot.png</file>
+     <file>artwork/okguy.png</file>
+     <file>artwork/trollface-problem.png</file>
+ </qresource>
+</RCC>

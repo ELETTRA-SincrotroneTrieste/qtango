@@ -1,0 +1,21 @@
+#ifndef _QTCONTROLS_H_LIST
+#define _QTCONTROLS_H_LIST
+
+#include <eplotlight_marker.h>
+#include <enumeric.h>
+#include <eapplynumeric.h>
+#include <eapplybutton.h>
+#include <eflag.h>
+#include <egauge.h>
+#include <elabel.h>
+#include <eled.h>
+#include <earrow.h>
+#include <eapplicationbutton.h>
+#include <eapplicationlauncher.h>
+#include <estackedwidget_container.h>
+#include <econtexthelp.h>
+#include <ewidget.h>
+#include <eimage/eimagewidget.h>
+
+#endif
+

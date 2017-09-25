@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>WShowHide</class>
+ <widget class="QWidget" name="WShowHide">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>462</width>
+    <height>444</height>
+   </rect>
+  </property>
+  <property name="sizePolicy">
+   <sizepolicy hsizetype="Preferred" vsizetype="Ignored">
+    <horstretch>0</horstretch>
+    <verstretch>0</verstretch>
+   </sizepolicy>
+  </property>
+  <property name="windowTitle">
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout">
+   <item row="0" column="0" colspan="2">
+    <widget class="TApplyNumeric" name="tApplyNumeric">
+     <property name="enabled">
+      <bool>true</bool>
+     </property>
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Preferred">
+       <horstretch>0</horstretch>
+       <verstretch>1</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="value">
+      <double>288.100000000000023</double>
+     </property>
+     <property name="integerDigits" stdset="0">
+      <number>3</number>
+     </property>
+     <property name="decimalDigits" stdset="0">
+      <number>2</number>
+     </property>
+     <property name="fontScaleEnabled">
+      <bool>true</bool>
+     </property>
+     <property name="targets">
+      <string>test/device/3/double_scalar;;;;;</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="0">
+    <widget class="TLabel" name="tLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="MinimumExpanding">
+       <horstretch>0</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>No Link
+Pippo
+Pluto</string>
+     </property>
+    </widget>
+   </item>
+   <item row="1" column="1" rowspan="2" colspan="2">
+    <widget class="TTable" name="tTable">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="MinimumExpanding" vsizetype="MinimumExpanding">
+       <horstretch>1</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item row="2" column="0">
+    <widget class="TLineEdit" name="tLineEdit">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Expanding" vsizetype="Minimum">
+       <horstretch>1</horstretch>
+       <verstretch>2</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="text">
+      <string>Pippo pluto paperino</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0">
+    <widget class="TComboBox" name="tComboBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>2</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1">
+    <widget class="TSpinBox" name="tSpinBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>2</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="2" rowspan="2">
+    <widget class="TDoubleSpinBox" name="tDoubleSpinBox">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Minimum" vsizetype="Minimum">
+       <horstretch>0</horstretch>
+       <verstretch>1</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="2">
+    <widget class="TSimpleLabel" name="tSimpleLabel">
+     <property name="sizePolicy">
+      <sizepolicy hsizetype="Preferred" vsizetype="Minimum">
+       <horstretch>1</horstretch>
+       <verstretch>1</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TSimpleLabel</class>
+   <extends>QLabel</extends>
+   <header>TSimpleLabel</header>
+  </customwidget>
+  <customwidget>
+   <class>TLabel</class>
+   <extends>ELabel</extends>
+   <header>TLabel</header>
+  </customwidget>
+  <customwidget>
+   <class>TTable</class>
+   <extends>EFlag</extends>
+   <header>TTable</header>
+  </customwidget>
+  <customwidget>
+   <class>TLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>TLineEdit</header>
+  </customwidget>
+  <customwidget>
+   <class>TComboBox</class>
+   <extends>QComboBox</extends>
+   <header>TComboBox</header>
+  </customwidget>
+  <customwidget>
+   <class>TSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>TSpinBox</header>
+  </customwidget>
+  <customwidget>
+   <class>TDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>TDoubleSpinBox</header>
+  </customwidget>
+  <customwidget>
+   <class>TApplyNumeric</class>
+   <extends>EApplyNumeric</extends>
+   <header>TApplyNumeric</header>
+  </customwidget>
+  <customwidget>
+   <class>ELabel</class>
+   <extends>QLabel</extends>
+   <header>ELabel</header>
+  </customwidget>
+  <customwidget>
+   <class>EFlag</class>
+   <extends>QWidget</extends>
+   <header>EFlag</header>
+  </customwidget>
+  <customwidget>
+   <class>EApplyNumeric</class>
+   <extends>QWidget</extends>
+   <header>EApplyNumeric</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

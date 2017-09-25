@@ -1,0 +1,407 @@
+<ui version="4.0" >
+ <class>Commander</class>
+ <widget class="QWidget" name="Commander" >
+  <property name="geometry" >
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>596</width>
+    <height>765</height>
+   </rect>
+  </property>
+  <property name="windowTitle" >
+   <string>Form</string>
+  </property>
+  <layout class="QGridLayout" name="gridLayout_2" >
+   <item row="0" column="0" colspan="3" >
+    <layout class="QHBoxLayout" name="horizontalLayout_2" >
+     <item>
+      <widget class="TDoubleSpinBox" name="tdoublespinbox" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="TPushButton" name="tPushButton_4" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="targets" >
+        <string>$1->DevDouble(&amp;tdoublespinbox)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label_4" >
+       <property name="text" >
+        <string>DevDouble readback (device 1):</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="TLineEdit" name="lEDevDouble" />
+     </item>
+    </layout>
+   </item>
+   <item row="1" column="0" colspan="3" >
+    <layout class="QHBoxLayout" name="horizontalLayout" >
+     <item>
+      <widget class="TLineEdit" name="tlineedit" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+         <horstretch>1</horstretch>
+         <verstretch>1</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="text" >
+        <string>type here a string...</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="TPushButton" name="tPushButton" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+         <horstretch>1</horstretch>
+         <verstretch>2</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip" >
+        <string>Apply the string in the line edit  to the 1st device provided as argument in the command line</string>
+       </property>
+       <property name="targets" >
+        <string>$1->DevString(&amp;tlineedit)</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="QLabel" name="label" >
+       <property name="text" >
+        <string>string scalar readback (device 1):</string>
+       </property>
+      </widget>
+     </item>
+     <item>
+      <widget class="TLineEdit" name="lEString1" >
+       <property name="sizePolicy" >
+        <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+         <horstretch>1</horstretch>
+         <verstretch>0</verstretch>
+        </sizepolicy>
+       </property>
+       <property name="toolTip" >
+        <string>here you will read the result of the DevString command with the argument provided on the left line edit</string>
+       </property>
+       <property name="text" >
+        <string>here you will read the result of the DevString command with the argument provided on the left line edit</string>
+       </property>
+      </widget>
+     </item>
+    </layout>
+   </item>
+   <item row="2" column="0" >
+    <widget class="TComboBox" name="tcombobox" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Fixed" hsizetype="Preferred" >
+       <horstretch>2</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="toolTip" >
+      <string>Change the combo and press ok... </string>
+     </property>
+     <item>
+      <property name="text" >
+       <string>Pippo</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Pluto</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Minnie</string>
+      </property>
+     </item>
+     <item>
+      <property name="text" >
+       <string>Sgubidu</string>
+      </property>
+     </item>
+    </widget>
+   </item>
+   <item row="2" column="1" >
+    <widget class="TPushButton" name="tPushButton_2" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+       <horstretch>1</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+     <property name="toolTip" >
+      <string>Apply the string in the combo to the 2nd device provided as argument in the command line</string>
+     </property>
+     <property name="targets" >
+      <string>$1->DevString(&amp;tcombobox);</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="0" >
+    <widget class="QLabel" name="label_2" >
+     <property name="text" >
+      <string>string scalar readback (device 2):</string>
+     </property>
+    </widget>
+   </item>
+   <item row="3" column="1" >
+    <widget class="TLineEdit" name="lEString2" >
+     <property name="sizePolicy" >
+      <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+       <horstretch>2</horstretch>
+       <verstretch>0</verstretch>
+      </sizepolicy>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="0" colspan="3" >
+    <widget class="QGroupBox" name="groupBox" >
+     <property name="title" >
+      <string>DevLong and DevShort (together) - on device number 1 (the first provided by command line)</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout" >
+      <item row="1" column="0" >
+       <widget class="TSpinBox" name="tspinbox" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" >
+       <widget class="TPushButton" name="tPushButton_3" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip" >
+         <string>Impart DevLong and DevShort to the first device indicated in the command line</string>
+        </property>
+        <property name="targets" >
+         <string>$1->DevLong(&amp;tspinbox);$1->DevShort(&amp;tspinbox)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="2" >
+       <widget class="QLabel" name="label_3" >
+        <property name="text" >
+         <string>DevLong readback (device 1):</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3" >
+       <widget class="TLineEdit" name="lEDevLong" />
+      </item>
+      <item row="2" column="0" colspan="2" >
+       <widget class="TApplyNumeric" name="tApplyNumeric_2" >
+        <property name="maximumSize" >
+         <size>
+          <width>120</width>
+          <height>60</height>
+         </size>
+        </property>
+        <property name="targets" >
+         <string>$1->DevShort;$1->DevLong</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2" >
+       <widget class="QLabel" name="label_5" >
+        <property name="text" >
+         <string>DevShort readback (device 1):</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="3" >
+       <widget class="TLineEdit" name="LEDevShort" />
+      </item>
+      <item row="0" column="0" colspan="4" >
+       <widget class="QLabel" name="label_6" >
+        <property name="text" >
+         <string>These sample spin box + push button and apply numeric both impart DevLong and DevShort commands:</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+   <item row="5" column="0" colspan="2" >
+    <widget class="TApplyNumeric" name="tApplyNumeric" >
+     <property name="maximumSize" >
+      <size>
+       <width>16777215</width>
+       <height>60</height>
+      </size>
+     </property>
+     <property name="targets" >
+      <string>$1->DevDouble</string>
+     </property>
+    </widget>
+   </item>
+   <item row="5" column="2" >
+    <widget class="QLabel" name="label_7" >
+     <property name="text" >
+      <string>This apply numeric commands "DevDouble", as the spin box above</string>
+     </property>
+    </widget>
+   </item>
+   <item row="6" column="0" colspan="3" >
+    <widget class="QGroupBox" name="groupBox_2" >
+     <property name="title" >
+      <string>DevVarDoubleArray</string>
+     </property>
+     <layout class="QGridLayout" name="gridLayout_3" >
+      <item row="0" column="0" >
+       <widget class="TDoubleSpinBox" name="tds0" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Minimum" >
+          <horstretch>1</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip" >
+         <string>objectName: tds0</string>
+        </property>
+        <property name="minimum" >
+         <double>-10000.000000000000000</double>
+        </property>
+        <property name="maximum" >
+         <double>10000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="0" >
+       <widget class="TDoubleSpinBox" name="tds1" >
+        <property name="toolTip" >
+         <string>objectName: tds1</string>
+        </property>
+        <property name="minimum" >
+         <double>-10000.000000000000000</double>
+        </property>
+        <property name="maximum" >
+         <double>10000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" >
+       <widget class="TDoubleSpinBox" name="tds2" >
+        <property name="toolTip" >
+         <string>objectName: tds2</string>
+        </property>
+        <property name="minimum" >
+         <double>-10000.000000000000000</double>
+        </property>
+        <property name="maximum" >
+         <double>10000.000000000000000</double>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1" colspan="2" >
+       <widget class="QLineEdit" name="leDevVarDoubleArrayTarget" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+          <horstretch>9</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="text" >
+         <string>$1->DevVarDoubleArray(10.75,&amp;tds0,&amp;tds1,&amp;tds2,15.76,8192.011)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="2" colspan="2" >
+       <widget class="QLineEdit" name="lineEdit" >
+        <property name="sizePolicy" >
+         <sizepolicy vsizetype="Fixed" hsizetype="Expanding" >
+          <horstretch>3</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="toolTip" >
+         <string>ReadBack (argout)</string>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="1" >
+       <widget class="TPushButton" name="tPushButton_5" >
+        <property name="targets" >
+         <string>$1->DevVarDoubleArray(10.75,&amp;tds0,&amp;tds1,&amp;tds2,15.76,8192.011);</string>
+        </property>
+       </widget>
+      </item>
+      <item row="0" column="1" >
+       <widget class="QLabel" name="label_8" >
+        <property name="text" >
+         <string>Personalize your target</string>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="3" >
+       <widget class="QPushButton" name="pbApplyTarget" >
+        <property name="text" >
+         <string>Apply Target</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <customwidgets>
+  <customwidget>
+   <class>TLineEdit</class>
+   <extends>QLineEdit</extends>
+   <header>TLineEdit</header>
+  </customwidget>
+  <customwidget>
+   <class>TComboBox</class>
+   <extends>QComboBox</extends>
+   <header>TComboBox</header>
+  </customwidget>
+  <customwidget>
+   <class>TSpinBox</class>
+   <extends>QSpinBox</extends>
+   <header>TSpinBox</header>
+  </customwidget>
+  <customwidget>
+   <class>TDoubleSpinBox</class>
+   <extends>QDoubleSpinBox</extends>
+   <header>TDoubleSpinBox</header>
+  </customwidget>
+  <customwidget>
+   <class>TApplyNumeric</class>
+   <extends>EApplyNumeric</extends>
+   <header>TApplyNumeric</header>
+  </customwidget>
+  <customwidget>
+   <class>TPushButton</class>
+   <extends>QPushButton</extends>
+   <header>TPushButton</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

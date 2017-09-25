@@ -1,0 +1,111 @@
+<!DOCTYPE node PUBLIC "-//freedesktop//DTD D-BUS Object Introspection 1.0//EN" "http://www.freedesktop.org/standards/dbus/1.0/introspect.dtd">
+<node>
+<interface name="it.elettra.trieste.TApplicationsInterface" >
+ <method name="message" /> 
+ <method name="version" >
+	<arg type="s" direction="out" />
+ </method>
+
+<!-- 5 input arguments signature -->
+<method name="invokeMethod5" > 
+	<arg name="widgetName" type="s" direction="in" />
+	<arg name="member" type="s" direction="in" />
+	<arg name="val0" type="v" direction="in" />
+	<arg name="val1" type="v" direction="in" />
+	<arg name="val2" type="v" direction="in" />
+	<arg name="val3" type="v" direction="in" />
+	<arg name="val4" type="v" direction="in" />
+	<arg name="value" type="v" direction="out" />
+</method>
+
+<!-- 4 input arguments signature -->
+<method name="invokeMethod4" > 
+	<arg name="widgetName" type="s" direction="in" />
+	<arg name="member" type="s" direction="in" />
+	<arg name="val0" type="v" direction="in" />
+	<arg name="val1" type="v" direction="in" />
+	<arg name="val2" type="v" direction="in" />
+	<arg name="val3" type="v" direction="in" />
+	<arg name="value" type="v" direction="out" />
+</method>
+
+
+<!-- 3 input arguments signature -->
+<method name="invokeMethod3" > 
+	<arg name="widgetName" type="s" direction="in" />
+	<arg name="member" type="s" direction="in" />
+	<arg name="val0" type="v" direction="in" />
+	<arg name="val1" type="v" direction="in" />
+	<arg name="val2" type="v" direction="in" />
+	<arg name="value" type="v" direction="out" />
+</method>
+
+<!-- 2 input arguments signature -->
+<method name="invokeMethod2" > 
+	<arg name="widgetName" type="s" direction="in" />
+	<arg name="member" type="s" direction="in" />
+	<arg name="val0" type="v" direction="in" />
+	<arg name="val1" type="v" direction="in" />
+	<arg name="value" type="v" direction="out" />
+</method>
+
+<!-- 1 input arguments signature -->
+<method name="invokeMethod1" > 
+	<arg name="widgetName" type="s" direction="in" />
+	<arg name="member" type="s" direction="in" />
+	<arg name="val0" type="v" direction="in" />
+	<arg name="value" type="v" direction="out" />
+</method>
+
+<!-- 0 input arguments signature -->
+<method name="invokeMethod0" > 
+	<arg name="widgetName" type="s" direction="in" />
+	<arg name="member" type="s" direction="in" />
+	<arg name="value" type="v" direction="out" />
+</method>
+
+<method name="readProperty" >
+	<arg name="objectName" type="s" direction="in" />
+	<arg name="propertyName" type="s" direction="in" />
+	<arg name="value" type="v" direction="out" />
+</method>
+
+<method name="writeProperty" >
+	<arg name="objectName" type="s" direction="in" />
+	<arg name="propertyName" type="s" direction="in" />
+	<arg name="value" type="v" direction="in" />
+</method>
+
+<method name="raise" /> 
+
+<method name="quit" />
+
+<method name="onSecondInstanceDetected" />
+
+<method name="widgetList" >
+  	<arg type="as" direction="out" />
+</method>
+
+<method name="executable" >
+	<arg type="s" direction="out" />
+</method>
+
+<method name="methods" >  
+ 	<arg name="widgetName" type="s" direction="in"/>   
+	<arg type="as" direction="out" />
+</method> 
+
+<method name="properties" >  
+ 	<arg name="widgetName" type="s" direction="in"/>   
+	<arg type="as" direction="out" />
+</method> 
+
+
+<method name="parameters" >
+	<arg type="as" direction="out" />
+</method>
+
+<property name="unique" type="b" access="readwrite" />
+
+ <signal name="applicationStarted"></interface>
+</node>

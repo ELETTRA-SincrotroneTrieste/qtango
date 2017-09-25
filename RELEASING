@@ -1,0 +1,14 @@
+QTango X.Y.Z
+
+Changes in Z represent bugfix releases over the X.Y release. Binary and source compatible.
+
+Changes in Y represent minor features introduced since previous X.Y release. Binary and source
+compatible.
+
+Changes in X represent major release and may require full rebuild of the applications linked to 
+the library. Changes in X number mean that the package is not source nor binary compatible with
+previous releases. Since X >= 5, the releases are expected to stay source and binary compatible.
+Actually, the release of QTango 5 is planned to be structured with design patterns that will ensure
+binary compatibility with future versions.
+
+

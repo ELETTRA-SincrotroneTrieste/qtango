@@ -1,0 +1,43 @@
+These classes have been introduced with QTango version 4.2.0
+They provide adaptors and interfaces to the DBus session bus,
+to allow QTango applications to interact with each other.
+
+TApplicationAdaptor.xml provides the interface to TApplication.
+
+From TApplicationAdaptor.xml it is possible to generate TApplicationAdaptor.h,
+TApplicationInterface.h and TApplicationInterface.cpp, by means 
+of the qdbusxml2cpp utility.
+
+Since the arguments involved in many methods of the interface are
+of QDBusVariant type, it is not possible to correctly and straightforward
+generate the cpp implementation for TApplicationAdaptor.
+
+So the command line used to generate the interface is 
+
+qdbusxml2cpp TApplicationAdaptor.xml -c TApplicationInterface -p TApplicationInterface
+
+while to generate the adaptor, use 
+
+qdbusxml2cpp  TApplicationAdaptor.xml -a TApplicationAdaptor.h -c TApplicationAdaptor
+
+Using "-a TApplicationAdaptor.h" makes qdbusxml2cpp generate the class declaration AND
+implementation inside the TApplicationAdaptor.h generated file.
+You must then manually remove the implementation from the .h file, and add it to the
+.cpp when the interface is updted adding or removing methods.
+
+NOTE:
+
+qdbusxml2cpp  TApplicationAdaptor.xml -a TApplicationAdaptor -c TApplicationAdaptor
+
+would generate .h and .cpp separate files, but the .cpp file would overwrite the 
+current implementation thus preventing things from working because of QDBusVariant
+arguments, as hinted above.
+
+NOTE (II):
+Interface generation changes from Qt 4.3 to later releases. On Qt 4.6 qdbusxml2cpp 
+generates QDBusPendingReply instead of QDBusReply, and this is not backward compatible.
+
+NOTE (III): when generating interface, note that QDBusReply<> is not accepted.
+You must reply <> with <void>
+
+

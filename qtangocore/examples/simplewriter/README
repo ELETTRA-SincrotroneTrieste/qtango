@@ -1,0 +1,18 @@
+A simple qtangocore writer that demostrates how to use qtango core in your QApplication.
+
+Some notes:
+
+- the event loop is needed to deliver signals to slots. This means: if you run a while(1) infinite cycle,
+  for instance, this won't work.
+
+- Inside widget context, the code is sipler than this!
+
+- Read carefully all comments
+
+Usage: specify a command line argument that provides a device and an attribute or a device and a command:
+
+./bin/simplewriter test/device/2/double_scalar 
+./bin/simplewriter "test/device/2->DevDouble"  (remember the "" around the argument if this represents a command)
+
+
+

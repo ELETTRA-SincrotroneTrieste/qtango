@@ -1,0 +1,198 @@
+Tango/QTango installation, ubuntu 16.04 LTS
+
+Some steps may be not necessary according to your current installation.
+
+Qt5 is optional.
+Be sure to clean and rebuild qtango with qmake make make install after installing Qt5
+After Qt5 is installed, use qmake-qt4 to compile with old Qt4.
+To rebuild QTango with qt4, do a make distclean; qmake-qt4; make; make install.
+
+
+sudo apt-get install mysql-server (empty password)
+
+vi /etc/mysql/conf.d/mysqld.cnf
+
+# Allow tango database creation script to work
+[mysqld]
+
+sql_mode=""
+
+
+
+sudo apt-get install tango-db tango-test 
+(errore nella creazione tabelle mysql. Password scelta per mysql tango-db)
+
+sudo apt-get install python-pytango 
+
+
+apt-get install python-taurus python-taurus-doc (installa qt4)
+
+apt-get install vim
+
+QT5 (optional)
+apt-get install qt5-default (development files)
+apt-get install libqwt-qt5-6 libqwt-qt5-dev  
+apt-get install libqt5x11extras5 libqt5x11extras5-dev libqt5designercomponents5 
+apt-get install qttools5-dev  qttools5-dev-tools
+
+# To build again against qwt 
+apt-get install libqwt-dev
+
+
+---------------------------------------------------------------------------------------------------
+ QTango
+---------------------------------------------------------------------------------------------------
+
+mkdir  -p devel/utils  (nella home)
+
+apt-get install subversion doxygen graphviz
+
+apt-get install libxmu-dev
+
+svn checkout svn://svn.code.sf.net/p/tango-cs/code/gui/qtango qtango
+
+cd qtango/trunk
+
+qmake
+make 
+
+make install (as root)
+
+NOTE
+----
+If plugins are not installed under /usr/local/qtango/lib/plugins/designer, from the qtango main folder:
+cd qtango/plugins; qmake; make install
+cd qtcontrols/plugins; qmake; make install
+
+cd /etc/ld.so.conf.d/
+add /usr/local/qtango/lib to a new file named qtango.conf
+
+add export QT_PLUGIN_PATH=/usr/local/qtango/lib/plugins  in environment
+
+--------------------------------------------------------------------------------------------------------
+
+Building a panel: tango alarm panel. Needs Qt (4 or 5) mysql module and phonon.
+If phonon is available for qt4, use qmake-qt4 instead of qmake before building the panel.
+1. copied sources
+2. apt-get install libphonon-dev
+3. apt-get install libqt4-sql-mysql libqt5sql5-mysql
+4. adjust alarm.pro include(...)
+5. qmake-qt4; make
+
+
+SUMMARY OF RELEVANT INSTALLED PACKAGES:
+
+1. qwt
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+root@Tango-U16:~# dpkg -l | grep qwt
+ii  libqwt-dev                                 6.1.2-5                                                     amd64        Qt widgets library for technical applications (development, qt4)
+ii  libqwt-headers                             6.1.2-5                                                     amd64        Qt widgets library for technical applications (header files)
+ii  libqwt-qt5-6                               6.1.2-5                                                     amd64        Qt widgets library for technical applications (runtime, qt5)
+ii  libqwt-qt5-dev                             6.1.2-5                                                     amd64        Qt widgets library for technical applications (development, qt5)
+ii  libqwt5-qt4                                5.2.3-1                                                     amd64        Qt4 widgets library for technical applications (runtime)
+ii  libqwt6abi1                                6.1.2-5                                                     amd64        Qt widgets library for technical applications (runtime, qt4)
+ii  python-guiqwt                              3.0.2-1ubuntu1                                              amd64        efficient 2D data-plotting library - Python 2
+ii  python-qwt                                 0.5.5-1                                                     all          Pure Python implementation of Qwt - Python 2
+ii  python-qwt5-qt4                            5.2.1~cvs20091107+dfsg-7build1                              amd64        Python version of the Qwt5 technical widget library
+
+2. qt5
+-----------------------------------------------------------------------------------------------------------------------------------------------------------------------
+root@Tango-U16:~# dpkg -l | grep qt5
+ii  appmenu-qt5                                0.3.0+16.04.20151130-0ubuntu1                               amd64        application menu for Qt5
+ii  libaccounts-qt5-1:amd64                    1.14+16.04.20151106.1-0ubuntu1                              amd64        QT library for single sign on
+ii  libdbusmenu-qt5:amd64                      0.9.3+16.04.20160218-0ubuntu1                               amd64        Qt5 implementation of the DBusMenu protocol
+ii  libqt5clucene5:amd64                       5.5.1-3build1                                               amd64        Qt 5 CLucene module
+ii  libqt5concurrent5:amd64                    5.5.1+dfsg-16ubuntu7.2                                      amd64        Qt 5 concurrent module
+ii  libqt5core5a:amd64                         5.5.1+dfsg-16ubuntu7.2                                      amd64        Qt 5 core module
+ii  libqt5dbus5:amd64                          5.5.1+dfsg-16ubuntu7.2                                      amd64        Qt 5 D-Bus module
+ii  libqt5designer5:amd64                      5.5.1-3build1                                               amd64        Qt 5 designer module
+ii  libqt5designercomponents5:amd64            5.5.1-3build1                                               amd64        Qt 5 Designer components module
+ii  libqt5feedback5:amd64                      5.0~git20130529-0ubuntu13                                   amd64        Qt Feedback module
+ii  libqt5gui5:amd64                           5.5.1+dfsg-16ubuntu7.2                                      amd64        Qt 5 GUI module
+ii  libqt5help5:amd64                          5.5.1-3build1                                               amd64        Qt 5 help module
+ii  libqt5multimedia5:amd64                    5.5.1-4ubuntu2                                              amd64        Qt 5 Multimedia module
+ii  libqt5network5:amd64                       5.5.1+dfsg-16ubuntu7.2                                      amd64        Qt 5 network module
+ii  libqt5opengl5:amd64                        5.5.1+dfsg-16ubuntu7.2                                      amd64        Qt 5 OpenGL module
+ii  libqt5opengl5-dev:amd64                    5.5.1+dfsg-16ubuntu7.2                                      amd64        Qt 5 OpenGL library development files
+ii  libqt5organizer5:amd64                     5.0~git20140515~29475884-0ubuntu20                          amd64        Qt PIM module, Organizer library
+ii  libqt5positioning5:amd64                   5.5.1-3ubuntu1                                              amd64        Qt Positioning module
+ii  libqt5printsupport5:amd64                  5.5.1+dfsg-16ubuntu7.2                                      amd64        Qt 5 print support module
+ii  libqt5qml5:amd64                           5.5.1-2ubuntu6                                              amd64        Qt 5 QML module
+ii  libqt5quick5:amd64                         5.5.1-2ubuntu6                                              amd64        Qt 5 Quick library
+ii  libqt5quicktest5:amd64                     5.5.1-2ubuntu6                                              amd64        Qt 5 Quick Test library
+ii  libqt5quickwidgets5:amd64                  5.5.1-2ubuntu6                                              amd64        Qt 5 Quick Widgets library
+ii  libqt5sql5:amd64                           5.5.1+dfsg-16ubuntu7.2                                      amd64        Qt 5 SQL module
+ii  libqt5sql5-sqlite:amd64                    5.5.1+dfsg-16ubuntu7.1                                      amd64        Qt 5 SQLite 3 database driver
+ii  libqt5svg5:amd64                           5.5.1-2build1                                               amd64        Qt 5 SVG module
+ii  libqt5test5:amd64                          5.5.1+dfsg-16ubuntu7.2                                      amd64        Qt 5 test module
+ii  libqt5webkit5:amd64                        5.5.1+dfsg-2ubuntu1                                         amd64        Web content engine library for Qt
+ii  libqt5widgets5:amd64                       5.5.1+dfsg-16ubuntu7.2                                      amd64        Qt 5 widgets module
+ii  libqt5x11extras5:amd64                     5.5.1-3build1                                               amd64        Qt 5 X11 extras
+ii  libqt5x11extras5-dev:amd64                 5.5.1-3build1                                               amd64        Qt 5 X11 extras development files
+ii  libqt5xml5:amd64                           5.5.1+dfsg-16ubuntu7.2                                      amd64        Qt 5 XML module
+ii  libqwt-qt5-6                               6.1.2-5                                                     amd64        Qt widgets library for technical applications (runtime, qt5)
+ii  libqwt-qt5-dev                             6.1.2-5                                                     amd64        Qt widgets library for technical applications (development, qt5)
+ii  libsignon-qt5-1:amd64                      8.58+16.04.20151106-0ubuntu1                                amd64        Single Sign On framework
+ii  qt5-default:amd64                          5.5.1+dfsg-16ubuntu7.2                                      amd64        Qt 5 development defaults package
+ii  qt5-qmake:amd64                            5.5.1+dfsg-16ubuntu7.2                                      amd64        Qt 5 qmake Makefile generator tool
+
+ii  qttools5-dev:amd64                         5.5.1-3build1                                               amd64        Qt 5 tools development files
+ii  qttools5-dev-tools                         5.5.1-3build1                                               amd64        Qt 5 development tools
+
+3. qt4
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+root@Tango-U16:~# dpkg -l | grep qt4
+ii  libqt4-dbus:amd64                          4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 D-Bus module
+ii  libqt4-declarative:amd64                   4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 Declarative module
+ii  libqt4-designer:amd64                      4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 designer module
+ii  libqt4-dev                                 4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 development files
+ii  libqt4-dev-bin                             4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 development programs
+ii  libqt4-help:amd64                          4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 help module
+ii  libqt4-network:amd64                       4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 network module
+ii  libqt4-opengl:amd64                        4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 OpenGL module
+ii  libqt4-opengl-dev                          4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 OpenGL library development files
+ii  libqt4-qt3support:amd64                    4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 3 compatibility library for Qt 4
+ii  libqt4-script:amd64                        4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 script module
+ii  libqt4-scripttools:amd64                   4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 script tools module
+ii  libqt4-sql:amd64                           4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 SQL module
+ii  libqt4-sql-sqlite:amd64                    4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 SQLite 3 database driver
+ii  libqt4-svg:amd64                           4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 SVG module
+ii  libqt4-test:amd64                          4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 test module
+ii  libqt4-xml:amd64                           4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 XML module
+ii  libqt4-xmlpatterns:amd64                   4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 XML patterns module
+ii  libqwt-dev                                 6.1.2-5                                                     amd64        Qt widgets library for technical applications (development, qt4)
+ii  libqwt5-qt4                                5.2.3-1                                                     amd64        Qt4 widgets library for technical applications (runtime)
+ii  libqwt6abi1                                6.1.2-5                                                     amd64        Qt widgets library for technical applications (runtime, qt4)
+ii  python-qt4                                 4.11.4+dfsg-1build4                                         amd64        Python bindings for Qt4
+ii  python-qt4-gl                              4.11.4+dfsg-1build4                                         amd64        Python bindings for Qt4's OpenGL module
+ii  python-qwt5-qt4                            5.2.1~cvs20091107+dfsg-7build1                              amd64        Python version of the Qwt5 technical widget library
+ii  qt4-designer                               4:4.8.7+dfsg-5ubuntu2                                       amd64        graphical designer for Qt 4 applications
+ii  qt4-linguist-tools                         4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 Linguist tools
+ii  qt4-qmake                                  4:4.8.7+dfsg-5ubuntu2                                       amd64        Qt 4 qmake Makefile generator tool
+
+4. QTango
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+
+Under /home/alex/devel/utils/:
+
+alex@Tango-U16:~/devel/utils$ ls
+qtango  qtango-qt5
+
+Same sources, one is used to keep a build of qtango with qt4, the other qtango/qt5.
+
+5. Tango 9 for java tools
+
+- Download tango 9.2.2 tar gz
+- apt-get install openjdk-9-jre omniidl
+- cd tango-9.2.2
+- ./configure --prefix=/usr/local/tango-9.2.2
+
+apt-get install [ openjdk-8-jre ?? ]  openjdk-8-jre-headless
+
+In case of problems finding/executing the correct java version (test with "java -version" )
+
+update-alternatives --set java /usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
+
+
+
+

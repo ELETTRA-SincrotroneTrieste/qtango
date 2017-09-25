@@ -1,0 +1,61 @@
+stress
+
+Programmino di test che puo` provocare parecchio stress.
+
+Crea al volo un numero N di TLabel e, qualora desiderato, anche altri 
+widget quali TLinearGauge e TCircularGauge.
+
+Essi si connettono a M device, specificati da linea di comando ed
+eseguono letture di attributi, anch'essi specificati da linea di comando.
+
+I widget sono incasellati in una tabella.
+
+Dalla versione modificata per QTango 3.1, c'e` una nuova opzione da linea di comando per connettersi ad un 
+elevato numero di devices di test. 
+I devices di test sono rappresentati dal server LightTest, creato per essere leggero e lanciato con parecchie istanze.
+Per usare tali device si specifichi
+
+--test-on-light-devices N
+
+dove N e` il numero di device a cui connettersi.
+
+Ad esempio
+
+--test-on-light-devices 10 
+
+si connettera` ai device test/LightTest/1.... test/LightTest/10.
+
+Attenzione: il device deve essere definito nel db tango proprio con il nome di test/LightTest/INTERO
+
+Seguono alcuni esempi d'uso:
+
+1.
+
+./bin/qtangoXStress test/device/1 test/device/2 test/device/3  --attlist double_scalar short_scalar long_scalar  --numattrs 800
+Crea in una tabella di 80 righe per 10 colonne 800 line edit che leggono da device test/device/1, test/device/2, test/device/3
+gli attributi indicati nei parametri che seguono --attlist.
+--numattrs deve essere seguito da un intero che indica al programma quanti widget lettori creare. Se attlist contiene 2 attributi
+e --numattrs indica 8, allora ci saranno 8 colonne in cui i due attributi si replicano uno accanto all'altro
+
+2.
+
+./bin/qtangoXStress test/device/1 test/device/2 test/device/3  --attlist double_scalar short_scalar long_scalar float_scalar --numattrs 400 --add-widget-types tlineargauge tcirculargauge
+
+esegue lo stress creando 400 widget lettori dei tre device specificati nei primi argomenti, attributi indicati nei parametri che seguono --attlist
+utilizzando, oltre alle label (il default), anche TLinearGauge e TCircularGauge
+
+Utilizzate pure un programmino monitor, come "topper", per tenere sott'occhio CPU e memoria ;)
+
+
+DISABILITARE show/hide events:
+
+	--enable-show-hide-events
+
+3. Usando i devices LightTest
+
+./bin/qtango3Stress --test-on-light-devices 100 --attlist double_scalar short_scalar --numattrs 800
+
+
+
+
+

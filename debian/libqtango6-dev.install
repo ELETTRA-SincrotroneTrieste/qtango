@@ -1,0 +1,6 @@
+usr/include/qtango6/*
+# usr/lib/lib*.a
+# usr/lib/*.so.*
+# usr/lib/plugins/designer/*plugin.so
+# usr/lib/pkgconfig/*
+# usr/share/pkgconfig/*

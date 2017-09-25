@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>Widget</class>
+ <widget class="QWidget" name="Widget">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>445</width>
+    <height>341</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Widget</string>
+  </property>
+  <layout class="QVBoxLayout" name="verticalLayout">
+   <item>
+    <widget class="TRealtimePlot" name="tRealtimePlot">
+     <property name="source" stdset="0">
+      <string>$1-&gt;GetBunchLength(0,100)</string>
+     </property>
+     <property name="period">
+      <number>1000</number>
+     </property>
+    </widget>
+   </item>
+  </layout>
+ </widget>
+ <layoutdefault spacing="6" margin="11"/>
+ <customwidgets>
+  <customwidget>
+   <class>TPlotLightMarker</class>
+   <extends>EPlotLightMarker</extends>
+   <header>TPlotLightMarker</header>
+  </customwidget>
+  <customwidget>
+   <class>TRealtimePlot</class>
+   <extends>TPlotLightMarker</extends>
+   <header>TRealtimePlot</header>
+  </customwidget>
+  <customwidget>
+   <class>EPlotLight</class>
+   <extends>QFrame</extends>
+   <header>EPlotLight</header>
+  </customwidget>
+  <customwidget>
+   <class>EPlotLightMarker</class>
+   <extends>EPlotLight</extends>
+   <header>EPlotLightMarker</header>
+  </customwidget>
+ </customwidgets>
+ <resources/>
+ <connections/>
+</ui>

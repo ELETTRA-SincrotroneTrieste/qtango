@@ -1,0 +1,13 @@
+Modify exercise 2 so that the attribute is written not on slider move but
+after pressing a TPushButton that is connected to the target and passes the
+value read from the slider.
+	Design is simpler: slider is still connected to the spin box but does not
+execute the writing.
+Slider must subclass SimpleDataProxy and implement the getData() method
+(slot), where the position of the slider (as integer) must be converted to
+the correct value to write to the attribute, according to the minimum and
+maximum values recorded into the Tango database.
+TPushButton will be linked to the Slider object name to read the input
+value.
+The slider will still be a QTangoComProxyWriter in order to know the
+minimum and maximum values of the attribute.

@@ -1,0 +1,41 @@
+$Id: README,v 1.3 2010-01-11 11:19:16 fabio Exp $
+
+                    Python bindings of qtcontrols
+========================================================================
+
+Introduction
+------------
+Python bindings of qtcontrols widget based on SIP
+
+SIP - A Tool for Generating Python Bindings for C and C++ Libraries
+http://www.riverbankcomputing.co.uk/software/sip/intro
+
+
+Requirements
+------------
+The bindings was developed with:
+    * qtcontrols Release_3_1_0_rc1
+    * Qt 4.4.3
+    * Python 2.5.2
+    * SIP 4.7.7
+    * ubuntu 8.10
+
+
+Building
+--------
+    python config.py
+    make
+
+
+Running
+-------
+    python ETest.py
+
+
+Errors & Troubleshooting
+------------------------
+If you experience problems, please contact the development team.
+
+ Thank you.
+
+Sincrotrone Trieste s.c.p.a - ELETTRA Laboratory - Controls Group

@@ -1,0 +1,7 @@
+This directory contains two examples of QTangoCore usage in a non 
+graphical qt application.
+
+Read carefully the READMEs inside each subdirectory and the commented
+code on both the reader and the writer .h and .cpp files.
+
+giacomo.strangolino@elettra.trieste.it

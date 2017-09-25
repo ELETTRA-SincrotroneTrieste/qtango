@@ -1,0 +1,69 @@
+/* 
+ * QTango stylesheet.
+ * 
+ * Configures QTango/qtcontrols widgets appearence.
+ * The applications look for this file in "${SHAREDIR}/qtango/stylesheets/"
+ * It is possible to set a custom stylesheet exporting the environment variable
+ * "QTANGO_STYLESHEET" and setting it to a path containing a css style sheet.
+ * 
+ * The class managing QTango application stylesheets is named EStyleLoader and
+ * makes part of the qtcontrols suite. It is possible to pass a string to the 
+ * EStyleLoader constructor to set a custom file name for the stylesheet.
+ * For further information, see qtcontrols EStyleLoader documentation in
+ * ${SHAREDIR}/qtango/doc
+ */
+
+/* a. 
+ * Labels belonging to ENumeric and EApplyNumeric always represent numbers.
+ */
+ENumeric QLabel, EApplyNumeric QLabel
+{
+  font-family:"Nimbus Mono L";
+  font-size:13pt;
+}
+
+/* b.
+ * Axis scales normally represent digits. EPlotLightBase defines a free property
+ * named numericScale but the property selector `[numericScale="true"] seems to 
+ * be ignored.
+ */
+QwtScaleWidget
+{
+  font-family:"Nimbus Mono L";
+  font-size:13pt;
+}
+
+/* c. Labels and Line edits
+ *
+ * Labels with the property "numeric" set to true and labels with the 
+ * word wrap disabled are treated as they represented digits.
+ */
+TLabel[numeric="true"], TLabel[wordWrap="false"], TLineEdit[wordWrap="false"]
+{
+  font-family:"Nimbus Mono L";
+  font-size:13pt;
+}
+
+/* d. Tables
+ * 
+ * Tables normally associate a number (or boolean) to strings. In special cases,
+ * the property "numeric" can be set to true to apply a style tailored to numbers.
+ */
+TTable[numeric="true"]
+{
+  font-family:"Nimbus Mono L";
+  font-size:13pt;
+}
+
+/* f. Combo boxes and spin boxes.
+ * 
+ * Spin Boxes always represent numbers.
+ * Combo boxes are styled to represent numbers if the property "numeric" is set to true 
+ */
+TSpinBox, TDoubleSpinBox, TComboBox[numeric="true"]
+{
+  font-family:"Nimbus Mono L";
+  font-size:13pt;
+}
+
+

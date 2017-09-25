@@ -1,0 +1,25 @@
+<!DOCTYPE RCC><RCC version="1.0">
+    <qresource>
+    	<file>pixmaps/tapplybutton.png</file>
+    	<file>pixmaps/tpushbutton.png</file>
+    	<file>pixmaps/tlogbutton.png</file>
+    	<file>pixmaps/tcirculargauge.png</file>
+    	<file>pixmaps/tlabel.png</file>
+    	<file>pixmaps/simplelabel.png</file>
+    	<file>pixmaps/ttable.png</file>
+    	<file>pixmaps/tled.png</file>
+    	<file>pixmaps/tlineargauge.png</file>
+    	<file>pixmaps/tnumeric.png</file>
+	<file>pixmaps/tapplynumeric.png</file>
+    	<file>pixmaps/tplot.png</file>
+    	<file>pixmaps/tcheckbox.png</file>
+    	<file>pixmaps/tpixmap.png</file>
+	<file>pixmaps/tlineedit.png</file>
+	<file>pixmaps/tspinbox.png</file>
+	<file>pixmaps/tdoublespinbox.png</file>
+	<file>pixmaps/tcombobox.png</file>
+	<file>pixmaps/propertyLabel.png</file>
+	<file>pixmaps/timagewidget.png</file>
+	<!-- file>pixmaps/tinfobrowser.png</file-->
+    </qresource>
+</RCC>
