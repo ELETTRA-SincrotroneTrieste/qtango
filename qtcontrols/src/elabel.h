@@ -24,20 +24,20 @@ Q_PROPERTY(QString falseString READ falseString  WRITE setFalseString DESIGNABLE
 
 public:
 	ELabel(QWidget *parent);
-	
+
 	virtual ~ELabel() {};
 
 	void setValue(QVariant v, bool ref=true);
-	QVariant value() const { return val; }; 
+	QVariant value() const { return val; };
 
 	void setBooleanDisplay(QString, QString, QColor, QColor);
-	
+
 	/** \brief Assigns a label and a color to a particular value.
 	 *
 	 * The tango attribute must not have a display unit for this to work correctly.
 	 */
 	void setEnumDisplay(unsigned int value, QString label, QColor color);
-	
+
 	void setTrueString(QString s);
 	QString trueString() const { return m_trueString; };
 
@@ -46,7 +46,7 @@ public:
 
 	void setTrueColor(QColor c);
 	QColor trueColor() const { return m_trueColor; };
-	
+
 	void setFalseColor(QColor c);
 	QColor falseColor() const { return m_falseColor; };
 
@@ -57,7 +57,7 @@ public:
 	void display();
 
 protected:
- 
+
 	QVariant val, last_val;
 
 	/* to display boolean values*/
