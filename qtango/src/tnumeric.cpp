@@ -20,7 +20,7 @@ TNumeric::TNumeric(QWidget *parent, int intDigits, int decDigits) :
 void TNumeric::configure(const TangoConfigurationParameters * cp)
 {
   if(!autoConfiguration())
-	return;
+    return;
 
 	QString desc = "";
 
