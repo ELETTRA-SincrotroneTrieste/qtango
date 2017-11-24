@@ -13,7 +13,6 @@
 #include <QDesktopServices>
 #include <QCoreApplication>
 
-#define CVSVERSION "$Name: release_5_4_0 $"
 
 TInfoTextBrowser::TInfoTextBrowser(QWidget *parent, Qt::WindowFlags wf) : QTextBrowser(parent)
 {
@@ -169,10 +168,7 @@ QString TInfoTextBrowser::menu()
         v = a->property("version");
 	if(v.isValid())
           menu += "<li>version: <em>" + a->property("version").toString() + "</em>;</li>\n";
-	QString qtangoRelease(CVSVERSION);
-	qtangoRelease.remove("Name").remove("$").remove(":").remove(" ");
-    menu += "<li>QTango library version: <em>" + QString(QTANGO_VERSION_STR) + "</em> release <cite>\""
-	  + qtangoRelease + "\"</cite>;</li>\n";
+    menu += "<li>QTango library version: <em>" + QString(QTANGO_VERSION_STR) + "</em>;</li>\n";
 	/* executable name */
 	menu += QString("<li>executable: <cite>%1</cite>;</li>").arg(a->arguments().at(0));
 	menu += "</ul><h4>Author info:</h4>\n<ul>";
