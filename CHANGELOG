@@ -1,3 +1,7 @@
+v6.4.3: QTango has moved to git Elettra - Sincrotrone Trieste on github
+        v6.4.3 fixes an incompatible argin type: DevLong 64 bit. Affected files: tutil.cpp: added static_cast to tango DevLong/DevULong in convertToDeviceData
+	       removed the release information from tinfo_textbrowser.cpp (Tango version is enough)
+
 release_6_3_0: added support for image data format
 
     Support for boolean spectrum commands in TVariant
