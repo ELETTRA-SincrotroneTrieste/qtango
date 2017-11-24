@@ -649,13 +649,13 @@ DeviceData TUtil::convertToDeviceData(QStringList &args, CommandInfo& info)
             case DEV_LONG:
             {
                 qDebug() << QThread::currentThread() << ":" << "TUtil::convertToDeviceData - DEV_LONG";
-                dd << vals[0].toLong();
+                dd << static_cast<Tango::DevLong>(vals[0].toLong());
                 break;
             }
             case DEV_ULONG:
             {
                 qDebug() << QThread::currentThread() << ":" << "TUtil::convertToDeviceData - DEV_ULONG";
-                dd << vals[0].toULong();
+                dd << static_cast<Tango::DevULong> (vals[0].toULong());
                 break;
             }
             case DEV_FLOAT:
@@ -707,7 +707,7 @@ DeviceData TUtil::convertToDeviceData(QStringList &args, CommandInfo& info)
                 qDebug() << QThread::currentThread() << ":" << "TUtil::convertToDeviceData - vector DEVVAR_LONGARRAY";
                 vector<DevLong> temp;
                 foreach (QString v, vals)
-                    temp.push_back(v.toLong());
+                    temp.push_back(static_cast<Tango::DevLong>(v.toLong()));
                 dd << temp;
                 break;
             }
@@ -716,7 +716,7 @@ DeviceData TUtil::convertToDeviceData(QStringList &args, CommandInfo& info)
                 qDebug() << QThread::currentThread() << ":" << "TUtil::convertToDeviceData - vector DEVVAR_ULONGARRAY";
                 vector<DevULong> temp;
                 foreach (QString v, vals)
-                    temp.push_back(v.toULong());
+                    temp.push_back(static_cast<Tango::DevULong>(v.toULong()));
                 dd << temp;
                 break;
             }

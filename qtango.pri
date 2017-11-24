@@ -48,7 +48,7 @@ packagesExist($${QWT_PKGCONFIG}){
 
 #
 # Here qtango will be installed
-    INSTALL_ROOT = /runtime
+    INSTALL_ROOT = /usr/local/qtango
 #
 # End customization
 #
@@ -69,11 +69,11 @@ CONFIG +=  dbus debug
 
 QT += dbus
 
-VERSION_HEX = 0x060402
-VERSION = 6.4.2
+VERSION_HEX = 0x060403
+VERSION = 6.4.3
 VER_MAJ = 6
 VER_MIN = 4
-VER_FIX = 2
+VER_FIX = 3
 
 DEFINES += QTANGO_VERSION_STR=\"\\\"$${VERSION}\\\"\" \
     QTANGO_VERSION=$${VERSION_HEX} \
