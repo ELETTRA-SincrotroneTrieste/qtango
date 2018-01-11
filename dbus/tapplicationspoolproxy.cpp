@@ -1,7 +1,7 @@
 #include "tapplicationspoolproxy.h"
 #include "private/tapplicationspoolproxy_p.h"
 #include "tappinfo.h"
-
+#include <macros.h>
 #include <QMetaType>
 #include <QtDebug>
 
@@ -12,6 +12,11 @@ TApplicationsPoolProxy::TApplicationsPoolProxy(QObject *parent) :
     /* register meta type */
     qRegisterMetaType<TAppInfo>("TAppInfo");
     refreshAppList(); /* perform first read */
+}
+
+TApplicationsPoolProxy::~TApplicationsPoolProxy()
+{
+    delete d_ptr;
 }
 
 TAppInfo TApplicationsPoolProxy::findApplicationByService(const QString& serviceName)
@@ -49,8 +54,6 @@ QString TApplicationsPoolProxy::errorMessage()
 void TApplicationsPoolProxy::dbusServiceOwnerChanged(const QString& name, const QString& oldOwner, const QString& newOwner)
 {
     Q_D(TApplicationsPoolProxy);
-//    qprintf("\e[0;33mTApplicationsPoolProxy::dbusServiceOwnerChanged(): \e[1;33m \"%s\" oldO: \"%s\" newO \"%s\"\e[0m\n", qstoc(name), qstoc(oldOwner),qstoc
-//           (newOwner));
     if(name.contains("TApplications") && newOwner.isEmpty() && !oldOwner.isEmpty())
     {
         TAppInfo ai = d->getRegisteredApp(name);
@@ -78,11 +81,9 @@ void TApplicationsPoolProxy::dbusServiceOwnerChanged(const QString& name, const 
 void TApplicationsPoolProxy::refreshAppList()
 {
     Q_D(TApplicationsPoolProxy);
+    qDebug() << __FUNCTION__ << "enter";
     if(!d->updateTApplicationList())
-    {
-        printf("\e[1;31m*\e[0m DBus error in TApplicationsPoolProxy::refreshAppList(): %s\e[0\n", d->errorMessage().toStdString().c_str());
-        emit error(d->errorMessage());
-    }
+       emit error(d->errorMessage());
 }
 
 TAppInfoList TApplicationsPoolProxy::applicationsList()

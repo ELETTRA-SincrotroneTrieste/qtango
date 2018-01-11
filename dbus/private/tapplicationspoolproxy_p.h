@@ -49,6 +49,7 @@ private:
 
     QDBusConnectionInterface *m_dbusConnectionInterface;
 
+    QDBusConnectionInterface *m_getDbusConnectionInterface();
 };
 
 #endif // TAPPLICATIONSPOOLPROXY_PH_

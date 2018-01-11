@@ -604,6 +604,10 @@ AppliUtils::AppliUtils(EApplicationLauncher* app)
 
 AppliUtils::~AppliUtils()
 {
-	
+    if(process->state() == QProcess::NotRunning)
+        delete process;
+    else
+        perr("AppliUtils.~AppliUtils: cannot destroy a process which is still running [%s %s] %p",
+             qstoc(process->program()), qstoc(process->arguments().join(" ")), process);
 }
 

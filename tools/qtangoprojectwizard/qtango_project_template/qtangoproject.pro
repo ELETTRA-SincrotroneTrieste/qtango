@@ -1,4 +1,4 @@
-include (/runtime/include/qtango6/qtango.pri)
+include (/usr/local/qtango/include/qtango6/qtango.pri)
 
 TEMPLATE = app
 

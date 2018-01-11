@@ -105,6 +105,8 @@ public:
       */
     explicit TApplicationsPoolProxy(QObject *parent = 0);
 
+    ~TApplicationsPoolProxy();
+
     QString errorMessage();
 
     TAppInfoList applicationsList();
@@ -162,6 +164,10 @@ public:
       * @see TAppInfoList::findByNameArgs
       */
     TAppInfo findApplicationByPid(pid_t pid);
+
+    void watchForOwnerChanged(const QString& dbus_service_name);
+
+    void stopWatchingForOwnerChanged(const QString& dbus_service_name);
 
 signals:
 
