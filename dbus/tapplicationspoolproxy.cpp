@@ -1,7 +1,6 @@
 #include "tapplicationspoolproxy.h"
 #include "private/tapplicationspoolproxy_p.h"
 #include "tappinfo.h"
-#include <macros.h>
 #include <QMetaType>
 #include <QtDebug>
 
