@@ -4,7 +4,6 @@
 #include <QDBusConnection>
 #include <QDBusInterface>
 #include <QtDebug>
-#include <macros.h>
 #include "../tapplicationspoolproxy.h"
 
 #define SERVICE_NAME "it.trieste.elettra.tapplicationspoolproxy"
@@ -141,10 +140,10 @@ QDBusConnectionInterface *TApplicationsPoolProxyPrivate::m_getDbusConnectionInte
     QDBusConnection connection = QDBusConnection::sessionBus();
 
     if(!connection.registerService(SERVICE_NAME))
-        perr("TApplicationsPoolProxyPrivate: failed to register service \"%s\": %s: %s", SERVICE_NAME, qstoc(connection.lastError().name()), qstoc(connection.lastError().message()));
+        printf("TApplicationsPoolProxyPrivate: failed to register service \"%s\": %s: %s\n", SERVICE_NAME, connection.lastError().name().toStdString().c_str(), connection.lastError().message().toStdString().c_str());
 
     else if(!connection.registerObject("/TApplicationsPoolProxyPrivate", q_ptr))
-        perr("TApplicationsPoolProxyPrivate: failed to register object with path \"%s\" %s: %s:", SERVICE_NAME, qstoc(connection.lastError().name()), qstoc(connection.lastError().message()));
+        printf("TApplicationsPoolProxyPrivate: failed to register object with path \"%s\" %s: %s\n:", SERVICE_NAME, connection.lastError().name().toStdString().c_str(), connection.lastError().message().toStdString().c_str());
 
     if(connection.isConnected())
         m_dbusConnectionInterface = connection.interface();
