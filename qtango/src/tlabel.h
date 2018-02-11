@@ -123,9 +123,9 @@ Q_PROPERTY(QString helperApplication READ helperApplication WRITE setHelperAppli
 Q_PROPERTY(bool communicationStatusChangesWidgetEnable READ communicationStatusChangesWidgetEnable WRITE setCommunicationStatusChangesWidgetEnable DESIGNABLE true)
 
 Q_PROPERTY(bool backgroundColorChangeEnabled READ backgroundColorChangeEnabled WRITE setBackgroundColorChangeEnabled)
-Q_PROPERTY(bool excursionEnabled READ excursionEnabled WRITE setExcursionEnabled);
-Q_PROPERTY(int excursionDistFromMargin READ excursionDistFromMargin WRITE setExcursionDistFromMargin);
-Q_PROPERTY(int excursionWidth READ excursionWidth WRITE setExcursionWidth);
+Q_PROPERTY(bool excursionEnabled READ excursionEnabled WRITE setExcursionEnabled)
+Q_PROPERTY(int excursionDistFromMargin READ excursionDistFromMargin WRITE setExcursionDistFromMargin)
+Q_PROPERTY(int excursionWidth READ excursionWidth WRITE setExcursionWidth)
 
 Q_PROPERTY(bool enterLeaveEventsEnabled READ enterLeaveEventsEnabled WRITE setEnterLeaveEventsEnabled DESIGNABLE true)
 Q_PROPERTY(int enterEventDelay READ enterEventDelay WRITE setEnterEventDelay DESIGNABLE enterLeaveEventsEnabled)

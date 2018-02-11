@@ -65,7 +65,7 @@ Q_PROPERTY(double zoomPercentage READ zoomPercentage WRITE setZoomPercentage)
 Q_PROPERTY(bool zoomEnabled READ zoomEnabled WRITE setZoomEnabled)
 Q_PROPERTY(WriterType writerType READ writerType WRITE setWriterType)
 Q_PROPERTY(WriterPosition writerPosition READ writerPosition WRITE setWriterPosition)
-Q_PROPERTY(QString writerStyleSheet READ writerStyleSheet WRITE setWriterStyleSheet);
+Q_PROPERTY(QString writerStyleSheet READ writerStyleSheet WRITE setWriterStyleSheet)
 Q_PROPERTY(QString applyButtonStyleSheet READ applyButtonStyleSheet WRITE setApplyButtonStyleSheet)
 /* hdb action enabled property inherited from TLabel */
 
