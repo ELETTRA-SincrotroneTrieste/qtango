@@ -35,6 +35,18 @@ apt-get install libqwt-qt5-6 libqwt-qt5-dev
 apt-get install libqt5x11extras5 libqt5x11extras5-dev libqt5designercomponents5 
 apt-get install qttools5-dev  qttools5-dev-tools
 
+Please NOTE:
+if Qt libraries are installed manually (for example built from source and installed under
+/usr/local/qt-5.10.0), some dependencies may be missing.
+We experienced an error message like this when we tried to execute a Qt application on an
+ubuntu 16.04 workstation where qt had been installed manually:
+
+*** available platforms plugins are elgfs, linuxfb, minimal, vnc, wayland, webgl, xcb Qt pannelli kenng64 ubuntu 16.04 ***
+
+To fix the problem we had to execute
+
+sudo apt-get install libxcb-xinerama0
+
 # To build again against qwt 
 apt-get install libqwt-dev
 
