@@ -1,3 +1,7 @@
+v6.4.5: qtcontrols plugins: changed include files from ESomething to esomething.h
+        This should fix issues related to porting qtango applications to cumbia after a QTango form
+	has been opened with the Qt designer and saved again
+
 v6.4.4: DBus module: some minor fixes and adjustments
 	eapplicationlauncher.cpp: fixed memory leak in AppliUtils::~AppliUtils
 
