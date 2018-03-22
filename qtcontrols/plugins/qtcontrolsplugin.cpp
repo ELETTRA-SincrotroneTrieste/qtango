@@ -20,7 +20,7 @@ void CustomWidgetInterface::initialize(QDesignerFormEditorInterface *)
 EFlagInterface::EFlagInterface(QObject *parent): CustomWidgetInterface(parent)
 {
     d_name = "EFlag";
-    d_include = "EFlag";
+    d_include = "eflag.h";
     d_icon = QPixmap(":pixmaps/eflag.png");
     d_domXml = 
         "<widget class=\"EFlag\" name=\"eFlag\">\n"
@@ -43,7 +43,7 @@ QWidget *EFlagInterface::createWidget(QWidget *parent)
 ELedInterface::ELedInterface(QObject *parent): CustomWidgetInterface(parent)
 {
     d_name = "ELed";
-    d_include = "ELed";
+    d_include = "eled.h";
     d_icon = QPixmap(":pixmaps/eled.png");
     d_domXml = 
         "<widget class=\"ELed\" name=\"eLed\">\n"
@@ -66,7 +66,7 @@ QWidget *ELedInterface::createWidget(QWidget *parent)
 ELinearGaugeInterface::ELinearGaugeInterface(QObject *parent): CustomWidgetInterface(parent)
 {
     d_name = "ELinearGauge";
-    d_include = "EGauge";
+    d_include = "egauge.h";
     d_icon = QPixmap(":pixmaps/elineargauge.png");
     d_domXml = 
         "<widget class=\"ELinearGauge\" name=\"eLinearGauge\">\n"
@@ -89,7 +89,7 @@ QWidget *ELinearGaugeInterface::createWidget(QWidget *parent)
 ECircularGaugeInterface::ECircularGaugeInterface(QObject *parent): CustomWidgetInterface(parent)
 {
     d_name = "ECircularGauge";
-    d_include = "EGauge";
+    d_include = "egauge.h";
     d_icon = QPixmap(":pixmaps/ecirculargauge.png");
     d_domXml = 
         "<widget class=\"ECircularGauge\" name=\"eCircularGauge\">\n"
@@ -112,7 +112,7 @@ QWidget *ECircularGaugeInterface::createWidget(QWidget *parent)
 ENumericInterface::ENumericInterface(QObject *parent): CustomWidgetInterface(parent)
 {
     d_name = "ENumeric";
-    d_include = "ENumeric";
+    d_include = "enumeric.h";
     d_icon = QPixmap(":pixmaps/enumeric.png");
     d_domXml = 
         "<widget class=\"ENumeric\" name=\"eNumeric\">\n"
@@ -135,7 +135,7 @@ QWidget *ENumericInterface::createWidget(QWidget *parent)
 EApplyNumericInterface::EApplyNumericInterface(QObject *parent): CustomWidgetInterface(parent)
 {
     d_name = "EApplyNumeric";
-    d_include = "EApplyNumeric";
+    d_include = "eapplynumeric.h";
     d_icon = QPixmap(":pixmaps/enumeric.png");
     d_domXml = 
         "<widget class=\"EApplyNumeric\" name=\"eApplyNumeric\">\n"
@@ -158,7 +158,7 @@ QWidget *EApplyNumericInterface::createWidget(QWidget *parent)
 EApplyButtonInterface::EApplyButtonInterface(QObject *parent): CustomWidgetInterface(parent)
 {
     d_name = "EApplyButton";
-    d_include = "EApplyButton";
+    d_include = "eapplybutton.h";
     d_icon = QPixmap(":pixmaps/eapplybutton.png");
     d_domXml = 
         "<widget class=\"EApplyButton\" name=\"eApplyButton\">\n"
@@ -181,7 +181,7 @@ QWidget *EApplyButtonInterface::createWidget(QWidget *parent)
 ELabelInterface::ELabelInterface(QObject* parent) : CustomWidgetInterface(parent)
 {
 	d_name = "ELabel";
-	d_include = "ELabel";
+    d_include = "elabel.h";
 	d_icon = QPixmap(":pixmaps/elabel.png");
 	d_domXml =
  	"<widget class=\"ELabel\" name=\"eLabel\">\n"
@@ -205,7 +205,7 @@ QWidget* ELabelInterface::createWidget(QWidget* parent)
 EApplicationButtonInterface::EApplicationButtonInterface(QObject* parent) : CustomWidgetInterface(parent)
 {
 	d_name = "EApplicationButton";
-	d_include = "EApplicationButton";
+    d_include = "eapplicationbutton.h";
 	d_icon = QPixmap(":pixmaps/eapplybutton.png");
 	d_domXml =
  	"<widget class=\"EApplicationButton\" name=\"eApplicationButton\">\n"
@@ -229,7 +229,7 @@ QWidget* EApplicationButtonInterface::createWidget(QWidget* parent)
 EArrowInterface::EArrowInterface(QObject* parent) : CustomWidgetInterface(parent)
 {
 	d_name = "EArrow";
-	d_include = "EArrow";
+    d_include = "earrow.h";
 	d_icon = QPixmap(":pixmaps/earrow.png");
 	d_domXml =
  	"<widget class=\"EArrow\" name=\"eArrow\">\n"
@@ -253,7 +253,7 @@ QWidget *EArrowInterface::createWidget(QWidget* parent)
 EPlotLightMarkerInterface::EPlotLightMarkerInterface(QObject* parent) : CustomWidgetInterface(parent)
 {
 	d_name = "EPlotLightMarker";
-	d_include = "EPlotLightMarker";
+    d_include = "eplotlight_marker.h";
 	d_icon = QPixmap(":pixmaps/graph.png");
 	d_domXml =
  	"<widget class=\"EPlotLightMarker\" name=\"ePlotLightMarker\">\n"
@@ -277,7 +277,7 @@ QWidget* EPlotLightMarkerInterface::createWidget(QWidget* parent)
 EPlotLightInterface::EPlotLightInterface(QObject* parent) : CustomWidgetInterface(parent)
 {
 	d_name = "EPlotLight";
-	d_include = "EPlotLight";
+    d_include = "eplotlight.h";
 	d_icon = QPixmap(":pixmaps/graph.png");
 	d_domXml =
  	"<widget class=\"EPlotLight\" name=\"ePlotLight\">\n"
@@ -299,11 +299,11 @@ QWidget* EPlotLightInterface::createWidget(QWidget* parent)
 
 EImageInterface::EImageInterface(QObject* parent) : CustomWidgetInterface(parent)
 {
-    d_name = "EImage";
-    d_include = "EImage";
+    d_name = "EImageWidget";
+    d_include = "eimagewidget.h";
     d_icon = QPixmap(":pixmaps/eimage.png");
     d_domXml =
-    "<widget class=\"EImage\" name=\"eImage\">\n"
+    "<widget class=\"EImageWidget\" name=\"eImageWidget\">\n"
         " <property name=\"geometry\">\n"
         "  <rect>\n"
         "   <x>0</x>\n"
@@ -349,7 +349,7 @@ QWidget* EImageInterface::createWidget(QWidget* parent)
 EStackedWidgetContainerInterface::EStackedWidgetContainerInterface(QObject* parent) : CustomWidgetInterface(parent)
 {
 	d_name = "EStackedWidgetContainer";
-	d_include = "EStackedWidgetContainer";
+    d_include = "estackedwidget_container.h";
 	d_icon = QPixmap(":pixmaps/");
 	d_domXml =
  	"<widget class=\"EStackedWidgetContainer\" name=\"eStackedWidgetContainer\">\n"
@@ -372,7 +372,7 @@ QWidget* EStackedWidgetContainerInterface::createWidget(QWidget* parent)
 EContextHelpInterface::EContextHelpInterface(QObject* parent) : CustomWidgetInterface(parent)
 {
 	d_name = "EContextHelp";
-	d_include = "EContextHelp";
+    d_include = "econtexthelp.h";
 	d_icon = QPixmap(":pixmaps/econtexthelp.png");
 	d_domXml =
  	"<widget class=\"EContextHelp\" name=\"eContextHelp\">\n"
