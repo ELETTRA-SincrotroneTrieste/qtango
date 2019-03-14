@@ -36,6 +36,7 @@ class TComboBoxPrivate;
  * This widget can be used by a writer. The writer can read the current text
  * displayed in the combo box and use it to write to tango.
  * For instance, given a TPushButton *pb and a TComboBox *cb:
+ * \code
  * TPushButton *pb = new TPushButton(this);
  * pb->setText("Click to apply the value of the combo box");
  * TComboBox *cb = new TComboBox(this);
@@ -49,6 +50,7 @@ class TComboBoxPrivate;
  * name from which to get the value (in this case the TComboBox name)
  *
  * pb->setTargets("test/device/1/string_scalar(&specialcombo)");
+ * \endcode
  *
  * that's all!
  *

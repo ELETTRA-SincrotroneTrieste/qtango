@@ -20,8 +20,8 @@ class QTimer;
 class TSpectrumButton : public QPushButton, public SpectrumWriter, public QTangoWidgetCommon
 {
   Q_OBJECT
-  Q_PROPERTY(QString targets READ targets WRITE setTargets DESIGNABLE true);
-  Q_PROPERTY(QStringList objectNameList READ objectNameList WRITE setObjectNameList DESIGNABLE true);
+  Q_PROPERTY(QString targets READ targets WRITE setTargets DESIGNABLE true)
+  Q_PROPERTY(QStringList objectNameList READ objectNameList WRITE setObjectNameList DESIGNABLE true)
   Q_PROPERTY(bool communicationStatusChangesWidgetEnable READ communicationStatusChangesWidgetEnable WRITE setCommunicationStatusChangesWidgetEnable DESIGNABLE true)
 
   Q_PROPERTY(bool enterLeaveEventsEnabled READ enterLeaveEventsEnabled WRITE setEnterLeaveEventsEnabled DESIGNABLE true)

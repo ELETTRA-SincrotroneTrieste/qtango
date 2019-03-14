@@ -40,8 +40,8 @@ tvg.setSource("some/test/device/spectrum_attribute");
 class TWidgetGroup : public QGroupBox, public QTangoWidgetCommon, public ProxyInterface
 {
 
-Q_PROPERTY(QString source READ source WRITE setSource DESIGNABLE true);
-Q_PROPERTY(QStringList objectNameList READ objectNameList WRITE setObjectNameList DESIGNABLE true);
+Q_PROPERTY(QString source READ source WRITE setSource DESIGNABLE true)
+Q_PROPERTY(QStringList objectNameList READ objectNameList WRITE setObjectNameList DESIGNABLE true)
 Q_PROPERTY(bool communicationStatusChangesWidgetEnable READ communicationStatusChangesWidgetEnable WRITE setCommunicationStatusChangesWidgetEnable DESIGNABLE true)
 Q_PROPERTY(bool enterLeaveEventsEnabled READ enterLeaveEventsEnabled WRITE setEnterLeaveEventsEnabled DESIGNABLE true)
 Q_PROPERTY(int enterEventDelay READ enterEventDelay WRITE setEnterEventDelay DESIGNABLE enterLeaveEventsEnabled)

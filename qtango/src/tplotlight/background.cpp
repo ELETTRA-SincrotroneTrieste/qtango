@@ -63,7 +63,8 @@ void Background::configure(const TangoConfigurationParameters *cp)
 void Background::draw(QPainter *painter, const QwtScaleMap &xMap, const QwtScaleMap &yMap, const QRectF &) const
 {
    if(!d_coloured || !configured())
-	return;
+      return;
+
 	Config *cfg = Config::instance();
 	QPen p;
 	p.setColor(EColor(Elettra::red));

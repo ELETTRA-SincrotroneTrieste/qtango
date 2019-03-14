@@ -144,23 +144,23 @@ class EPlotLightBase : public QwtPlot
 {
   Q_OBJECT
 
-  Q_PROPERTY(bool xAxisAutoscale READ xAxisAutoscaleEnabled WRITE setXAxisAutoscaleEnabled);
-  Q_PROPERTY(bool yAxisAutoscale READ yAxisAutoscaleEnabled WRITE setYAxisAutoscaleEnabled);
-  Q_PROPERTY(bool alignCanvasToScales READ alignCanvasToScalesEnabled WRITE setAlignCanvasToScalesEnabled);
-  Q_PROPERTY(double yUpperBound READ yUpperBound WRITE setYUpperBound);
-  Q_PROPERTY(double yLowerBound READ yLowerBound WRITE setYLowerBound);
-  Q_PROPERTY(double xUpperBound READ xUpperBound WRITE setXUpperBound);
-  Q_PROPERTY(double xLowerBound READ xLowerBound WRITE setXLowerBound);
-  Q_PROPERTY(bool xAutoscaleAdjustEnabled READ xAutoscaleAdjustEnabled WRITE setXAutoscaleAdjustEnabled);
-  Q_PROPERTY(bool yAutoscaleAdjustEnabled READ yAutoscaleAdjustEnabled WRITE setYAutoscaleAdjustEnabled);
-  Q_PROPERTY(double xAutoscaleAdjustment READ xAutoscaleAdjustment WRITE setXAutoscaleAdjustment);
-  Q_PROPERTY(double yAutoscaleAdjustment READ yAutoscaleAdjustment WRITE setYAutoscaleAdjustment);
+  Q_PROPERTY(bool xAxisAutoscale READ xAxisAutoscaleEnabled WRITE setXAxisAutoscaleEnabled)
+  Q_PROPERTY(bool yAxisAutoscale READ yAxisAutoscaleEnabled WRITE setYAxisAutoscaleEnabled)
+  Q_PROPERTY(bool alignCanvasToScales READ alignCanvasToScalesEnabled WRITE setAlignCanvasToScalesEnabled)
+  Q_PROPERTY(double yUpperBound READ yUpperBound WRITE setYUpperBound)
+  Q_PROPERTY(double yLowerBound READ yLowerBound WRITE setYLowerBound)
+  Q_PROPERTY(double xUpperBound READ xUpperBound WRITE setXUpperBound)
+  Q_PROPERTY(double xLowerBound READ xLowerBound WRITE setXLowerBound)
+  Q_PROPERTY(bool xAutoscaleAdjustEnabled READ xAutoscaleAdjustEnabled WRITE setXAutoscaleAdjustEnabled)
+  Q_PROPERTY(bool yAutoscaleAdjustEnabled READ yAutoscaleAdjustEnabled WRITE setYAutoscaleAdjustEnabled)
+  Q_PROPERTY(double xAutoscaleAdjustment READ xAutoscaleAdjustment WRITE setXAutoscaleAdjustment)
+  Q_PROPERTY(double yAutoscaleAdjustment READ yAutoscaleAdjustment WRITE setYAutoscaleAdjustment)
   Q_PROPERTY(bool titleOnCanvasEnabled  READ titleOnCanvasEnabled WRITE setTitleOnCanvasEnabled)
   Q_PROPERTY(bool xAxisLogScale READ xAxisLogScale WRITE setXAxisLogScale)
   Q_PROPERTY(bool yAxisLogScale READ yAxisLogScale WRITE setYAxisLogScale)
   Q_PROPERTY(bool zoomDisabled READ zoomDisabled WRITE setZoomDisabled)
     
-  Q_PROPERTY(CurveStyle curvesStyle READ curvesStyle WRITE setCurvesStyle);
+  Q_PROPERTY(CurveStyle curvesStyle READ curvesStyle WRITE setCurvesStyle)
   Q_ENUMS(CurveStyle)
   
   public:

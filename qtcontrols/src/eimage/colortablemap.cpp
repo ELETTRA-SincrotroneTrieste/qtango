@@ -13,11 +13,8 @@ void ColorTableMap::generateColorMap()
     int i;
     QVector <QRgb> mBWPalette, mCPalette, mHotPalette, mJetPalette;
     // palette 1
-    float delta = 1.0/306;
     // float base  = 5.0/6;
-    float r;
     for (i=0; i<256; i++) {
-        r = (float)i*delta;
         mBWPalette.append(QColor::fromHsv(0,0,i).rgb());
         // paletteColor1.append(QColor::fromHsvF((base-r),1,1).rgb()); // not used
     }
