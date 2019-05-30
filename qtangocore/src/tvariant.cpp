@@ -230,7 +230,6 @@ void TVariant::setDeviceAttribute(DeviceAttribute &attr, const AttributeInfo& in
                 dataReadUIntVector.push_back((unsigned short) temp[i]);
             for (unsigned int i = 0; i < (temp.size()-read); i++)
                 dataSetUIntVector.push_back((unsigned short) temp[read+i]);
-            printf("DEV_USHORT dataReadUIntVector ize %d set %d\n", dataReadUIntVector.size(), dataSetUIntVector.size());
             break;
         }
         case DEV_LONG:
@@ -1406,7 +1405,6 @@ TImageData<unsigned char> TVariant::toUCharImage(bool read) const
         {
             TImageData<unsigned char> tid(convert<unsigned char>(dataReadUIntVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
             //TImageData<unsigned char> tid;
-            printf("\e[0;32mThat's USHORT: creating %p\e[0m\n", &tid);
             return tid;
         }
         return TImageData<unsigned char>(convert<unsigned char>(dataSetUIntVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);

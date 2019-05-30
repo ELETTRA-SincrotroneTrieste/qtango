@@ -33,7 +33,7 @@ class TTextBrowserPrivate;
  *
  * This class supports Tango attributes whose values can be converted into string.
  * It can be useful either when such strings are too long to be clearly displayed in a TLabel
- * or when they are html formatted. The use is very simple and equivalent to the use of 
+ * or when they are html formatted. The use is very simple and equivalent to the use of
  * the TLabel.
  * Since this is used to represent strings, no auto configuration takes place in the setup phase.
  */
@@ -54,31 +54,31 @@ class TTextBrowser : public QTextBrowser, public QTangoComProxyReader, public QT
   Q_PROPERTY(bool hdbActionEnabled READ hdbActionEnabled WRITE setHdbActionEnabled DESIGNABLE true)
   Q_PROPERTY(QString additionalInfo READ  additionalInfo WRITE setAdditionalInfo)
   Q_PROPERTY(bool plainText READ plainText WRITE setPlainText)
-  
+
   public:
 	TTextBrowser(QWidget *parent);
-	
+
 	QString source() { return QTangoComProxyReader::source(); }
 
 	QUrl textBrowserSource() { return QTextBrowser::source(); }
-	
+
 	virtual ~TTextBrowser() {};
-	
+
 	bool plainText() const {return d_plainText; }
-	
+
   public slots:
 	
 	virtual void setSource(const QString& source) { QTangoComProxyReader::setSource(source); }
-	
+
 	void setTextBrowserSource(const QUrl& s) { QTextBrowser::setSource(s); }
-	
+
 	void setPlainText(bool plain) { d_plainText = plain; }
-	
+
   protected:
-  
+
   protected slots:
 	void refresh(const TVariant &);
-	
+
   private:
 	int d_hScrollPos, d_vScrollPos;
 	bool d_plainText;

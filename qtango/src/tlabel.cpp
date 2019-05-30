@@ -81,7 +81,7 @@ void TLabel::refresh(const TVariant &v)
     {
         currentQuality = v.quality();
         QPalette pal = palette();
-	
+
         if(currentQuality == ATTR_INVALID)
         {
             if (palette().color(QPalette::Background) != Qt::white)
@@ -163,7 +163,7 @@ void TLabel::refresh(const TVariant &v)
     else if (v.canConvertToString())
     {
         /* if display unit is set, then the full string is passed to ELabel, included a standard unit,
-		 * if set. 
+		 * if set.
 		 */
         ELabel::setValue(QVariant(v.toString(true, property("forceNoUnit").toBool())));
     }
@@ -183,12 +183,12 @@ void TLabel::refresh(const TVariant &v)
     }
 }
 
-void TLabel::configure (const TangoConfigurationParameters * cp) 
+void TLabel::configure (const TangoConfigurationParameters * cp)
 {
     if(!autoConfiguration())
 	return;
 
-    if (cp != NULL && cp->descriptionIsSet()) 
+    if (cp != NULL && cp->descriptionIsSet())
     {
         setWhatsThis(cp->description());
     }
@@ -334,31 +334,29 @@ void TLabel::setBackgroundColorChangeEnabled(bool en)
     }
 }
 
-
 void TLabel::setPixmapName(const QString& name)
 {
     QPixmap pixmap;
     d_pixmapName = QString();
+
     if(name.contains(":") || name.contains('/'))
-	pixmap = QPixmap(name);
+      pixmap = QPixmap(name);
     else if(!name.contains('/'))
-	pixmap = QPixmap(TUtil::instance()->iconPath() + "/" + name);
+      pixmap = QPixmap(TUtil::instance()->iconPath() + "/" + name);
 
     if(!pixmap.isNull())
     {
-        /// 	setPixmap(pixmap);
-	d_pixmapName = name;
+      /// 	setPixmap(pixmap);
+      d_pixmapName = name;
     }
     else
     {
-	setText("Error setting pixmap");
-	perr("TLabel::setPixmapName(): error building the pixmap");
-	perr("The file \"%s\", if not a qt resource system file, is searched into the directory", qstoc(name));
-	perr("\"%s\"", qstoc(TUtil::instance()->iconPath()));
-	perr("which is a user wide directory stored into a QSetting object.");
-	perr("Check that the icon is there or change the system wide setting by calling TUtil::setIconPath()");
-	perr("with the correct path where icons and pixmap are installed.");
+      setText("Error setting pixmap");
+      perr("TLabel::setPixmapName(): error building the pixmap");
+      perr("The file \"%s\", if not a qt resource system file, is searched into the directory", qstoc(name));
+      perr("\"%s\"", qstoc(TUtil::instance()->iconPath()));
+      perr("which is a user wide directory stored into a QSetting object.");
+      perr("Check that the icon is there or change the system wide setting by calling TUtil::setIconPath()");
+      perr("with the correct path where icons and pixmap are installed.");
     }
 }
-
-
