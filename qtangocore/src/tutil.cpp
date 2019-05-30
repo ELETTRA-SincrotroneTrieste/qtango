@@ -851,7 +851,6 @@ DeviceAttribute	TUtil::convertToDeviceAttribute(QStringList &args, AttributeInfo
                 }
                 case DEV_FLOAT:
                 {
-                    printf("spectrum dev float\n");
                     qDebug() << QThread::currentThread() << ":" << "convertToDeviceAttribute() - DEV_FLOAT";
                     vector<float> temp;
                     foreach (QString v, vals)
@@ -861,7 +860,6 @@ DeviceAttribute	TUtil::convertToDeviceAttribute(QStringList &args, AttributeInfo
                 }
                 case DEV_DOUBLE:
                 {
-                    printf("spectrum dev double\n");
                     qDebug() << QThread::currentThread() << ":" << "convertToDeviceAttribute() - DEV_DOUBLE";
                     vector<double> temp;
                     foreach (QString v, vals)

@@ -247,7 +247,7 @@ void EPlotCurve::drawCurve(QPainter *p, int style,
         }
         p->restore();
     }
-   // printf("\e[1;33mNOTE\e[0m: calling drawCurve from %d to %d!\n", from, to);
+//   printf("\e[1;33mNOTE\e[0m: calling drawCurve %s from %d to %d!\n", qstoc(title().text()), from, to);
     QwtPlotCurve::drawCurve(p, style, xMap, yMap, canvasRect, from, to);
 }
 

@@ -1,4 +1,4 @@
-include (/runtime/include/qtango6/qtango.pri)
+include (/usr/local/qtango/include/qtango6/qtango.pri)
 
 # -------------------------------------------------
 # Project created by QtCreator 2010-08-10T15:41:05

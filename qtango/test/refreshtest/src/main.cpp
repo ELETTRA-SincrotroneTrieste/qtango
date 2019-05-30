@@ -41,7 +41,7 @@ int main( int argc, char ** argv ) {
     /* register to window manager */
     Display *disp = QX11Info::display();
     Window root_win = (Window) mw.winId();
-    XSetCommand(disp, root_win, QApplication::argv(), QApplication::argc());
+    XSetCommand(disp, root_win, argv, argc);
 	
 	printf("Plot Light refresh test.\n\e[1;32mOptions\e[0m:\n");
 	printf("a. \e[0;32mRandom vector generation mode\e[0m:\n");

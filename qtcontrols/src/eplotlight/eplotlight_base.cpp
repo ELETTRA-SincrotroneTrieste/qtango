@@ -59,6 +59,7 @@ void EScaleWidget::scaleChange()
 
 QwtText ETimeScaleDraw::label(double v) const
 {
+    return QwtDateScaleDraw::label(v);
     QDateTime d;
     d.setTime_t((int) v );
 
@@ -134,7 +135,7 @@ void EPlotLightBase::init()
     EScaleEngine *eScaleEngineX = new EScaleEngine();
    eScaleEngineX->setAttribute(QwtScaleEngine::Floating, false);
     EScaleEngine *eScaleEngineY = new EScaleEngine();
-    setAxisScaleEngine(QwtPlot::xBottom, eScaleEngineX);
+ //   setAxisScaleEngine(QwtPlot::xBottom, eScaleEngineX);
     setAxisScaleEngine(QwtPlot::yLeft, eScaleEngineY);
     connect(zoomer, SIGNAL(zoomHint()), this, SLOT(displayZoomHint()));
     connect(zoomer, SIGNAL(removeZoomHint()), this, SLOT(eraseZoomHint()));
@@ -196,8 +197,8 @@ void EPlotLightBase::setDateOnTimeScaleDrawEnabled(bool en)
     //       d_timeScaleDraw->setDateFormat(QwtDate::Day, "yyyy-MM-dd hh:mm:ss");
    }
 
-   //    if(d_timeScaleDraw)
-   //        d_timeScaleDraw->setDateEnabled(en);
+       if(d_timeScaleDraw)
+           d_timeScaleDraw->setDateEnabled(en);
 }
 
 bool EPlotLightBase::dateOnTimeScaleDrawEnabled() const

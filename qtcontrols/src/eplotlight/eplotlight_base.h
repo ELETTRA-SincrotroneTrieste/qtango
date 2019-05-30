@@ -65,14 +65,7 @@ class ETimeScaleDraw : public QwtDateScaleDraw
   public:
     ETimeScaleDraw(Qt::TimeSpec timeSpec= Qt::LocalTime	) : QwtDateScaleDraw(timeSpec)
     {
-        m_dateEnabled = false;
-        setDateFormat( QwtDate::Millisecond, "hh:mm:ss:zzz\nddd dd MMM" );
-        setDateFormat( QwtDate::Second, "hh:mm:ss\nddd dd MMM" );
-        setDateFormat( QwtDate::Minute, "hh:mm\nddd dd MMM" );
-        setDateFormat( QwtDate::Hour, "hh:mm\nddd dd MMM" );
-        setDateFormat( QwtDate::Day, "ddd dd MMM" );
-        setDateFormat( QwtDate::Week, "Www" );
-        setDateFormat( QwtDate::Month, "MMM" );
+        setDateEnabled(false);
 
     }
 
@@ -80,12 +73,22 @@ class ETimeScaleDraw : public QwtDateScaleDraw
 
     void setDateEnabled(bool en)
     {
-       // if(en)
+        if(en)
         {
             setDateFormat( QwtDate::Millisecond, "hh:mm:ss:zzz\nddd dd MMM" );
             setDateFormat( QwtDate::Second, "hh:mm:ss\nddd dd MMM" );
             setDateFormat( QwtDate::Minute, "hh:mm\nddd dd MMM" );
             setDateFormat( QwtDate::Hour, "hh:mm\nddd dd MMM" );
+            setDateFormat( QwtDate::Day, "ddd dd MMM" );
+            setDateFormat( QwtDate::Week, "Www" );
+            setDateFormat( QwtDate::Month, "MMM" );
+        }
+        else
+        {
+            setDateFormat( QwtDate::Millisecond, "hh:mm:ss:zzz" );
+            setDateFormat( QwtDate::Second, "hh:mm:ss" );
+            setDateFormat( QwtDate::Minute, "hh:mm" );
+            setDateFormat( QwtDate::Hour, "hh:mm" );
             setDateFormat( QwtDate::Day, "ddd dd MMM" );
             setDateFormat( QwtDate::Week, "Www" );
             setDateFormat( QwtDate::Month, "MMM" );

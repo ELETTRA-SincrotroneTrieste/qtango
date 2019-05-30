@@ -8,9 +8,11 @@ CONFIG += release
 DEFINES += QT_NO_DEBUG_OUTPUT
 	  
 SOURCES += commander.cpp \
-           main.cpp
+           main.cpp \ 
+	src/mylabel.cpp
 
-HEADERS += commander.h
+HEADERS += commander.h \ 
+	src/mylabel.h
 
 FORMS = commander.ui
 

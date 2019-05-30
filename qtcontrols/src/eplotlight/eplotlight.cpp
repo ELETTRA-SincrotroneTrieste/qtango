@@ -74,7 +74,8 @@ void EPlotLight::appendData(const QString& curveName, double *x, double *y, int 
 	while(d_bufSiz > 0 && !timeScaleDrawEnabled() && curve->count() > d_bufSiz)
 		curve->popFront();
 	
-	curve->appendData(x, y, size);
+    *x = *x * 1000;
+    curve->appendData(x, y, size);
 	curve->updateRawData();
 
     replot();

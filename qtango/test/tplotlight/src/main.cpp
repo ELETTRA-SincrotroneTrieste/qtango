@@ -44,7 +44,7 @@ int main( int argc, char ** argv ) {
     /* register to window manager */
     Display *disp = QX11Info::display();
     Window root_win = (Window) mw.winId();
-    XSetCommand(disp, root_win, QApplication::argv(), QApplication::argc());
+    XSetCommand(disp, root_win, argv, argc);
 	
     return a.exec();
 }

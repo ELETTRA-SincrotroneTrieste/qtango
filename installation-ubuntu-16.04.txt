@@ -32,7 +32,7 @@ apt-get install vim
 QT5 (optional)
 apt-get install qt5-default (development files)
 apt-get install libqwt-qt5-6 libqwt-qt5-dev  
-apt-get install libqt5x11extras5 libqt5x11extras5-dev libqt5designercomponents5 
+apt-get install libqt5x11extras5 libqt5x11extras5-dev q 
 apt-get install qttools5-dev  qttools5-dev-tools
 
 Please NOTE:

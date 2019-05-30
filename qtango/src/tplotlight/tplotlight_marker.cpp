@@ -28,6 +28,7 @@ TPlotLightMarker::TPlotLightMarker(QWidget*parent) : EPlotLightMarker(parent), T
 
 void TPlotLightMarker::updateCurve(const TVariant &v)
 {
+//=   return;
     double val;
     setToolTip(v.message());
 

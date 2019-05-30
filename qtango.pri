@@ -65,7 +65,7 @@ greaterThan(QT_MAJOR_VERSION, 4) {
 
 DEFINES += QT_NO_DEBUG_OUTPUT
 DEFINES += QTANGO_PRINTINFO
-CONFIG +=  dbus debug
+CONFIG +=  dbus release
 
 QT += dbus
 
