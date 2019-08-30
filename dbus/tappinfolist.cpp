@@ -62,6 +62,23 @@ TAppInfo TAppInfoList::findByNameArgs(const QString& name, const QStringList& ar
     return TAppInfo();
 }
 
+QList<TAppInfo> TAppInfoList::findByNameArgsMulti(const QString &name, const QStringList &args) const
+{
+    QList<TAppInfo> ail;
+    foreach(TAppInfo ai, m_tAppInfoList)
+    {
+        /* check for getpid() != ai.pid: the application might be already registered with dbus */
+        if(ai.pid != getpid())
+        {
+            qDebug() << "TAppInfoList::findByNameArgsMulti" << ai.appName << name << ai.args << args;
+            if((ai.appName == name &&  ai.args == args)
+                || (ai.appName == name && ai.args.size() == 0 && args.size() == 0))
+                ail << ai;
+        }
+    }
+    return ail;
+}
+
 TAppInfo TAppInfoList::findByService(const QString& serviceName) const
 {
     foreach(TAppInfo ai, m_tAppInfoList)

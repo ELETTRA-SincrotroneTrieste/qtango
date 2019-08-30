@@ -39,6 +39,11 @@ TAppInfo TApplicationsPoolProxy::findApplicationByNameArgs(const QString& name, 
     return applicationsList().findByNameArgs(name, args);
 }
 
+QList<TAppInfo> TApplicationsPoolProxy::findApplicationsByNameArgs(const QString &name, const QStringList &args)
+{
+    return applicationsList().findByNameArgsMulti(name, args);
+}
+
 TAppInfo TApplicationsPoolProxy::findApplicationByPid(pid_t pid)
 {
     return applicationsList().findByPid(pid);

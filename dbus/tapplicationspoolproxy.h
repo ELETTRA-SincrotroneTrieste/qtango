@@ -154,6 +154,8 @@ public:
       */
     TAppInfo findApplicationByNameArgs(const QString& name, const QStringList& args);
 
+    QList<TAppInfo> findApplicationsByNameArgs(const QString& name, const QStringList& args);
+
     /** \brief Returns the TAppInfo running with the pid provided, or an empty TAppInfo if none was found.
       *
       * This is a shortcut for TAppInfoList::findByPid()

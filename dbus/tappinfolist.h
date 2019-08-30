@@ -43,6 +43,8 @@ public:
       */
     TAppInfo findByNameArgs(const QString& name, const QStringList& args) const;
 
+    QList<TAppInfo> findByNameArgsMulti(const QString& name, const QStringList& args) const;
+
     /** \brief Returns the TAppInfo with process id equal to pid
       *
       */
