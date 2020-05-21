@@ -73,7 +73,7 @@ EngString::EngString(QString s , const QString& format, const QVariant &value) :
 	  append(value.toString());
 	}
   }
-	
+
 //   else
 // 	printf("format\e[1;36m \"%s\"\e[0m does not contain \e[1;32meng\e[0m\n", qstoc(format));
 }
