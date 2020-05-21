@@ -35,6 +35,10 @@ class TVariantPrivate
 {
 public:
     int dimx, dimy, dimx_w, dimy_w;
+    QVector<qint64>			dataReadLongVector;
+    QVector<quint64>        dataReadULongVector;
+    QVector<qint64>			dataSetLongVector;
+    QVector<quint64>        dataSetULongVector;
 };
 
 TVariant::TVariant()
@@ -68,6 +72,12 @@ TVariant::TVariant(const TVariant &o)
     dataSetUIntVector	= o.dataSetUIntVector;
     dataSetIntVector	= o.dataSetIntVector;
     dataSetBoolVector	= o.dataSetBoolVector;
+
+    // long64 and ulong64
+    d_ptr->dataSetLongVector = o.d_ptr->dataSetLongVector;
+    d_ptr->dataSetULongVector = o.d_ptr->dataSetULongVector;
+    d_ptr->dataReadLongVector = o.d_ptr->dataReadLongVector;
+    d_ptr->dataReadULongVector = o.d_ptr->dataReadULongVector;
 
     d_message	= o.d_message;
     d_tangoPoint	= o.d_tangoPoint;
@@ -122,6 +132,11 @@ TVariant &TVariant::operator=(const TVariant &o)
     dataSetUIntVector	= o.dataSetUIntVector;
     dataSetIntVector	= o.dataSetIntVector;
     dataSetBoolVector	= o.dataSetBoolVector;
+    // long64 and ulong64
+    d_ptr->dataSetLongVector = o.d_ptr->dataSetLongVector;
+    d_ptr->dataSetULongVector = o.d_ptr->dataSetULongVector;
+    d_ptr->dataReadLongVector = o.d_ptr->dataReadLongVector;
+    d_ptr->dataReadULongVector = o.d_ptr->dataReadULongVector;
 
     d_message	= o.d_message;
     d_tangoPoint	= o.d_tangoPoint;
@@ -237,12 +252,25 @@ void TVariant::setDeviceAttribute(DeviceAttribute &attr, const AttributeInfo& in
             qDebug() << QThread::currentThread() << ":" << this << "setDeviceAttribute() - DEV_LONG";
             vector<DevLong> temp;
             attr >> temp;
-            dataReadIntVector.clear();
-            dataSetIntVector.clear();
+            d_ptr->dataReadLongVector.clear();
+            d_ptr->dataSetLongVector.clear();
             for (unsigned int i = 0; i < read; i++)
-                dataReadIntVector.push_back((int) temp[i]);
+                d_ptr->dataReadLongVector.push_back((int) temp[i]);
             for (unsigned int i = 0; i < (temp.size()-read); i++)
-                dataSetIntVector.push_back((int) temp[read+i]);
+                d_ptr->dataSetLongVector.push_back((int) temp[read+i]);
+            break;
+        }
+        case DEV_LONG64:
+        {
+            qDebug() << QThread::currentThread() << ":" << this << "setDeviceAttribute() - DEV_LONG";
+            vector<DevLong64> temp;
+            attr >> temp;
+            d_ptr->dataReadLongVector.clear();
+            d_ptr->dataSetLongVector.clear();
+            for (unsigned int i = 0; i < read; i++)
+                d_ptr->dataReadLongVector.push_back((int) temp[i]);
+            for (unsigned int i = 0; i < (temp.size()-read); i++)
+                d_ptr->dataSetLongVector.push_back((int) temp[read+i]);
             break;
         }
         case DEV_ULONG:
@@ -250,12 +278,25 @@ void TVariant::setDeviceAttribute(DeviceAttribute &attr, const AttributeInfo& in
             qDebug() << QThread::currentThread() << ":" << this << "setDeviceAttribute() - DEV_ULONG";
             vector<DevULong> temp;
             attr >> temp;
-            dataReadUIntVector.clear();
-            dataSetUIntVector.clear();
+            d_ptr->dataReadULongVector.clear();
+            d_ptr->dataSetULongVector.clear();
             for (unsigned int i = 0; i < read; i++)
-                dataReadUIntVector.push_back((unsigned int) temp[i]);
+                d_ptr->dataReadULongVector.push_back((unsigned int) temp[i]);
             for (unsigned int i = 0; i < (temp.size()-read); i++)
-                dataSetUIntVector.push_back((unsigned int) temp[read+i]);
+                d_ptr->dataSetULongVector.push_back((unsigned int) temp[read+i]);
+            break;
+        }
+        case DEV_ULONG64:
+        {
+            qDebug() << QThread::currentThread() << ":" << this << "setDeviceAttribute() - DEV_ULONG";
+            vector<DevULong64> temp;
+            attr >> temp;
+            d_ptr->dataReadULongVector.clear();
+            d_ptr->dataSetULongVector.clear();
+            for (unsigned int i = 0; i < read; i++)
+                d_ptr->dataReadULongVector.push_back((unsigned int) temp[i]);
+            for (unsigned int i = 0; i < (temp.size()-read); i++)
+                d_ptr->dataSetULongVector.push_back((unsigned int) temp[read+i]);
             break;
         }
         case DEV_FLOAT:
@@ -337,14 +378,24 @@ void TVariant::setDeviceData(DeviceData &data, const CommandInfo &info)
     {
     case DEV_SHORT:
     case DEV_USHORT:
+        d_attrInfo.format = "%d";
+        break;
     case DEV_LONG:
     case DEV_ULONG:
+    case DEV_ULONG64:
+    case DEV_LONG64:
+        d_attrInfo.format = "%ld";
+        break;
         /* format spectrum elements of commands argout consistently */
     case DEVVAR_SHORTARRAY:
     case DEVVAR_USHORTARRAY:
-    case DEVVAR_LONGARRAY:
-    case DEVVAR_ULONGARRAY:
         d_attrInfo.format = "%d";
+        break;
+    case DEVVAR_LONGARRAY:
+    case DEVVAR_LONG64ARRAY:
+    case DEVVAR_ULONGARRAY:
+    case DEVVAR_ULONG64ARRAY:
+        d_attrInfo.format = "%ld";
         break;
     case DEV_FLOAT:
     case DEV_DOUBLE:
@@ -418,10 +469,21 @@ void TVariant::setDeviceData(DeviceData &data, const CommandInfo &info)
             qDebug() << QThread::currentThread() << ":" << this << "setDeviceData() - DEV_LONG";
             DevLong temp;
             data >> temp;
-            dataReadIntVector.clear();
-            dataSetIntVector.clear();
-            dataReadIntVector.push_back((int) temp);
-            d_ptr->dimx = dataReadIntVector.size();
+            d_ptr->dataReadLongVector.clear();
+            d_ptr->dataSetLongVector.clear();
+            d_ptr->dataReadLongVector.push_back(static_cast<qint64>(temp));
+            d_ptr->dimx = d_ptr->dataReadLongVector.size();
+            break;
+        }
+        case DEV_LONG64:
+        {
+            qDebug() << QThread::currentThread() << ":" << this << "setDeviceData() - DEV_LONG";
+            DevLong64 temp;
+            data >> temp;
+            d_ptr->dataReadLongVector.clear();
+            d_ptr->dataSetLongVector.clear();
+            d_ptr->dataReadLongVector.push_back(static_cast<qint64>(temp));
+            d_ptr->dimx = d_ptr->dataReadLongVector.size();
             break;
         }
         case DEV_ULONG:
@@ -429,9 +491,20 @@ void TVariant::setDeviceData(DeviceData &data, const CommandInfo &info)
             qDebug() << QThread::currentThread() << ":" << this << "setDeviceData() - DEV_ULONG";
             DevULong temp;
             data >> temp;
-            dataReadUIntVector.clear();
-            dataSetUIntVector.clear();
-            dataReadUIntVector.push_back((unsigned int) temp);
+            d_ptr->dataReadULongVector.clear();
+            d_ptr->dataSetULongVector.clear();
+            d_ptr->dataReadULongVector.push_back(static_cast<quint64> (temp));
+            d_ptr->dimx = dataReadUIntVector.size();
+            break;
+        }
+        case DEV_ULONG64:
+        {
+            qDebug() << QThread::currentThread() << ":" << this << "setDeviceData() - DEV_ULONG";
+            DevULong64 temp;
+            data >> temp;
+            d_ptr->dataReadULongVector.clear();
+            d_ptr->dataSetULongVector.clear();
+            d_ptr->dataReadULongVector.push_back(static_cast<quint64> (temp));
             d_ptr->dimx = dataReadUIntVector.size();
             break;
         }
@@ -506,11 +579,24 @@ void TVariant::setDeviceData(DeviceData &data, const CommandInfo &info)
             vector<DevLong> temp;
             data >> temp;
             vector<DevLong>::iterator it;
-            dataReadIntVector.clear();
-            dataSetIntVector.clear();
+            d_ptr->dataReadLongVector.clear();
+            d_ptr->dataSetLongVector.clear();
             for (it = temp.begin(); it < temp.end(); it++)
-                dataReadIntVector.push_back((int) *it);
-            d_ptr->dimx = dataReadIntVector.size();
+                d_ptr->dataReadLongVector.push_back(static_cast<qint64>(*it));
+            d_ptr->dimx = d_ptr->dataReadLongVector.size();
+            break;
+        }
+        case DEVVAR_LONG64ARRAY:
+        {
+            qDebug() << QThread::currentThread() << ":" << this << "setDeviceData() - vector DEVVAR_LONGARRAY";
+            vector<DevLong64> temp;
+            data >> temp;
+            vector<DevLong64>::iterator it;
+            d_ptr->dataReadLongVector.clear();
+            d_ptr->dataSetLongVector.clear();
+            for (it = temp.begin(); it < temp.end(); it++)
+                d_ptr->dataReadLongVector.push_back(static_cast<qint64>(*it));
+            d_ptr->dimx = d_ptr->dataReadLongVector.size();
             break;
         }
         case DEVVAR_ULONGARRAY:
@@ -519,11 +605,24 @@ void TVariant::setDeviceData(DeviceData &data, const CommandInfo &info)
             vector<DevULong> temp;
             data >> temp;
             vector<DevULong>::iterator it;
-            dataReadUIntVector.clear();
-            dataSetUIntVector.clear();
+            d_ptr->dataReadULongVector.clear();
+            d_ptr->dataSetULongVector.clear();
             for (it = temp.begin(); it < temp.end(); it++)
-                dataReadIntVector.push_back((unsigned int) *it);
-            d_ptr->dimx = dataReadIntVector.size();
+                d_ptr->dataReadULongVector.push_back(static_cast<quint64>(*it));
+            d_ptr->dimx = d_ptr->dataReadULongVector.size();
+            break;
+        }
+        case DEVVAR_ULONG64ARRAY:
+        {
+            qDebug() << QThread::currentThread() << ":" << this << "setDeviceData() - vector DEVVAR_ULONGARRAY";
+            vector<DevULong64> temp;
+            data >> temp;
+            vector<DevULong64>::iterator it;
+            d_ptr->dataReadULongVector.clear();
+            d_ptr->dataSetULongVector.clear();
+            for (it = temp.begin(); it < temp.end(); it++)
+                d_ptr->dataReadULongVector.push_back(static_cast<quint64>(*it));
+            d_ptr->dimx = d_ptr->dataReadULongVector.size();
             break;
         }
         case DEVVAR_FLOATARRAY:
@@ -631,7 +730,9 @@ bool TVariant::canConvertToString() const
         case DEVVAR_SHORTARRAY:
         case DEVVAR_USHORTARRAY:
         case DEVVAR_LONGARRAY:
+        case DEVVAR_LONG64ARRAY:
         case DEVVAR_ULONGARRAY:
+        case DEVVAR_ULONG64ARRAY:
         case DEVVAR_FLOATARRAY:
         case DEVVAR_DOUBLEARRAY:
         case DEVVAR_STRINGARRAY:
@@ -649,6 +750,8 @@ bool TVariant::canConvertToString() const
     case DEV_USHORT:
     case DEV_LONG:
     case DEV_ULONG:
+    case DEV_LONG64:
+    case DEV_ULONG64:
     case DEV_FLOAT:
     case DEV_DOUBLE:
     case DEV_STRING:
@@ -669,6 +772,8 @@ bool TVariant::canConvertToDouble() const
     case DEV_USHORT:
     case DEV_LONG:
     case DEV_ULONG:
+    case DEV_LONG64:
+    case DEV_ULONG64:
     case DEV_FLOAT:
     case DEV_DOUBLE:
     case DEV_UCHAR:
@@ -687,8 +792,10 @@ bool TVariant::canConvertToUInt() const
     case DEV_STATE:
     case DEV_USHORT:
     case DEV_ULONG:
-    case DEV_SHORT:
     case DEV_LONG:
+    case DEV_LONG64:
+    case DEV_ULONG64:
+    case DEV_SHORT:
     case DEV_UCHAR:
         return true;
     default:
@@ -707,6 +814,8 @@ bool TVariant::canConvertToInt() const
     case DEV_USHORT:
     case DEV_LONG:
     case DEV_ULONG:
+    case DEV_LONG64:
+    case DEV_ULONG64:
     case DEV_FLOAT:
     case DEV_DOUBLE:
     case DEV_UCHAR:
@@ -745,6 +854,8 @@ bool TVariant::canConvertToStringVector() const
         case DEVVAR_USHORTARRAY:
         case DEVVAR_LONGARRAY:
         case DEVVAR_ULONGARRAY:
+        case DEVVAR_LONG64ARRAY:
+        case DEVVAR_ULONG64ARRAY:
         case DEVVAR_FLOATARRAY:
         case DEVVAR_DOUBLEARRAY:
         case DEVVAR_STRINGARRAY:
@@ -766,6 +877,8 @@ bool TVariant::canConvertToStringVector() const
     case DEV_USHORT:
     case DEV_LONG:
     case DEV_ULONG:
+    case DEV_LONG64:
+    case DEV_ULONG64:
     case DEV_FLOAT:
     case DEV_DOUBLE:
     case DEV_STRING:
@@ -793,6 +906,8 @@ bool TVariant::canConvertToDoubleVector() const
     case DEV_USHORT:
     case DEV_LONG:
     case DEV_ULONG:
+    case DEV_LONG64:
+    case DEV_ULONG64:
     case DEV_FLOAT:
     case DEV_DOUBLE:
     case DEV_UCHAR:
@@ -814,9 +929,11 @@ bool TVariant::canConvertToUIntVector() const
     case DEVVAR_FLOATARRAY:
     case DEV_STATE:
     case DEV_USHORT:
-    case DEV_ULONG:
     case DEV_SHORT:
     case DEV_LONG:
+    case DEV_ULONG:
+    case DEV_LONG64:
+    case DEV_ULONG64:
     case DEV_UCHAR:
         return true;
     default:
@@ -841,6 +958,8 @@ bool TVariant::canConvertToIntVector() const
     case DEV_USHORT:
     case DEV_LONG:
     case DEV_ULONG:
+    case DEV_LONG64:
+    case DEV_ULONG64:
     case DEV_FLOAT:
     case DEV_DOUBLE:
     case DEV_UCHAR:
@@ -898,6 +1017,8 @@ bool TVariant::canConvertToDoubleImage(bool strict) const
         case DEV_USHORT:
         case DEV_LONG:
         case DEV_ULONG:
+        case DEV_LONG64:
+        case DEV_ULONG64:
         case DEV_FLOAT:
         case DEV_UCHAR:
             return !strict;
@@ -933,6 +1054,8 @@ bool TVariant::canConvertToUCharImage(bool strict) const
         case DEV_USHORT:
         case DEV_LONG:
         case DEV_ULONG:
+        case DEV_LONG64:
+        case DEV_ULONG64:
         case DEV_FLOAT:
             return !strict;
         default:
@@ -961,12 +1084,14 @@ bool TVariant::canConvertToUIntImage(bool strict) const
         switch (d_type)
         {
         case DEV_ULONG:
+        case DEV_ULONG64:
             return true;
         case DEV_UCHAR:
         case DEV_DOUBLE:
         case DEV_SHORT:
         case DEV_USHORT:
         case DEV_LONG:
+        case DEV_LONG64:
         case DEV_FLOAT:
             return !strict;
         default:
@@ -1002,6 +1127,8 @@ bool TVariant::canConvertToBoolImage(bool strict) const
         case DEV_LONG:
         case DEV_ULONG:
         case DEV_FLOAT:
+        case DEV_ULONG64:
+        case DEV_LONG64:
             return !strict;
         default:
             break;
@@ -1027,6 +1154,8 @@ QString TVariant::toString(bool read, bool forceNoUnit) const
     case DEV_LONG:
     case DEV_USHORT:
     case DEV_ULONG:
+    case DEV_ULONG64:
+    case DEV_LONG64:
     case DEV_UCHAR:
         if(strstr(d_attrInfo.format.c_str(), "f"))
         {
@@ -1067,18 +1196,25 @@ QString TVariant::toString(bool read, bool forceNoUnit) const
             temp = format<int>(dataFormat, dataSetIntVector.value(0));
         break;
     case DEV_LONG:
+    case DEV_LONG64:
         if (read)
-            temp = format<int>(dataFormat, dataReadIntVector.value(0));
+            temp = format<qint64>(dataFormat, d_ptr->dataReadLongVector.value(0));
         else
-            temp = format<int>(dataFormat, dataSetIntVector.value(0));
+            temp = format<qint64>(dataFormat,  d_ptr->dataSetLongVector.value(0));
+        break;
+    case DEV_ULONG:
+    case DEV_ULONG64:
+        if (read)
+            temp = format<quint64>(dataFormat, d_ptr->dataReadULongVector.value(0));
+        else
+            temp = format<quint64>(dataFormat,  d_ptr->dataSetULongVector.value(0));
         break;
     case DEV_USHORT:
-    case DEV_ULONG:
     case DEV_UCHAR:
         if (read)
-            temp = format<unsigned int>(dataFormat, dataReadUIntVector.value(0));
+            temp = format<quint64>(dataFormat, dataReadUIntVector.value(0));
         else
-            temp = format<unsigned int>(dataFormat, dataSetUIntVector.value(0));
+            temp = format<quint64>(dataFormat, dataSetUIntVector.value(0));
         break;
     case DEV_FLOAT:
     case DEV_DOUBLE:
@@ -1108,20 +1244,27 @@ int TVariant::toInt(bool read) const
     switch (d_type)
     {
     case DEV_STATE:
-        return (int) dataReadStateVector.value(0);
+        return static_cast<int>(dataReadStateVector.value(0));
     case DEV_USHORT:
-    case DEV_ULONG:
     case DEV_UCHAR:
         if (read)
-            return (int) dataReadUIntVector.value(0);
+            return static_cast<int>(dataReadUIntVector.value(0));
         else
-            return (int) dataSetUIntVector.value(0);
-    case DEV_SHORT:
-    case DEV_LONG:
+            return static_cast<int>(dataSetUIntVector.value(0));
+    case DEV_ULONG:
+    case DEV_ULONG64:
         if (read)
-            return dataReadIntVector.value(0);
+            return static_cast<int>(d_ptr->dataReadULongVector.value(0));
         else
-            return dataSetIntVector.value(0);
+            return static_cast<int>(d_ptr->dataReadULongVector.value(0));
+    case DEV_SHORT:
+        return static_cast<int>(dataReadIntVector.value(0));
+    case DEV_LONG:
+    case DEV_LONG64:
+        if (read)
+            return static_cast<int>(d_ptr->dataReadLongVector.value(0));
+        else
+            return static_cast<int>(d_ptr->dataReadLongVector.value(0));
     case DEV_FLOAT:
     case DEV_DOUBLE:
         if (read)
@@ -1140,18 +1283,28 @@ unsigned int TVariant::toUInt(bool read) const
     case DEV_STATE:
         return (unsigned int) dataReadStateVector.value(0);
     case DEV_USHORT:
-    case DEV_ULONG:
     case DEV_UCHAR:
         if (read)
             return dataReadUIntVector.value(0);
         else
             return dataSetUIntVector.value(0);
-    case DEV_SHORT:
-    case DEV_LONG:
+    case DEV_ULONG:
+    case DEV_ULONG64:
         if (read)
-            return dataReadIntVector.value(0);
+            return static_cast<unsigned int>(d_ptr->dataReadULongVector.value(0));
         else
-            return dataSetIntVector.value(0);
+            return static_cast<unsigned int>(d_ptr->dataReadULongVector.value(0));
+    case DEV_SHORT:
+        if (read)
+            return static_cast<unsigned int>(dataReadIntVector.value(0));
+        else
+            return static_cast<unsigned int>(dataSetIntVector.value(0));
+    case DEV_LONG:
+    case DEV_LONG64:
+        if (read)
+            return static_cast<unsigned int>(d_ptr->dataReadLongVector.value(0));
+        else
+            return static_cast<unsigned int>(d_ptr->dataReadLongVector.value(0));
     default:
         return 0;
     }
@@ -1162,18 +1315,28 @@ double TVariant::toDouble(bool read) const
     switch (d_type)
     {
     case DEV_SHORT:
-    case DEV_LONG:
         if (read)
-            return (double) dataReadIntVector.value(0);
+            return static_cast<double>(dataReadIntVector.value(0));
         else
-            return (double) dataSetIntVector.value(0);
-    case DEV_ULONG:
+            return static_cast<double>(dataSetIntVector.value(0));
+    case DEV_LONG:
+    case DEV_LONG64:
+        if (read)
+            return static_cast<double>(d_ptr->dataReadLongVector.value(0));
+        else
+            return static_cast<double>(d_ptr->dataReadLongVector.value(0));
     case DEV_USHORT:
     case DEV_UCHAR:
         if (read)
-            return (double) dataReadUIntVector.value(0);
+            return static_cast<double>(dataReadUIntVector.value(0));
         else
-            return (double) dataSetUIntVector.value(0);
+            return static_cast<double>(dataSetUIntVector.value(0));
+    case DEV_ULONG:
+    case DEV_ULONG64:
+        if (read)
+            return static_cast<double>(d_ptr->dataReadULongVector.value(0));
+        else
+            return static_cast<double>(d_ptr->dataReadULongVector.value(0));
     case DEV_FLOAT:
     case DEV_DOUBLE:
         if (read)
@@ -1216,9 +1379,7 @@ QVector<QString> TVariant::toStringVector(bool read) const
         return temp;
     }
     case DEV_SHORT:
-    case DEV_LONG:
     case DEVVAR_SHORTARRAY:
-    case DEVVAR_LONGARRAY:
     {
         const QVector<int> *vec = read ? &dataReadIntVector : &dataSetIntVector;
         QVector<QString> temp;
@@ -1226,15 +1387,35 @@ QVector<QString> TVariant::toStringVector(bool read) const
             temp.push_back(format<int>(d_attrInfo.format, d));
         return temp;
     }
+    case DEV_LONG:
+    case DEVVAR_LONGARRAY:
+    case DEV_LONG64:
+    case DEVVAR_LONG64ARRAY:
+    {
+        const QVector<qint64> *vec = read ? &d_ptr->dataReadLongVector : &d_ptr->dataSetLongVector;
+        QVector<QString> temp;
+        foreach (qint64 d, *vec)
+            temp.push_back(format<qint64>(d_attrInfo.format, d));
+        return temp;
+    }
     case DEV_USHORT:
-    case DEV_ULONG:
     case DEVVAR_USHORTARRAY:
-    case DEVVAR_ULONGARRAY:
     {
         const QVector<unsigned int> *vec = read ? &dataReadUIntVector : &dataSetUIntVector;
         QVector<QString> temp;
         foreach (unsigned int d, *vec)
             temp.push_back(format<unsigned int>(d_attrInfo.format, d));
+        return temp;
+    }
+    case DEVVAR_ULONGARRAY:
+    case DEV_ULONG:
+    case DEVVAR_ULONG64ARRAY:
+    case DEV_ULONG64:
+    {
+        const QVector<quint64> *vec = read ? &d_ptr->dataReadULongVector : &d_ptr->dataSetULongVector;
+        QVector<QString> temp;
+        foreach (quint64 d, *vec)
+            temp.push_back(format<quint64>(d_attrInfo.format, d));
         return temp;
     }
     case DEV_FLOAT:
@@ -1265,22 +1446,38 @@ QVector<int> TVariant::toIntVector(bool read) const
     switch (d_type)
     {
     case DEV_SHORT:
-    case DEV_LONG:
     case DEVVAR_SHORTARRAY:
-    case DEVVAR_LONGARRAY:
         if (read)
             return dataReadIntVector;
         else
             return dataSetIntVector;
+    case DEV_LONG:
+    case DEVVAR_LONGARRAY:
+    case DEV_LONG64:
+    case DEVVAR_LONG64ARRAY: {
+        QVector<int> temp;
+        const QVector<qint64> *vec = read ? &d_ptr->dataReadLongVector : &d_ptr->dataSetLongVector;
+        foreach (qint64 d, *vec)
+            temp.push_back(static_cast<int>(d));
+        return temp;
+    }
     case DEV_USHORT:
-    case DEV_ULONG:
-    case DEVVAR_USHORTARRAY:
-    case DEVVAR_ULONGARRAY:
-    {
+    case DEVVAR_USHORTARRAY: {
         const QVector<unsigned int> *vec = read ? &dataReadUIntVector : &dataSetUIntVector;
         QVector<int> temp;
         foreach (unsigned int d, *vec)
             temp.push_back((int) d);
+        return temp;
+    }
+    case DEVVAR_ULONGARRAY:
+    case DEV_ULONG:
+    case DEVVAR_ULONG64ARRAY:
+    case DEV_ULONG64:
+    {
+        QVector<int> temp;
+        const QVector<quint64> *vec = read ? &d_ptr->dataReadULongVector : &d_ptr->dataSetULongVector;
+        foreach (quint64 d, *vec)
+            temp.push_back(static_cast<int>(d));
         return temp;
     }
     case DEV_FLOAT:
@@ -1304,13 +1501,21 @@ QVector<unsigned int> TVariant::toUIntVector(bool read) const
     switch (d_type)
     {
     case DEV_USHORT:
-    case DEV_ULONG:
     case DEVVAR_USHORTARRAY:
-    case DEVVAR_ULONGARRAY:
         if (read)
             return dataReadUIntVector;
         else
             return dataSetUIntVector;
+    case DEV_ULONG:
+    case DEVVAR_ULONGARRAY:
+    case DEV_ULONG64:
+    case DEVVAR_ULONG64ARRAY: {
+        QVector<uint> temp;
+        const QVector<quint64> *vec = read ? &d_ptr->dataReadULongVector : &d_ptr->dataSetULongVector;
+        foreach (quint64 d, *vec)
+            temp.push_back(static_cast<uint>(d));
+        return temp;
+    }
     default:
         return QVector<unsigned int>();
     }
@@ -1321,9 +1526,7 @@ QVector<double> TVariant::toDoubleVector(bool read) const
     switch (d_type)
     {
     case DEV_SHORT:
-    case DEV_LONG:
     case DEVVAR_SHORTARRAY:
-    case DEVVAR_LONGARRAY:
     {
         const QVector<int> *vec = read ? &dataReadIntVector : &dataSetIntVector;
         QVector<double> temp;
@@ -1331,15 +1534,33 @@ QVector<double> TVariant::toDoubleVector(bool read) const
             temp.push_back((double) d);
         return temp;
     }
+    case DEVVAR_LONG64ARRAY:
+    case DEV_LONG64:
+    case DEVVAR_LONGARRAY:
+    case DEV_LONG: {
+        QVector<double> temp;
+        const QVector<qint64> *vec = read ? &d_ptr->dataReadLongVector : &d_ptr->dataSetLongVector;
+        foreach (qint64 d, *vec)
+            temp.push_back(static_cast<double>(d));
+        return temp;
+    }
     case DEV_USHORT:
-    case DEV_ULONG:
     case DEVVAR_USHORTARRAY:
-    case DEVVAR_ULONGARRAY:
     {
         const QVector<unsigned int> *vec = read ? &dataReadUIntVector : &dataSetUIntVector;
         QVector<double> temp;
         foreach (unsigned int d, *vec)
             temp.push_back((double) d);
+        return temp;
+    }
+    case DEVVAR_ULONGARRAY:
+    case DEV_ULONG:
+    case DEVVAR_ULONG64ARRAY:
+    case DEV_ULONG64: {
+        QVector<double> temp;
+        const QVector<quint64> *vec = read ? &d_ptr->dataReadULongVector : &d_ptr->dataSetULongVector;
+        foreach (quint64 d, *vec)
+            temp.push_back(static_cast<double>(d));
         return temp;
     }
     case DEV_FLOAT:
@@ -1360,17 +1581,26 @@ TImageData<double> TVariant::toDoubleImage(bool read) const
     switch (d_type)
     {
     case DEV_SHORT:
-    case DEV_LONG:
         if(read)
             return TImageData<double>(convert<double>(dataReadIntVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
         return TImageData<double>(convert<double>(dataSetIntVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
 
+    case DEV_LONG:
+    case DEV_LONG64:
+        if(read)
+            return TImageData<double>(convert<double>(d_ptr->dataReadLongVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
+        return TImageData<double>(convert<double>(d_ptr->dataSetLongVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
     case DEV_USHORT:
-    case DEV_ULONG:
     case DEV_UCHAR:
         if(read)
             return TImageData<double>(convert<double>(dataReadUIntVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
         return TImageData<double>(convert<double>(dataSetUIntVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
+
+    case DEV_ULONG:
+    case DEV_ULONG64:
+        if(read)
+            return TImageData<double>(convert<double>(d_ptr->dataReadULongVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
+        return TImageData<double>(convert<double>(d_ptr->dataSetULongVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
 
     case DEV_FLOAT:
     case DEV_DOUBLE:
@@ -1394,13 +1624,23 @@ TImageData<unsigned char> TVariant::toUCharImage(bool read) const
         return TImageData<unsigned char>(convert<unsigned char>(dataSetUIntVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
 
     case DEV_SHORT:
-    case DEV_LONG:
         if(read)
             return TImageData<unsigned char>(convert<unsigned char>(dataReadIntVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
         return TImageData<unsigned char>(convert<unsigned char>(dataSetIntVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
 
-    case DEV_USHORT:
+    case DEV_LONG:
+    case DEV_LONG64:
+        if(read)
+            return TImageData<unsigned char>(convert<unsigned char>(d_ptr->dataReadLongVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
+        return TImageData<unsigned char>(convert<unsigned char>(d_ptr->dataSetLongVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
+
     case DEV_ULONG:
+    case DEV_ULONG64:
+        if(read)
+            return TImageData<unsigned char>(convert<unsigned char>(d_ptr->dataReadULongVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
+        return TImageData<unsigned char>(convert<unsigned char>(d_ptr->dataSetULongVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
+
+    case DEV_USHORT:
         if(read)
         {
             TImageData<unsigned char> tid(convert<unsigned char>(dataReadUIntVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
@@ -1426,13 +1666,24 @@ TImageData<unsigned int> TVariant::toUIntImage(bool read) const
     {
     case DEV_UCHAR:
     case DEV_USHORT:
-    case DEV_ULONG:
         if(read)
             return TImageData<unsigned int>(dataReadUIntVector, d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
         return TImageData<unsigned int>(dataSetUIntVector, d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
 
-    case DEV_SHORT:
+    case DEV_ULONG:
+    case DEV_ULONG64:
+        if(read)
+            return TImageData<unsigned int>(convert<unsigned int>(d_ptr->dataReadULongVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
+        return TImageData<unsigned int>(convert<unsigned int>(d_ptr->dataSetULongVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
+
     case DEV_LONG:
+    case DEV_LONG64:
+        if(read)
+            return TImageData<unsigned int>(convert<unsigned int>(d_ptr->dataReadLongVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
+        return TImageData<unsigned int>(convert<unsigned int>(d_ptr->dataSetLongVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
+
+
+    case DEV_SHORT:
         if(read)
             return TImageData<unsigned int>(convert<unsigned int>(dataReadIntVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
         return TImageData<unsigned int>(convert<unsigned int>(dataSetIntVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
@@ -1461,13 +1712,23 @@ TImageData<bool> TVariant::toUBoolImage(bool read) const
 
     case DEV_UCHAR:
     case DEV_USHORT:
-    case DEV_ULONG:
         if(read)
             return TImageData<bool>(convert<bool>(dataReadUIntVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
         return TImageData<bool>(convert<bool>(dataSetUIntVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
 
-    case DEV_SHORT:
     case DEV_LONG:
+    case DEV_LONG64:
+        if(read)
+            return TImageData<bool>(convert<bool>(d_ptr->dataReadLongVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
+        return TImageData<bool>(convert<bool>(d_ptr->dataSetLongVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
+
+    case DEV_ULONG:
+    case DEV_ULONG64:
+        if(read)
+            return TImageData<bool>(convert<bool>(d_ptr->dataReadULongVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
+        return TImageData<bool>(convert<bool>(d_ptr->dataSetULongVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
+
+    case DEV_SHORT:
         if(read)
             return TImageData<bool>(convert<bool>(dataReadIntVector), d_ptr->dimx, d_ptr->dimy, d_quality, d_type);
         return TImageData<bool>(convert<bool>(dataSetIntVector), d_ptr->dimx_w, d_ptr->dimy_w, d_quality, d_type);
