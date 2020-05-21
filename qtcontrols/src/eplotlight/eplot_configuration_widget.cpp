@@ -252,7 +252,7 @@ void EPlotConfigurationWidget::curveSelectionChanged(int)
             ui.sbCurveWidth->setValue(cPen.width());
             ui.sbAlpha->setValue(cPen.color().alpha());
             QwtPlotCurve::CurveStyle style = c->style();
-            ui.cbCurveStyle->setCurrentIndex((int) style);
+            ui.cbCurveStyle->setCurrentIndex((int) style + 1);
             EPlotCurve *epc = dynamic_cast<EPlotCurve*>(c);
             if(epc)
                 ui.cbshowYValuesEnabled->setChecked(epc->property("showYValuesEnabled").toBool());
