@@ -49,8 +49,6 @@ void DbPlotAdapterInterfacePrivate::setData(const QString& source,
         plot()->addCurve(source, curve);
     }
 
-    qDebug() << __FUNCTION__ << "source " << source << "curve " << curve;
-
     /* getCurve() creates or finds the curve associated to the source.
      * Depending on the type of DbPlotAdapterInterface (hdb or tdb), the
      * curve name will contain [HDB] or [TDB] appended to the name.
@@ -72,14 +70,8 @@ void DbPlotAdapterInterfacePrivate::setData(const QString& source,
      */
     if(dataSize == 0)
     {
-//        printf("\e[1;33mcaso dataSize == 0: no data read from tango yet\e[0m\n");
         xData = constHistoricalXData;
         yData = constHistoricalYData;
-  //      if(qtangoCurvePresent)
-  //      {
-  //          xData << QDateTime::currentDateTime().toTime_t();
-  //          yData << yData.last();
-  //      }
     }
     else /* mix historical data with live data */
     {
@@ -87,30 +79,28 @@ void DbPlotAdapterInterfacePrivate::setData(const QString& source,
         int j = 0;
         while(i < dataSize && j < constHistoricalXData.size())
         {
-            /* mix data */
-            if(curve->data()->sample(i).x() < constHistoricalXData[j])
+            /* mix data
+             * Historical data is in seconds, data from QTango in milliseconds!
+            */
+            const double& x_ts = curve->data()->sample(i).x() / 1000.0;
+            if(x_ts < constHistoricalXData[j])
             {
-                xData << curve->data()->sample(i).x();
-//                printf("\e[0;35mOLD CURVE: adding %s\e[0m, ", qstoc(QDateTime::fromTime_t(xData.last()).toString()));
+                xData << x_ts;
                 yData << curve->data()->sample(i).y();
                 i++;
             }
             else
             {
                 xData << constHistoricalXData[j];
-//                printf("\e[1;32mNEW: adding %s\e[0m, ", qstoc(QDateTime::fromTime_t(constHistoricalXData[j]).toString()));
                 yData << constHistoricalYData[j];
                 j++;
             }
         }
 
-//        printf("\e[1;31mfinish up: i %d dataSIze %d j %d histo data size %d\e[0m\n",
-//               i, dataSize, j, constHistoricalXData.size());
-
         /* finish up */
         while(i < dataSize )
         {
-            xData << curve->data()->sample(i).x();
+            xData << curve->data()->sample(i).x() / 1000.0; // from QTango: milliseconds
             yData << curve->data()->sample(i).y();
             i++;
         }
@@ -120,62 +110,7 @@ void DbPlotAdapterInterfacePrivate::setData(const QString& source,
             yData << constHistoricalYData[j];
             j++;
         }
-
-//        double x1 = curve->data()->sample(0).x();
-//        double lastHistoricalX = constHistoricalXData.last();
-//        if(lastHistoricalX <= x1)
-//        {
-//            printf("\e[1;33mcaso last x (%f) < x1 (%f)\e[0m\n", lastHistoricalX, x1);
-//            /* first historical data */
-//            xData = constHistoricalXData;
-//            yData = constHistoricalYData;
-//            /* then already acquired live data */
-
-//            /// aggiungere un punto poco prima??? per far vedere che costante
-//            /// fino al dato live???
-//            for(int i = 0; i < dataSize; i++)
-//            {
-//                xData << curve->data()->sample(i).x();
-//                yData << curve->data()->sample(i).y();
-//            }
-//        }
-//        else if(lastHistoricalX > x1)
-//        {
-//            printf("\e[1;33mcaso last x (%f) (%s) > x1 (%f) (%s) data siz %d\e[0m\n", lastHistoricalX, x1,
-//                   qstoc(QDateTime::fromTime_t(lastHistoricalX).toString()),
-//                   qstoc(QDateTime::fromTime_t(x1).toString()), curve->dataSize());
-//            qDebug() << "lastHistoricalX" << QDateTime::fromTime_t(lastHistoricalX)
-//                        << QDateTime::fromTime_t(x1);
-//            xData = constHistoricalXData;
-//            yData = constHistoricalYData;
-//            /* maybe setSource was called before the hdb call and the hdb stop date
-//             * is in the future with respect to the first tango read(s).
-//             * Remove all the historical data preceding the first read.
-//             */
-//            double x = lastHistoricalX;
-//            while(x >= x1)
-//            {
-//                /* remove last */
-//                xData.remove(xData.size() - 1, 1);
-//                yData.remove(yData.size() - 1, 1);
-//                if(xData.size())
-//                    x = xData.last();
-//                else
-//                    break;
-//            }
-//            for(int i = 0; i < dataSize; i++)
-//            {
-//                xData << curve->data()->sample(i).x();
-//                yData << curve->data()->sample(i).y();
-//            }
-//        }
-
     }
-//    printf("curve->setData in DbPlotAdapterInterfacePrivate::SetData\e[1;35m: %s\e[0m\n", qstoc(source));
-//    for(int i = 0; i  < xData.size(); i++)
-//        printf("\e[0;36m%s\e[0m, ", qstoc(QDateTime::fromTime_t(xData.at(i)).toString()));
-//    printf("\n==================\e[1;33m==============\e[0m=====================\n");
-//    qDebug() << yData;
     curve->clearData();
     curve->appendData(xData.data(), yData.data(), xData.size());
     curve->updateRawData();
