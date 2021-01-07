@@ -608,9 +608,9 @@ bool EPlotLightBase::adjustYScale(double percent, bool do_replot)
         /* y */
 //        printf("\e[1;31m curve %s min val max val %f %f\e[0m\n", qstoc(c->title().text()),
 //               c->minYValue(), c->maxYValue() );
-        if(!isnan(c->minYValue()) && (c->minYValue() < yMin || yMin == yMax))
+        if(!std::isnan(c->minYValue()) && (c->minYValue() < yMin || yMin == yMax))
             tmp = c->minYValue(); /* to be able to make a valid test yMin == yMax below we need tmp */
-        if(!isnan(c->maxYValue()) && (c->maxYValue() > yMax || yMin == yMax))
+        if(!std::isnan(c->maxYValue()) && (c->maxYValue() > yMax || yMin == yMax))
             yMax = c->maxYValue();
         yMin = tmp; /* finally update yMin */
     }
