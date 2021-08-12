@@ -1,4 +1,4 @@
-v6.5.1: Added support for Qwt 6.2.0. Additional include directives are needed.
+v6.5.2: Added support for Qwt 6.2.0. Additional include directives are needed.
 
 v6.5.0: Added support for DEV_LONG64, DEV_ULONG64 and their respective ARRAY versions in TVariant.
 	Fixed EplotConfigurationWidget curve style selection box.
