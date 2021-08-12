@@ -8,6 +8,7 @@
 #include <qwt_plot_marker.h>
 #include <qwt_plot_picker.h>
 #include <qwt_picker_machine.h>
+#include <qwt_scale_map.h>
 
 #define ALPHAVAL 220
 

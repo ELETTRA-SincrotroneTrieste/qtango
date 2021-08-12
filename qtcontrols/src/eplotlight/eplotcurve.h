@@ -23,6 +23,7 @@
 
 #include <qwt_plot_curve.h>
 #include "ecurvedata.h"
+#include <QObject>
 
 /* rtti value will be QwtPlotItem::Rtti_PlotUserItem + RTTI_CURVE_OFFSET */
 #define RTTI_CURVE_OFFSET 10

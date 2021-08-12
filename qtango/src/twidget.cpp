@@ -11,9 +11,7 @@ public:
     bool designMode;
 };
 
-TWDropEventFilter::TWDropEventFilter(QObject *parent) : QObject(parent)
-{
-    printf("\e[1;32mINSTANITATI DROPEVENTIFLER\e[0n\n");
+TWDropEventFilter::TWDropEventFilter(QObject *parent) : QObject(parent) {
 }
 
 bool TWDropEventFilter::eventFilter(QObject *o, QEvent *e)

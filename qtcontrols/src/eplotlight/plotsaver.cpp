@@ -17,6 +17,8 @@
 #include <QTextEdit>
 #include <QFile>
 
+#include <qwt_text.h>
+
 
 OptionsDialog::OptionsDialog(QWidget *parent, double xSam, double ySam) : QDialog(parent)
 {

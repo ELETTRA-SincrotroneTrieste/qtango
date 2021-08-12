@@ -14,6 +14,7 @@
 #include <qwt_plot_marker.h>
 #include <qwt_date_scale_draw.h>
 #include <qwt_date_scale_engine.h>
+#include <math.h>
 
 #ifndef __FreeBSD__
     #include <values.h>

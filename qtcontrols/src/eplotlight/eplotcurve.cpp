@@ -8,6 +8,7 @@
 #include <QPainter>
 #include <elettracolors.h>
 #include <qwt_plot_canvas.h>
+#include <qwt_scale_map.h>
 #include <QPolygon>
 
 #define MAX_STATE_SYMBOLS 6

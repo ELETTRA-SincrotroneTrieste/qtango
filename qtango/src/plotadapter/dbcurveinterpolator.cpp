@@ -1,6 +1,6 @@
 #include "dbcurveinterpolator.h"
 #include <eplotcurve.h>
-
+#include <qwt_text.h>
 #include <QtDebug>
 #include <macros.h>
 #include <QDateTime>

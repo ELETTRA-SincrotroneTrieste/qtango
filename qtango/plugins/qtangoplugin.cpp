@@ -131,7 +131,6 @@ bool DropEventFilter::eventFilter(QObject *obj, QEvent *event)
 
         if(!point.isEmpty())
         {
-            qDebug() << __FUNCTION__ << "drop event" << point << obj;
             QDesignerFormWindowInterface *formWindow = 0;
             formWindow = QDesignerFormWindowInterface::findFormWindow(obj);
             if(formWindow)
